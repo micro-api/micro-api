@@ -243,7 +243,7 @@ PATCH /posts
 
 IDs **MUST** be specified per entity to patch, and patch requests may be made wherever the entity may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified entity does not exist at the URL it should return an error. The assumption is that *patch replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
 
-Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is not allowed to change any `@href` property.
+Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is **NOT** allowed to change any reserved property except for an `@id` within `@links`, and the `@operate` property may be used freely.
 
 
 ## Delete Example
