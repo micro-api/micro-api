@@ -3,6 +3,7 @@ import path from 'path';
 import mustache from 'mustache';
 import minifier from 'html-minifier';
 import marked from 'marked';
+import hjs from 'highlight.js';
 
 const lineBreak = '\n';
 
@@ -15,6 +16,10 @@ const paths = {
 const minifierSettings = {
   collapseWhitespace: true
 };
+
+marked.setOptions({
+  highlight: code => hjs.highlightAuto(code).value
+});
 
 let readme = fs.readFileSync(paths.readme).toString();
 let content = marked(readme);

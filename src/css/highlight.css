@@ -1,0 +1,11 @@
+.hljs-attribute {
+	color: var(--color-attribute);
+}
+
+.hljs-string {
+	color: var(--color-value);
+}
+
+.hljs-literal {
+	color: var(--color-literal);
+}
