@@ -47,6 +47,7 @@ img {
 	display: block;
 	margin: 0 0 calc(var(--line-height) * 2);
 	max-width: 100%;
+	height: calc(var(--line-height) * 3);
 }
 
 p, table, ul, ol {
@@ -54,6 +55,7 @@ p, table, ul, ol {
 }
 
 h2 {
+	color: var(--color-dark);
 	font-size: 2em;
 	line-height: var(--line-height);
 	font-weight: normal;
