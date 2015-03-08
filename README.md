@@ -1,12 +1,14 @@
 [![Micro Media Type](https://micro-api.github.io/micro-media-type/media/logo.svg)](https://github.com/micro-api/micro-media-type)
 
-An experimental media type for resilient APIs. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a data-driven API, and nothing more. It does not dictate anything that is external to the media type. The media type is:
+An experimental media type for resilient APIs. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. It does not dictate anything that is external to the media type. The media type is:
 
 ```
 application/x.micro+json
 ```
 
-Note that it is unregistered from the IANA. Micro media type will remain a defacto standard unless it reaches critical mass. Feel free to use it as the basis for your own unregistered media type.
+Note that it is unregistered from the [IANA](http://www.internetassignednumbersauthority.org/). Micro media type will remain a defacto standard unless it reaches critical mass. Feel free to use it as the basis for your own unregistered media type.
+
+Micro Media Type draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions.
 
 
 ## Reserved Keys
@@ -189,7 +191,7 @@ POST /users/1/posts
 }
 ```
 
-By posting to the link URL, the server **MUST** associate all of the posts to the user. An alternative and more flexible way of doing the same thing:
+By posting to the related URL, the server **MUST** associate all of the posts to the user. An alternative and more flexible way of doing the same thing:
 
 ```
 POST /posts
@@ -210,7 +212,7 @@ POST /posts
 }
 ```
 
-Either way is fine and allowed. The response **MUST** include the created entities, no empty response is allowed.
+Either way is fine and allowed. The response **MUST** include the created entities, no empty response is allowed. The specification is agnostic about whether client side IDs may be specified.
 
 
 ## Update Example
@@ -232,16 +234,18 @@ PATCH /posts
 }
 ```
 
-IDs **MUST** be specified per entity to patch, and patch requests may only be made to the collection URL (side-effect of this: IDs cannot be changed, only specified). The assumption is that patch replaces the fields specified. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
+IDs **MUST** be specified per entity to patch, and patch requests may be made to the collection URL (side-effect of this: IDs cannot be changed, only specified). The assumption is that patch replaces the fields specified. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
+
+Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
 
 
 ## Delete Example
 
 ```
-DELETE /posts/1,2,3
+DELETE /posts/2
 ```
 
-This **MUST** return no payload if it succeeds. Pretty simple.
+A delete request **MUST** return no payload if it succeeds, and applies to any accessible URL, including collections. Pretty simple.
 
 ```
 DELETE /users/1/posts
@@ -274,6 +278,6 @@ Do not use this media type if:
 
 ## Suggestions on Implementation
 
-Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro media type does not dictate anything about pagination, filtering, limiting fields, because that is outside of its scope as a media type.
+Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro media type does not dictate anything about pagination, filtering, limiting fields, because that is outside of its scope as a media type. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, etc.
 
-There should be no negotiation of extensions, additional features must be additive and optional. Bulk requests and patch requests are required.
+There should be no negotiation of extensions, additional features must be additive and optional.
