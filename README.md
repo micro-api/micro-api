@@ -1,6 +1,6 @@
 # Micro Media Type
 
-An experimental media type for resilient APIs. The contracts of this media type will **never change**, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a data-driven API, and nothing more. It does not dictate anything that is external to the media type. The media type is:
+An experimental media type for resilient APIs. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a data-driven API, and nothing more. It does not dictate anything that is external to the media type. The media type is:
 
 ```
 application/x.micro+json
@@ -19,6 +19,8 @@ All reserved keys are prefixed with `@`. Here is an enumeration of all of the re
 | `@id`        | `null`, `String`, `[String]` | Each entity must have an ID, it may also refer to foreign IDs. |
 | `@links`     | `Object`   | Each entity must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
 | `@href`      | `String`   | Must be a absolute or relative link.            |
+| `@type`      | `String`   | Type of an entity.                              |
+| `@array`     | `Boolean`  | Indicates whether or not a link is to many.     |
 | `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. |
 | `@error`     | `Object`   | If a request fails for any reason, it must return an error. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an entity. |
@@ -36,6 +38,7 @@ This is significant for client discovery, think of it as the home page.
       "@href": "/users",
       "posts": {
         "@type": "post",
+        "@array": true,
         "@inverse": "author"
       }
     },
@@ -43,6 +46,7 @@ This is significant for client discovery, think of it as the home page.
       "@href": "/posts",
       "author": {
         "@type": "user",
+        "@array": false,
         "@inverse": "posts"
       }
     }
@@ -70,6 +74,7 @@ GET /users/1?include=posts
       "@href": "/users",
       "posts": {
         "@type": "post",
+        "@array": true,
         "@inverse": "author"
       }
     },
@@ -77,6 +82,7 @@ GET /users/1?include=posts
       "@href": "/posts",
       "author": {
         "@type": "user",
+        "@array": false,
         "@inverse": "posts"
       }
     }
@@ -120,6 +126,8 @@ The `@links` object in a collection **MAY** be a subset of the index `@links`. T
 
 Note that in every entity, it is necessary to include backlinks, because bi-directional links are not assumed. Also, the `include` query is not mandated by the specification, it is left to the implementer to decide how to include entities.
 
+An `@id` value that is an array indicates a to-many association, while a singular value indicates a to-one association. A null value or empty array indicates no link, and it is optional to include.
+
 ```
 GET /users/1/posts
 ```
@@ -135,6 +143,7 @@ GET /users/1/posts
       "@href": "/posts",
       "author": {
         "@type": "user",
+        "@array": false,
         "@inverse": "posts"
       }
     }
@@ -162,6 +171,8 @@ GET /users/1/posts
   }]
 }
 ```
+
+Note that the top-level `@links` omits the `user` information since it is not required in this context.
 
 
 ## Create Example
@@ -199,7 +210,7 @@ POST /posts
 }
 ```
 
-Either way is fine and allowed.
+Either way is fine and allowed. The response **MUST** include the created entities, no empty response is allowed.
 
 
 ## Update Example
@@ -221,7 +232,7 @@ PATCH /posts
 }
 ```
 
-IDs **MUST** be specified per entity to patch, and patch requests may only be made to the collection URL (side-effect of this: IDs cannot be changed, only specified). The assumption is that patch replaces the fields specified. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should **overwrite** the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
+IDs **MUST** be specified per entity to patch, and patch requests may only be made to the collection URL (side-effect of this: IDs cannot be changed, only specified). The assumption is that patch replaces the fields specified. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
 
 
 ## Delete Example
@@ -230,18 +241,18 @@ IDs **MUST** be specified per entity to patch, and patch requests may only be ma
 DELETE /posts/1,2,3
 ```
 
-This should return no payload if it succeeds. Pretty simple.
+This **MUST** return no payload if it succeeds. Pretty simple.
 
 ```
 DELETE /users/1/posts
 ```
 
-This should actually delete all of a users' posts, not just the link.
+This **MUST** actually delete all of a users' posts, not just the link. There is no concept of relationship entities.
 
 
 ## Error Payload
 
-If a request fails for any reason, it must return a single `@error` object. The contents of the error object are opaque to this specification.
+If a request fails for any reason, it **MUST** return a single `@error` object. The contents of the error object are opaque to this specification.
 
 ```json
 {
