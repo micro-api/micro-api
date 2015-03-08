@@ -70,7 +70,7 @@ GET /users/1?include=posts
 ```json
 {
   "@meta": {
-    "count": 1
+    "count": 3
   },
   "@links": {
     "@href": "/users/1",
@@ -126,9 +126,9 @@ GET /users/1?include=posts
 }
 ```
 
-The `@links` object in a collection **MAY** be a subset of the index `@links`. The top-level keys that are not reserved **MUST** be names of types, and their values **MUST** be an array of objects, no singular objects allowed.
+The `@links` object in a collection **MAY** be a subset of the index `@links`. The top-level keys that are not reserved **MUST** be names of types, and their values **MUST** be an array of objects, no singular objects are allowed.
 
-Note that in every entity, it is necessary to include backlinks, because bi-directional links are not assumed. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity. Also, the `include` query is not mandated by the specification, it is left to the implementer to decide how to include entities.
+There is no concept of primary versus included documents, it is up to the client to consider which entities were requested. Note that in every entity, it is necessary to include backlinks, because bi-directional links are not assumed. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity. Also, the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload entities.
 
 An `@id` value that is an array indicates a to-many association, while a singular value indicates a to-one association. A null value or empty array indicates no link, and it is a **MUST** to include.
 
@@ -245,7 +245,7 @@ PATCH /posts
 
 IDs **MUST** be specified per entity to patch, and patch requests may be made wherever the entity may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified entity does not exist at the URL it should return an error. The assumption is that *patch replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
 
-Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is **NOT** allowed to change any reserved property except for an `@id` within `@links`, and the `@operate` property may be used freely.
+Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is **NOT** allowed to change any reserved property except for an `@id` within `@links`, but the `@operate` property may be used freely.
 
 
 ## Delete Example
@@ -287,6 +287,22 @@ Do not use this media type if:
 
 ## Suggestions on Implementation
 
-Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro API does not dictate anything about pagination, filtering, limiting fields, sorting, because that is outside of its scope as a media type. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc.
+Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc. For example:
 
-There should be no negotiation of extensions, additional features must be additive and optional.
+```json
+{
+  "@meta": {
+    "user": {
+      "limit": 1000,
+      "offset": 0,
+      "sort": ["name"],
+      "fields": ["author"],
+      "match": {
+        "name": "Dali Zheng"
+      }
+    }
+  }
+}
+```
+
+There should be no negotiation of extensions, additional features must be additive and optional. If there are implementation specific details outside the scope of this specification that are required to function, this can be signalled via parameters of the `Content-Type` header, such as `application/vnd.micro+json; version=1.0`, where `version` does not specify the version of this specification but rather that of the implementation.
