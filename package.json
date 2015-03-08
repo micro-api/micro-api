@@ -1,0 +1,27 @@
+{
+  "name": "micro-media-type",
+  "version": "1.0.0",
+  "description": "Website for Micro Media Type",
+  "homepage": "http://micro-api.org",
+  "private": true,
+  "scripts": {
+    "start": ": ${PORT:=8890}; http-server dist -p $PORT",
+    "deploy": "make deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/micro-api/micro-media-type.git"
+  },
+  "author": "Dali Zheng",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.7.5"
+  },
+  "devDependencies": {
+    "babel": "^4.7.3",
+    "html-minifier": "^0.7.0",
+    "marked": "^0.3.3",
+    "mustache": "^1.1.0",
+    "myth": "^1.4.0"
+  }
+}

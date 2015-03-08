@@ -1,0 +1,79 @@
+body {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  font-size: var(--body-size);
+  font-family: var(--body-font);
+  line-height: var(--line-height);
+  padding: calc(var(--line-height) * 3) 0 calc(var(--line-height) * 5);
+}
+
+main {
+	margin: auto;
+	max-width: var(--max-width);
+}
+
+a {
+	color: var(--color-link);
+}
+
+pre, code {
+	font-family: var(--mono-font);
+	font-size: var(--mono-size);
+}
+
+pre {
+	border: 1px var(--color-border) solid;
+	background-color: var(--color-alt);
+	padding: calc(var(--line-height) / 2 * var(--size-ratio));
+	margin: 0 0 calc(var(--line-height) * var(--size-ratio));
+	border-radius: var(--big-border-radius);
+}
+
+pre > code {
+	background: none;
+	padding: 0;
+}
+
+code {
+	background-color: var(--color-alt);
+	border-radius: var(--border-radius);
+	padding: 0.1em 0.3em;
+	line-height: calc(var(--line-height) * var(--size-ratio));
+}
+
+p, table {
+	margin: 0 0 calc(var(--line-height) * 1);
+}
+
+h2 {
+	font-size: 2em;
+	margin: calc(var(--line-height) * 3 / 2) 0 calc(var(--line-height) / 2);
+	padding: 0 0 calc(var(--line-height) / 2);
+	border-bottom: 1px var(--color-border) solid;
+}
+
+ul {
+	margin-left: var(--line-height);
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+table td, table th {
+	padding: calc(var(--line-height) / 2) 0;
+}
+
+table td:not(:last-of-type), table th:not(:last-of-type) {
+	padding-right: calc(var(--line-height) * 1);
+}
+
+tbody code {
+	background: none;
+	padding: 0;
+}
+
+tbody td {
+	border-top: 1px var(--color-border) solid;
+}

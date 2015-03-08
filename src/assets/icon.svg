@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="80"
+   height="80"
+   viewBox="0 0 79.999996 80"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="icon.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="195.37842"
+     inkscape:cy="118.28223"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1440"
+     inkscape:window-height="844"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-972.36221)">
+    <rect
+       style="fill:#3aaaff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4136"
+       width="80"
+       height="80"
+       x="-1.5258789e-05"
+       y="972.36218" />
+    <g
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:52.5px;line-height:125%;font-family:'Envy Code R';-inkscape-font-specification:'Envy Code R';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text4138">
+      <path
+         d="m 39.999985,1052.3622 0,-39.6314 4.716797,0 0,17.8418 q 0,3.7171 1.768798,5.614 1.768799,1.897 5.229493,1.897 3.793945,0 5.690918,-2.1533 1.922607,-2.1533 1.922607,-6.46 l 0,-16.7395 4.716797,0 0,22.0972 q 0,1.5381 0.435791,2.2815 0.461426,0.7178 1.409912,0.7178 0.230713,0 0.640869,-0.1282 0.410156,-0.1538 1.12793,-0.4614 l 0,3.7939 q -1.051026,0.5896 -1.999512,0.8716 -0.922851,0.282 -1.820068,0.282 -1.768799,0 -2.819824,-0.9998 -1.051026,-0.9997 -1.435547,-3.0505 -1.281739,2.0251 -3.153076,3.0505 -1.845704,0.9998 -4.357911,0.9998 -2.614746,0 -4.460449,-0.9998 -1.820068,-0.9997 -2.896728,-2.9992 l 0,14.176 -4.716797,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:52.5px;font-family:'Envy Code R';-inkscape-font-specification:'Envy Code R'"
+         id="path4147"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

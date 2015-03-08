@@ -1,14 +1,14 @@
-[![Micro Media Type](https://micro-api.github.io/micro-media-type/media/logo.svg)](https://github.com/micro-api/micro-media-type)
+[![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](https://github.com/micro-api/micro-media-type)
 
-An experimental media type for resilient web APIs using hypermedia. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. It does not dictate anything that is external to the media type. The media type is:
+A media type for resilient web APIs using hypermedia. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. It does not dictate anything that is external to the media type. The media type is:
 
 ```
-application/x.micro+json
+application/vnd.micro+json
 ```
 
-Note that it is unregistered from the [IANA](http://www.internetassignednumbersauthority.org/). Feel free to use it as the basis for your own unregistered media type.
+The media type proposal is currently pending from the [IANA](http://www.internetassignednumbersauthority.org/).
 
-Micro Media Type draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification.
+Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification.
 
 
 ## Reserved Keys
@@ -30,7 +30,7 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but may be used interchangeably.
 
 
-## Entry Point (Index Payload)
+## Entry Point
 
 This is significant for client discovery, think of it as the home page. At least a top-level `@links` object should be present.
 
@@ -104,7 +104,7 @@ GET /users/1?include=posts
   }],
   "post": [{
     "@id": "1",
-    "message": "Micro Media Type is a pretty minimal hypermedia format.",
+    "message": "Micro API is a pretty minimal hypermedia format.",
     "@links": {
       "@href": "/posts/1",
       "author": {
@@ -114,7 +114,7 @@ GET /users/1?include=posts
     }
   }, {
     "@id": "2",
-    "message": "Micro Media Type is quite small.",
+    "message": "Micro API is quite small.",
     "@links": {
       "@href": "/posts/2",
       "author": {
@@ -156,7 +156,7 @@ GET /users/1/posts
   },
   "post": [{
     "@id": "1",
-    "message": "Micro Media Type is cool.",
+    "message": "Micro API is cool.",
     "@links": {
       "@href": "/posts/1",
       "author": {
@@ -190,7 +190,7 @@ POST /users/1/posts
 ```json
 {
   "post": [{
-    "message": "Micro Media Type is best type."
+    "message": "Micro API is best type."
   }]
 }
 ```
@@ -204,7 +204,7 @@ POST /posts
 ```json
 {
   "post": [{
-    "message": "Micro Media Type is best type.",
+    "message": "Micro API is best type.",
     "@links": {
       "author": {
         "@id": "1"
@@ -237,7 +237,7 @@ PATCH /posts
     }
   }, {
     "@id": "2",
-    "message": "Micro Media Type just works.",
+    "message": "Micro API just works.",
     "@operate": {}
   }]
 }
@@ -281,12 +281,12 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 
 Do not use this media type if:
 
-- Your API requires polymorphism. Micro Media Type strictly disallows this.
+- Your API requires polymorphism. Micro API strictly disallows this.
 - Your entities do not have unique IDs. This shouldn't be too much of a burden.
 
 
 ## Suggestions on Implementation
 
-Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro Media Type does not dictate anything about pagination, filtering, limiting fields, sorting, because that is outside of its scope as a media type. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc.
+Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro API does not dictate anything about pagination, filtering, limiting fields, sorting, because that is outside of its scope as a media type. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc.
 
 There should be no negotiation of extensions, additional features must be additive and optional.
