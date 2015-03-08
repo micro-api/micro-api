@@ -63,6 +63,8 @@ The top-level `@links` in the index is a superset of that which exists in a coll
 
 ## Find Example
 
+Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload entities.
+
 ```
 GET /users/1?include=posts
 ```
@@ -128,9 +130,9 @@ GET /users/1?include=posts
 
 The `@links` object in a collection **MAY** be a subset of the index `@links`. The top-level keys that are not reserved **MUST** be names of types, and their values **MUST** be an array of objects, no singular objects are allowed.
 
-There is no concept of primary versus included documents, it is up to the client to consider which entities were requested. Note that in every entity, it is necessary to include backlinks, because bi-directional links are not assumed. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity. Also, the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload entities.
+There is no concept of primary versus included documents, it is up to the client to consider which entities were requested. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity.
 
-An `@id` value that is an array indicates a to-many association, while a singular value indicates a to-one association. A null value or empty array indicates no link, and it is a **MUST** to include.
+An `@array` value that is `true` indicates a to-many association, while a singular value indicates a to-one association. The corresponding `@id`s must match `@array` value of the top-level `@links`. A null value or empty array indicates no link, and it is a **MUST** to include.
 
 Following the `@href` within a `@links` object **MUST** return entities corresponding to that field, and its payload **MUST** contain all of the `@id`s or else it should return an error.
 
