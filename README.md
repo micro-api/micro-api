@@ -17,15 +17,15 @@ All reserved keys are prefixed with `@`. Here is an enumeration of all of the re
 
 | Key          | Type       | Description                                     |
 |:-------------|:-----------|:------------------------------------------------|
-| `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may only exist at the top level. |
-| `@id`        | `null`, `String`, `[String]` | Each entity must have an ID, it may also refer to foreign IDs. |
-| `@links`     | `Object`   | Each entity must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
-| `@href`      | `String`   | Must be a absolute or relative link.            |
-| `@type`      | `String`   | Type of an entity.                              |
 | `@array`     | `Boolean`  | Indicates whether or not a link is to many.     |
-| `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. |
 | `@error`     | `Object`   | If a request fails for any reason, it must return an error. |
+| `@href`      | `String`   | Must be a absolute or relative link.            |
+| `@id`        | `null`, `String`, `[String]` | Each entity must have an ID, it may also refer to foreign IDs. |
+| `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. |
+| `@links`     | `Object`   | Each entity must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
+| `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may only exist at the top level. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an entity. |
+| `@type`      | `String`   | Type of an entity.                              |
 
 
 ## Index Payload
@@ -126,7 +126,7 @@ GET /users/1?include=posts
 
 The `@links` object in a collection **MAY** be a subset of the index `@links`. The top-level keys that are not reserved **MUST** be names of types, and their values **MUST** be an array of objects, no singular objects allowed.
 
-Note that in every entity, it is necessary to include backlinks, because bi-directional links are not assumed. Also, the `include` query is not mandated by the specification, it is left to the implementer to decide how to include entities.
+Note that in every entity, it is necessary to include backlinks, because bi-directional links are not assumed. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity. Also, the `include` query is not mandated by the specification, it is left to the implementer to decide how to include entities.
 
 An `@id` value that is an array indicates a to-many association, while a singular value indicates a to-one association. A null value or empty array indicates no link, and it is optional to include.
 
@@ -234,7 +234,7 @@ PATCH /posts
 }
 ```
 
-IDs **MUST** be specified per entity to patch, and patch requests may be made to the collection URL (side-effect of this: IDs cannot be changed, only specified). The assumption is that patch replaces the fields specified. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
+IDs **MUST** be specified per entity to patch, and patch requests may be made wherever the entity may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified entity does not exist at the URL it should return an error. The assumption is that patch replaces the fields specified. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
 
 Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
 
