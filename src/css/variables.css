@@ -13,6 +13,7 @@
 
   /* measurements */
   --max-width: 48em;
+  --mobile-breakpoint: 640px;
   --body-size: 16px;
   --mono-size: 18px;
   --size-ratio: calc(8 / 9);
