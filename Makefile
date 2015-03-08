@@ -31,7 +31,6 @@ clean:
 
 # Deploying to GitHub pages.
 deploy:
-	make clean
 	(cd dist; \
 		[ ! -d .git ] && \
 			git init && \
