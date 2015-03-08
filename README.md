@@ -32,7 +32,7 @@ The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/
 
 ## Entry Point (Index Payload)
 
-This is significant for client discovery, think of it as the home page.
+This is significant for client discovery, think of it as the home page. At least a top-level `@links` object should be present.
 
 ```json
 {
@@ -58,7 +58,7 @@ This is significant for client discovery, think of it as the home page.
 }
 ```
 
-The top-level `@links` in the index is a superset of that which exists in a collection, it is keyed by type and each type **MUST** include the `@href` link per collection, and a `@href` to the current document. It **MUST** enumerate all types and links. This lays out the relationship graph between types.
+The top-level `@links` in the index is a superset of that which exists in a collection, it **MUST** enumerate all types and each type **MUST** include the `@href` link per collection, and a `@href` to the current document. Within a type object, fields that are links **MUST** be enumerated. This lays out the relationship graph between types.
 
 
 ## Find Example
