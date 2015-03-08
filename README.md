@@ -1,6 +1,6 @@
 [![Micro Media Type](https://micro-api.github.io/micro-media-type/media/logo.svg)](https://github.com/micro-api/micro-media-type)
 
-An experimental media type for resilient web APIs. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. It does not dictate anything that is external to the media type. The media type is:
+An experimental media type for resilient web APIs using hypermedia. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. It does not dictate anything that is external to the media type. The media type is:
 
 ```
 application/x.micro+json
@@ -13,7 +13,7 @@ Micro Media Type draws inspiration from [JSON API](http://jsonapi.org) but is mo
 
 ## Reserved Keys
 
-All reserved keys are prefixed with `@`. Here is an enumeration of all of the reserved keys:
+All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all of the reserved keys:
 
 | Key          | Type       | Description                                     |
 |:-------------|:-----------|:------------------------------------------------|
@@ -56,7 +56,7 @@ This is significant for client discovery, think of it as the home page.
 }
 ```
 
-The top-level `@links` in the index is a superset of that which exists in a collection, it is keyed by type and each type **MUST** include the `@href` link to the collection. It **MUST** enumerate all types and links. This lays out the relationship graph between types.
+The top-level `@links` in the index is a superset of that which exists in a collection, it is keyed by type and each type **MUST** include the `@href` link per collection, and a `@href` to the current document. It **MUST** enumerate all types and links. This lays out the relationship graph between types.
 
 
 ## Find Example
@@ -128,7 +128,7 @@ The `@links` object in a collection **MAY** be a subset of the index `@links`. T
 
 Note that in every entity, it is necessary to include backlinks, because bi-directional links are not assumed. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity. Also, the `include` query is not mandated by the specification, it is left to the implementer to decide how to include entities.
 
-An `@id` value that is an array indicates a to-many association, while a singular value indicates a to-one association. A null value or empty array indicates no link, and it is optional to include.
+An `@id` value that is an array indicates a to-many association, while a singular value indicates a to-one association. A null value or empty array indicates no link, and it is a **MUST** to include.
 
 ```
 GET /users/1/posts
@@ -226,6 +226,11 @@ PATCH /posts
   "post": [{
     "@id": "1",
     "message": "I like APIs."
+    "@links": {
+      "author": {
+        "@id": "2"
+      }
+    }
   }, {
     "@id": "2",
     "message": "Micro media type is an original work.",
@@ -234,9 +239,9 @@ PATCH /posts
 }
 ```
 
-IDs **MUST** be specified per entity to patch, and patch requests may be made wherever the entity may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified entity does not exist at the URL it should return an error. The assumption is that patch replaces the fields specified. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
+IDs **MUST** be specified per entity to patch, and patch requests may be made wherever the entity may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified entity does not exist at the URL it should return an error. The assumption is that *patch replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
 
-Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
+Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is not allowed to change any `@href` property.
 
 
 ## Delete Example
