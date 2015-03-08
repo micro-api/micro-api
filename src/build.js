@@ -7,6 +7,8 @@ import hjs from 'highlight.js';
 
 const lineBreak = '\n';
 const from = str => path.join(__dirname, str);
+const pkg = JSON.parse(fs.readFileSync(
+  from('../package.json')).toString());
 
 const paths = {
   readme: from('../README.md'),
@@ -28,5 +30,5 @@ let content = marked(readme);
 // Write index.
 fs.writeFileSync(paths.destination, minifier.minify(
   mustache.render(fs.readFileSync(paths.template).toString(), {
-    content
+    content, pkg
   }), minifierSettings));

@@ -1,7 +1,7 @@
 {
-  "name": "micro-media-type",
+  "name": "micro-api",
   "version": "1.0.0",
-  "description": "Website for Micro Media Type",
+  "description": "A media type for resilient web APIs using hypermedia.",
   "homepage": "http://micro-api.org",
   "private": true,
   "scripts": {
