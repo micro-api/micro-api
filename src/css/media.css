@@ -11,7 +11,7 @@
 	h2 {
 		font-size: calc(1em * 3 / 2);
 		margin: calc(var(--line-height) * 1) 0 calc(var(--line-height) * 2 / 3);
-		padding: 0 0 calc(var(--line-height) * 2 / 3);
+		padding: 0 0 calc(var(--line-height) * 1 / 3);
 	}
 
 }
