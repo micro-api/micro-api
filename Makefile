@@ -20,7 +20,7 @@ all: build
 build:
 	mkdir -p $(DIST_DIR) $(DIST_DIR)assets
 	cp -rf $(SRC_DIR)assets $(DIST_DIR)
-	echo $(CNAME) >> $(DIST_DIR)CNAME
+	echo $(CNAME) > $(DIST_DIR)CNAME
 	$(MYTH_CMD) -c $(SRC_DIR)css/index.css $(DIST_DIR)assets/index.css
 	$(NODE_CMD) $(SRC_DIR)build
 
