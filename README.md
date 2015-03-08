@@ -308,3 +308,8 @@ Feel free to ignore this section, it is only meant to provide hints on how one m
 ```
 
 There should be no negotiation of extensions, additional features must be additive and optional. If there are implementation specific details outside the scope of this specification that are required to function, this can be signalled via parameters of the `Content-Type` header, such as `application/vnd.micro+json; version=1.0`, where `version` does not specify the version of this specification but rather that of the implementation.
+
+
+## About
+
+Micro API is authored by [Dali Zheng](http://daliwa.li) ([GitHub](https://github.com/daliwali)), and it is licensed under the [MIT License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).
