@@ -27,8 +27,10 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an entity. |
 | `@type`      | `String`   | Type of an entity.                              |
 
+The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but may be used interchangeably.
 
-## Index Payload
+
+## Entry Point (Index Payload)
 
 This is significant for client discovery, think of it as the home page.
 
@@ -283,6 +285,6 @@ Do not use this media type if:
 
 ## Suggestions on Implementation
 
-Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro Media Type does not dictate anything about pagination, filtering, limiting fields, because that is outside of its scope as a media type. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, etc.
+Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro Media Type does not dictate anything about pagination, filtering, limiting fields, sorting, because that is outside of its scope as a media type. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc.
 
 There should be no negotiation of extensions, additional features must be additive and optional.
