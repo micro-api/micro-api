@@ -6,7 +6,7 @@ An experimental media type for resilient web APIs using hypermedia. The contract
 application/x.micro+json
 ```
 
-Note that it is unregistered from the [IANA](http://www.internetassignednumbersauthority.org/). Micro Media Type will remain a *de facto* standard unless it reaches critical mass. Feel free to use it as the basis for your own unregistered media type.
+Note that it is unregistered from the [IANA](http://www.internetassignednumbersauthority.org/). Feel free to use it as the basis for your own unregistered media type.
 
 Micro Media Type draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification.
 
@@ -131,6 +131,8 @@ The `@links` object in a collection **MAY** be a subset of the index `@links`. T
 Note that in every entity, it is necessary to include backlinks, because bi-directional links are not assumed. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity. Also, the `include` query is not mandated by the specification, it is left to the implementer to decide how to include entities.
 
 An `@id` value that is an array indicates a to-many association, while a singular value indicates a to-one association. A null value or empty array indicates no link, and it is a **MUST** to include.
+
+Following the `@href` within a `@links` object **MUST** return entities corresponding to that field, and its payload **MUST** contain all of the `@id`s or else it should return an error.
 
 ```
 GET /users/1/posts
