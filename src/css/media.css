@@ -1,17 +1,17 @@
 @media screen and (max-width: 640px) {
 
-	body {
-  		padding: calc(var(--line-height) * 1) 0 calc(var(--line-height) * 1);
-	}
+  body {
+      padding: calc(var(--line-height) * 1) 0 calc(var(--line-height) * 1);
+  }
 
-	main {
-		max-width: 100%;
-	}
+  main {
+    max-width: 100%;
+  }
 
-	h2 {
-		font-size: calc(1em * 3 / 2);
-		margin: calc(var(--line-height) * 1) 0 calc(var(--line-height) * 2 / 3);
-		padding: 0 0 calc(var(--line-height) * 1 / 3);
-	}
+  h2 {
+    font-size: calc(1em * 3 / 2);
+    margin: calc(var(--line-height) * 1) 0 calc(var(--line-height) * 2 / 3);
+    padding: 0 0 calc(var(--line-height) * 1 / 3);
+  }
 
 }

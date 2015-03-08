@@ -6,11 +6,12 @@ import marked from 'marked';
 import hjs from 'highlight.js';
 
 const lineBreak = '\n';
+const from = str => path.join(__dirname, str);
 
 const paths = {
-  readme: path.join(__dirname, '../README.md'),
-  template: path.join(__dirname, 'templates/index.html'),
-  destination: path.join(__dirname, '../dist/index.html')
+  readme: from('../README.md'),
+  template: from('templates/index.html'),
+  destination: from('../dist/index.html')
 };
 
 const minifierSettings = {

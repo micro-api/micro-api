@@ -1,12 +1,12 @@
 .hljs-attribute {
-	color: var(--color-attribute);
+  color: var(--color-attribute);
 }
 
 .hljs-string {
-	color: var(--color-value);
+  color: var(--color-value);
 }
 
 .hljs-number,
 .hljs-literal {
-	color: var(--color-literal);
+  color: var(--color-literal);
 }

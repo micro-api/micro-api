@@ -3,8 +3,8 @@
   font-style: normal;
   font-weight: 400;
   src: local('Varela Round'), local('VarelaRound-Regular'),
-  	url('../assets/VarelaRound.woff2') format('woff2'),
-  	url('../assets/VarelaRound.woff') format('woff');
+    url('../assets/VarelaRound.woff2') format('woff2'),
+    url('../assets/VarelaRound.woff') format('woff');
 }
 
 @font-face {
@@ -12,6 +12,6 @@
   font-style: normal;
   font-weight: 400;
   src: local('Inconsolata'),
-  	url('../assets/Inconsolata.woff2') format('woff2'),
-  	url('../assets/Inconsolata.woff') format('woff');
+    url('../assets/Inconsolata.woff2') format('woff2'),
+    url('../assets/Inconsolata.woff') format('woff');
 }
