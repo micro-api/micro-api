@@ -8,7 +8,7 @@ application/x.micro+json
 
 Note that it is unregistered from the [IANA](http://www.internetassignednumbersauthority.org/). Micro Media Type will remain a *de facto* standard unless it reaches critical mass. Feel free to use it as the basis for your own unregistered media type.
 
-Micro Media Type draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions.
+Micro Media Type draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification.
 
 
 ## Reserved Keys
