@@ -287,7 +287,7 @@ Do not use this media type if:
 
 ## Suggestions on Implementation
 
-Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc. For example:
+Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting, since these are extraneous concerns to hypermedia. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc. For example:
 
 ```json
 {
@@ -295,7 +295,9 @@ Feel free to ignore this section, it is only meant to provide hints on how one m
     "user": {
       "limit": 1000,
       "offset": 0,
-      "sort": ["name"],
+      "sort": {
+        "name": 1
+      },
       "fields": ["author"],
       "match": {
         "name": "Dali Zheng"
