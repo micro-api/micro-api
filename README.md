@@ -1,6 +1,6 @@
 [![Micro Media Type](https://micro-api.github.io/micro-media-type/media/logo.svg)](https://github.com/micro-api/micro-media-type)
 
-An experimental media type for resilient APIs. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. It does not dictate anything that is external to the media type. The media type is:
+An experimental media type for resilient web APIs. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. It does not dictate anything that is external to the media type. The media type is:
 
 ```
 application/x.micro+json
