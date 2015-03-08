@@ -6,7 +6,7 @@ An experimental media type for resilient web APIs using hypermedia. The contract
 application/x.micro+json
 ```
 
-Note that it is unregistered from the [IANA](http://www.internetassignednumbersauthority.org/). Micro media type will remain a defacto standard unless it reaches critical mass. Feel free to use it as the basis for your own unregistered media type.
+Note that it is unregistered from the [IANA](http://www.internetassignednumbersauthority.org/). Micro Media Type will remain a *de facto* standard unless it reaches critical mass. Feel free to use it as the basis for your own unregistered media type.
 
 Micro Media Type draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions.
 
@@ -102,7 +102,7 @@ GET /users/1?include=posts
   }],
   "post": [{
     "@id": "1",
-    "message": "Micro media type is cool.",
+    "message": "Micro Media Type is a pretty minimal hypermedia format.",
     "@links": {
       "@href": "/posts/1",
       "author": {
@@ -112,7 +112,7 @@ GET /users/1?include=posts
     }
   }, {
     "@id": "2",
-    "message": "Micro media type sucks.",
+    "message": "Micro Media Type is quite small.",
     "@links": {
       "@href": "/posts/2",
       "author": {
@@ -152,7 +152,7 @@ GET /users/1/posts
   },
   "post": [{
     "@id": "1",
-    "message": "Micro media type is cool.",
+    "message": "Micro Media Type is cool.",
     "@links": {
       "@href": "/posts/1",
       "author": {
@@ -162,7 +162,7 @@ GET /users/1/posts
     }
   }, {
     "@id": "2",
-    "message": "Micro media type sucks.",
+    "message": "I like turtles.",
     "@links": {
       "@href": "/posts/2",
       "author": {
@@ -186,12 +186,12 @@ POST /users/1/posts
 ```json
 {
   "post": [{
-    "message": "Wait, isn't Micro Media Type a rip-off of JSON API?"
+    "message": "Micro Media Type is best type."
   }]
 }
 ```
 
-By posting to the related URL, the server **MUST** associate all of the posts to the user. An alternative and more flexible way of doing the same thing:
+By posting to the related URL, the server **MUST** associate all of the posts to the user, but the payload takes precedence over the URL, so that if an `author` is specified in the payload, that should be considered. An alternative and more flexible way of doing the same thing:
 
 ```
 POST /posts
@@ -200,7 +200,7 @@ POST /posts
 ```json
 {
   "post": [{
-    "message": "Wait, isn't Micro Media Type a rip-off of JSON API?",
+    "message": "Micro Media Type is best type.",
     "@links": {
       "author": {
         "@id": "1"
@@ -225,7 +225,7 @@ PATCH /posts
 {
   "post": [{
     "@id": "1",
-    "message": "I like APIs."
+    "message": "I like APIs.",
     "@links": {
       "author": {
         "@id": "2"
@@ -233,8 +233,8 @@ PATCH /posts
     }
   }, {
     "@id": "2",
-    "message": "Micro media type is an original work.",
-    "@operate": { ... }
+    "message": "Micro Media Type just works.",
+    "@operate": {}
   }]
 }
 ```
@@ -277,12 +277,12 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 
 Do not use this media type if:
 
-- Your API requires polymorphism. Micro media type strictly disallows this.
+- Your API requires polymorphism. Micro Media Type strictly disallows this.
 - Your entities do not have unique IDs. This shouldn't be too much of a burden.
 
 
 ## Suggestions on Implementation
 
-Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro media type does not dictate anything about pagination, filtering, limiting fields, because that is outside of its scope as a media type. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, etc.
+Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro Media Type does not dictate anything about pagination, filtering, limiting fields, because that is outside of its scope as a media type. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, etc.
 
 There should be no negotiation of extensions, additional features must be additive and optional.
