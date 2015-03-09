@@ -74,11 +74,7 @@ table {
 }
 
 table td, table th {
-  padding: calc(var(--line-height) / 2) 0;
-}
-
-table td:not(:last-of-type), table th:not(:last-of-type) {
-  padding-right: calc(var(--line-height) * 1);
+  padding: calc(var(--line-height) / 2);
 }
 
 tbody code {
@@ -88,6 +84,10 @@ tbody code {
 
 tbody td {
   border-top: 1px var(--color-border) solid;
+}
+
+tbody tr:nth-of-type(2n+1) {
+  background-color: var(--color-alt);
 }
 
 tbody tr:last-of-type td {
