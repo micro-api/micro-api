@@ -36,8 +36,8 @@ deploy:
 			git init && \
 			git remote add origin $(REPO_GIT) && \
 			git branch gh-pages; \
-		git pull origin gh-pages && \
-		git checkout gh-pages && \
+		# git pull origin gh-pages && \
+		# git checkout gh-pages && \
 		git add -A && \
 		git commit -m 'Update website from Makefile.' && \
 		git push -u --force origin gh-pages)
