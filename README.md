@@ -8,6 +8,11 @@ application/vnd.micro+json
 
 The media type proposal is currently pending from the [IANA](http://www.internetassignednumbersauthority.org/).
 
+
+## Motivation and Purpose
+
+Micro API is only concerned with implementation and payloads of hypermedia APIs, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
+
 Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification.
 
 
@@ -21,7 +26,7 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 | `@error`     | `Object`   | If a request fails for any reason, it must return an error. |
 | `@href`      | `String`   | Must be a absolute or relative link.            |
 | `@id`        | `null`, `String`, `[String]` | Each entity must have an ID, it may also refer to foreign IDs. |
-| `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. |
+| `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. Optional but recommended to use. |
 | `@links`     | `Object`   | Each entity must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
 | `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may only exist at the top level. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an entity. |
@@ -63,7 +68,7 @@ The top-level `@links` in the index is a superset of that which exists in a coll
 
 ## Find Example
 
-Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload entities.
+Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload entities. Hint: available queries may be advertised in the `@meta` object.
 
 ```
 GET /users/1?include=posts
@@ -128,7 +133,7 @@ GET /users/1?include=posts
 }
 ```
 
-The `@links` object in a collection **MAY** be a subset of the index `@links`. The top-level keys that are not reserved **MUST** be names of types, and their values **MUST** be an array of objects, no singular objects are allowed.
+The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and should be ignored. The top-level keys that are not reserved **MUST** be names of types, and their values **MUST** be an array of objects, no singular objects are allowed.
 
 There is no concept of primary versus included documents, it is up to the client to consider which entities were requested. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity.
 
@@ -197,7 +202,7 @@ POST /users/1/posts
 }
 ```
 
-By posting to the related URL, the server **MUST** associate all of the posts to the user, but the payload takes precedence over the URL, so that if an `author` is specified in the payload, that should be considered. An alternative and more flexible way of doing the same thing:
+By posting to a link URL, the server **MUST** associate all of the entities in the payload to the linked entities, but the payload takes precedence over the URL, so that if an `author` is specified in the payload, that should be considered. An alternative and more flexible way of doing the same thing:
 
 ```
 POST /posts
@@ -218,7 +223,7 @@ POST /posts
 }
 ```
 
-Either way is fine and allowed. The response **MUST** include the created entities, no empty response is allowed. The specification is agnostic about whether client side IDs may be specified.
+Either way is fine and allowed. The response **MUST** include the created entities, no empty response is allowed. The specification is agnostic about whether client side IDs may be specified, so a payload may include `@id`.
 
 
 ## Update Example
@@ -283,7 +288,7 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 
 Do not use this media type if:
 
-- Your API requires polymorphism. Micro API strictly disallows this.
+- Your API requires polymorphic relationships. Micro API strictly disallows this.
 - Your entities do not have unique IDs. This shouldn't be too much of a burden.
 
 

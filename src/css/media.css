@@ -1,7 +1,7 @@
 @media screen and (max-width: 640px) {
 
   body {
-      padding: calc(var(--line-height) * 1) 0 calc(var(--line-height) * 1);
+      padding: calc(var(--line-height) * 2) 0 calc(var(--line-height) * 1);
   }
 
   main {

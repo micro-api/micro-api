@@ -64,9 +64,9 @@ code {
 
 img {
   display: block;
-  margin: 0 0 calc(var(--line-height) * 2);
+  margin: 0 auto calc(var(--line-height) * 2);
   max-width: 100%;
-  height: calc(var(--line-height) * 3);
+  height: calc(var(--line-height) * 5);
 }
 
 p, table, ul, ol {
