@@ -314,4 +314,4 @@ There should be no negotiation of extensions, additional features must be additi
 
 ## About
 
-Micro API is authored by [Dali Zheng](http://daliwa.li) ([GitHub](https://github.com/daliwali)), and it is licensed under the [MIT License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).
+Micro API is authored by [Dali Zheng](http://daliwa.li) ([GitHub](https://github.com/daliwali)), and it is licensed under the [CC0 1.0 License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).

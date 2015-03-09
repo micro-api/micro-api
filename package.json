@@ -13,7 +13,7 @@
     "url": "https://github.com/micro-api/micro-media-type.git"
   },
   "author": "Dali Zheng",
-  "license": "MIT",
+  "license": "CC0",
   "dependencies": {
     "http-server": "^0.7.5"
   },
