@@ -1,6 +1,7 @@
 # Commands
-NODE_CMD = node_modules/.bin/babel-node
+LINT_CMD = node_modules/.bin/eslint
 MYTH_CMD = node_modules/.bin/myth
+NODE_CMD = node_modules/.bin/babel-node
 
 # Directories
 SRC_DIR = src/
@@ -11,10 +12,10 @@ REPO_GIT = git@github.com:micro-api/micro-media-type.git
 CNAME = micro-api.org
 
 # Phonies
-.PHONY: build clean deploy
+.PHONY: build clean deploy lint
 
 
-all: build
+all: lint build
 
 
 build:
@@ -27,6 +28,10 @@ build:
 
 clean:
 	rm -rf $(DIST_DIR)
+
+
+lint:
+	$(LINT_CMD) $(SRC_DIR)
 
 
 # Deploying to GitHub pages.

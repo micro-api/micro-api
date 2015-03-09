@@ -7,9 +7,7 @@ import hjs from 'highlight.js';
 import jsdom from 'jsdom';
 
 
-marked.setOptions({
-  highlight: code => hjs.highlightAuto(code).value
-});
+const renderer = new marked.Renderer();
 
 const lineBreak = '\n';
 const firstLine = '[![Micro API](./assets/logo_light.svg)]' +
@@ -33,17 +31,32 @@ const readme = fs.readFileSync(paths.readme).toString()
   .split(lineBreak).map((line, number) => number === 0 ?
     firstLine : line).join(lineBreak);
 
-new Promise(resolve => jsdom.env(marked(readme), (errors, window) => {
-  [...window.document.querySelectorAll('pre')].map(node => {
-    let previousName = node.previousSibling.nodeName;
-    let nextName = node.nextSibling.nodeName;
 
-    if (~[previousName, nextName].indexOf('PRE')) {
-      node.className += 'group';
-    }
+renderer.heading = (text, level) => {
+  let escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
 
-    return node;
-  });
+  return `<h${level}>${text} <a name="${escapedText}" class="anchor" ` +
+    `href="#${escapedText}" title="Link to this section “${text}”">#</a>` +
+    `</h${level}>`;
+};
+
+marked.setOptions({
+  highlight: code => hjs.highlightAuto(code).value
+});
+
+
+new Promise(resolve =>
+  jsdom.env(marked(readme, { renderer }), (errors, window) => {
+    [...window.document.querySelectorAll('pre')].map(node => {
+      let previousName = node.previousSibling.nodeName;
+      let nextName = node.nextSibling.nodeName;
+
+      if (~[previousName, nextName].indexOf('PRE')) {
+        node.className += 'group';
+      }
+
+      return node;
+    });
 
   return resolve(window.document.body.innerHTML);
 })).then(content => {

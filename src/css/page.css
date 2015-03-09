@@ -83,6 +83,12 @@ h2 {
   border-bottom: 1px var(--color-border) solid;
 }
 
+h2 a.anchor {
+  float: right;
+  text-decoration: none;
+  color: var(--color-border);
+}
+
 ul {
   margin-left: var(--line-height);
 }
