@@ -16,7 +16,7 @@
   --mono-font: 'Inconsolata', monospace;
 
   /* measurements */
-  --max-width: 46em;
+  --max-width: 48em;
   --mobile-breakpoint: 640px;
   --body-size: 16px;
   --mono-size: 18px;
