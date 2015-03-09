@@ -4,6 +4,7 @@ import mustache from 'mustache';
 import minifier from 'html-minifier';
 import marked from 'marked';
 import hjs from 'highlight.js';
+import jsdom from 'jsdom';
 
 const lineBreak = '\n';
 const firstLine = '[![Micro API](./assets/logo_light.svg)]' +
@@ -34,8 +35,22 @@ readme = readme.split(lineBreak).map((line, number) => number === 0 ?
 
 let content = marked(readme);
 
-// Write index.
-fs.writeFileSync(paths.destination, minifier.minify(
+new Promise(resolve => jsdom.env(content, (errors, window) => {
+  [...window.document.querySelectorAll('pre')].map(node => {
+    let previousName = node.previousSibling.nodeName;
+    let nextName = node.nextSibling.nodeName;
+
+    if (~[previousName, nextName].indexOf('PRE')) {
+      node.className += 'group';
+    }
+
+    return node;
+  });
+
+  return resolve(window.document.body.innerHTML);
+})).then(content => {
+  fs.writeFileSync(paths.destination, minifier.minify(
   mustache.render(fs.readFileSync(paths.template).toString(), {
     content, pkg
   }), minifierSettings));
+});

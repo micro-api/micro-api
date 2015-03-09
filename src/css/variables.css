@@ -8,7 +8,8 @@
   --color-attribute:    #8FB2DB;
   --color-value:        #A5F2D6;
   --color-literal:      #DFA5F2;
-  --color-border:       rgba(255, 255, 255, 0.08);
+  --color-border:       rgba(255, 255, 255, 0.09);
+  --color-alt-head:     rgba(255, 255, 255, 0.06);
   --color-alt:          rgba(255, 255, 255, 0.03);
 
   /* fonts */

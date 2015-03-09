@@ -36,6 +36,20 @@ pre {
   overflow: auto;
 }
 
+pre.group {
+  border-radius: var(--big-border-radius) var(--big-border-radius) 0 0;
+  margin: 0;
+  border-bottom: 0;
+  background-color: var(--color-alt-head);
+}
+
+pre.group + pre.group {
+  border-radius: 0 0 var(--big-border-radius) var(--big-border-radius);
+  margin: 0 0 calc(var(--line-height) * var(--size-ratio));
+  border-bottom: 1px var(--color-border) solid;
+  background-color: var(--color-alt);
+}
+
 pre > code {
   background: none;
   padding: 0;

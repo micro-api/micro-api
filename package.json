@@ -21,6 +21,7 @@
     "babel": "^4.7.3",
     "highlight.js": "^8.4.0",
     "html-minifier": "^0.7.0",
+    "jsdom": "^4.0.2",
     "marked": "^0.3.3",
     "mustache": "^1.1.0",
     "myth": "^1.4.0"
