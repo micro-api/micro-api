@@ -39,6 +39,10 @@ The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/
 
 This is significant for client discovery, think of it as the home page. At least a top-level `@links` object should be present.
 
+```
+GET /
+```
+
 ```json
 {
   "@links": {
