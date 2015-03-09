@@ -1,5 +1,10 @@
 body {
   background-color: var(--color-background);
+  background-image: url('./bg.svg');
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 60%;
+  background-attachment: fixed;
   color: var(--color-primary);
   font-size: var(--body-size);
   font-family: var(--body-font);

@@ -1,15 +1,15 @@
 :root {
 
   /* colors */
-  --color-background:   #ffffff;
-  --color-dark:         #000000;
-  --color-primary:      #3a3a3a;
+  --color-background:   #343E4A;
+  --color-dark:         #ffffff;
+  --color-primary:      rgba(255, 255, 255, 0.74);
   --color-link:         #3aaaff;
-  --color-attribute:    #214A69;
-  --color-value:        #769635;
-  --color-literal:      #B04A8B;
-  --color-border:       #d9d9d9;
-  --color-alt:          #f5f5f5;
+  --color-attribute:    #8FB2DB;
+  --color-value:        #A5F2D6;
+  --color-literal:      #DFA5F2;
+  --color-border:       rgba(255, 255, 255, 0.08);
+  --color-alt:          rgba(255, 255, 255, 0.03);
 
   /* fonts */
   --body-font: 'Varela Round', sans-serif;

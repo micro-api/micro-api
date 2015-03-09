@@ -1,4 +1,4 @@
-[![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](https://github.com/micro-api/micro-api)
+[![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
 A media type for resilient web APIs using hypermedia. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. The media type is:
 

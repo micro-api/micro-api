@@ -6,6 +6,9 @@ import marked from 'marked';
 import hjs from 'highlight.js';
 
 const lineBreak = '\n';
+const firstLine = '[![Micro API](./assets/logo_light.svg)]' +
+  '(https://github.com/micro-api/micro-api)';
+
 const from = str => path.join(__dirname, str);
 const pkg = JSON.parse(fs.readFileSync(
   from('../package.json')).toString());
@@ -25,6 +28,10 @@ marked.setOptions({
 });
 
 let readme = fs.readFileSync(paths.readme).toString();
+
+readme = readme.split(lineBreak).map((line, number) => number === 0 ?
+  firstLine : line).join(lineBreak);
+
 let content = marked(readme);
 
 // Write index.
