@@ -6,6 +6,11 @@ import marked from 'marked';
 import hjs from 'highlight.js';
 import jsdom from 'jsdom';
 
+
+marked.setOptions({
+  highlight: code => hjs.highlightAuto(code).value
+});
+
 const lineBreak = '\n';
 const firstLine = '[![Micro API](./assets/logo_light.svg)]' +
   '(https://github.com/micro-api/micro-api)';
@@ -24,18 +29,11 @@ const minifierSettings = {
   collapseWhitespace: true
 };
 
-marked.setOptions({
-  highlight: code => hjs.highlightAuto(code).value
-});
+const readme = fs.readFileSync(paths.readme).toString()
+  .split(lineBreak).map((line, number) => number === 0 ?
+    firstLine : line).join(lineBreak);
 
-let readme = fs.readFileSync(paths.readme).toString();
-
-readme = readme.split(lineBreak).map((line, number) => number === 0 ?
-  firstLine : line).join(lineBreak);
-
-let content = marked(readme);
-
-new Promise(resolve => jsdom.env(content, (errors, window) => {
+new Promise(resolve => jsdom.env(marked(readme), (errors, window) => {
   [...window.document.querySelectorAll('pre')].map(node => {
     let previousName = node.previousSibling.nodeName;
     let nextName = node.nextSibling.nodeName;
