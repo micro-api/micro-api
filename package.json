@@ -18,7 +18,7 @@
     "http-server": "^0.7.5"
   },
   "devDependencies": {
-    "babel": "^4.7.4",
+    "babel": "^4.7.5",
     "babel-eslint": "^1.0.14",
     "eslint": "^0.16.1",
     "highlight.js": "^8.4.0",

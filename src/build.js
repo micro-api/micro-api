@@ -48,10 +48,10 @@ marked.setOptions({
 new Promise(resolve =>
   jsdom.env(marked(readme, { renderer }), (errors, window) => {
     [...window.document.querySelectorAll('pre')].map(node => {
-      let previousName = node.previousSibling.nodeName;
-      let nextName = node.nextSibling.nodeName;
+      let previous = node.previousSibling.previousSibling;
+      let next = node.nextSibling.nextSibling;
 
-      if (~[previousName, nextName].indexOf('PRE')) {
+      if (~[previous.nodeName, next.nodeName].indexOf('PRE')) {
         node.className += 'group';
       }
 

@@ -39,7 +39,7 @@ The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/
 
 This is significant for client discovery, think of it as the home page. At least a top-level `@links` object should be present.
 
-```
+```http
 GET /
 ```
 
@@ -74,7 +74,7 @@ The top-level `@links` in the index is a superset of that which exists in a coll
 
 Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload entities. Hint: available queries may be advertised in the `@meta` object.
 
-```
+```http
 GET /users/1?include=posts
 ```
 
@@ -145,7 +145,7 @@ An `@array` value that is `true` indicates a to-many association, while a singul
 
 Following the `@href` within a `@links` object **MUST** return entities corresponding to that field, and its payload **MUST** contain all of the `@id`s or else it should return an error.
 
-```
+```http
 GET /users/1/posts
 ```
 
@@ -194,7 +194,7 @@ Note that the top-level `@links` omits the `user` information since it is not re
 
 ## Create Example
 
-```
+```http
 POST /users/1/posts
 ```
 
@@ -208,7 +208,7 @@ POST /users/1/posts
 
 By posting to a link URL, the server **MUST** associate all of the entities in the payload to the linked entities, but the payload takes precedence over the URL, so that if an `author` is specified in the payload, that should be considered. An alternative and more flexible way of doing the same thing:
 
-```
+```http
 POST /posts
 ```
 
@@ -232,7 +232,7 @@ Either way is fine and allowed. The response **MUST** include the created entiti
 
 ## Update Example
 
-```
+```http
 PATCH /posts
 ```
 
@@ -261,13 +261,13 @@ Patch requests can only update existing entities, it may not create or delete. B
 
 ## Delete Example
 
-```
+```http
 DELETE /posts/2
 ```
 
 A delete request **MUST** return no payload if it succeeds, and applies to any accessible URL, including collections. Pretty simple.
 
-```
+```http
 DELETE /users/1/posts
 ```
 
