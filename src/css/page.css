@@ -24,7 +24,7 @@ a {
 
 pre, code {
   font-family: var(--mono-font);
-  font-size: var(--mono-size);
+  font-size: calc(1em / var(--size-ratio));
 }
 
 pre {
