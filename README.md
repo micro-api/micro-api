@@ -11,9 +11,11 @@ The media type proposal is currently pending from the [IANA](http://www.internet
 
 ## Motivation and Purpose
 
-Micro API is only concerned with implementation and payloads of hypermedia APIs, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
+There are many media types for hypermedia, but Micro API aims to limit its scope close to a minimum for implementing an API. Micro API is mostly concerned with the payload, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
 
 Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification.
+
+It should be assumed that the network protocol should facilitate common actions on URIs. For example, Micro API over HTTP should assume that `GET`, `POST`, `PUT`, `PATCH`, and `DELETE` work as they should.
 
 
 ## Reserved Keys
@@ -194,6 +196,8 @@ Note that the top-level `@links` omits the `user` information since it is not re
 
 ## Create Example
 
+Requesting to create an entity may be allowed at wherever URI that type exists.
+
 ```http
 POST /users/1/posts
 ```
@@ -206,7 +210,7 @@ POST /users/1/posts
 }
 ```
 
-By posting to a link URL, the server **MUST** associate all of the entities in the payload to the linked entities, but the payload takes precedence over the URL, so that if an `author` is specified in the payload, that should be considered. An alternative and more flexible way of doing the same thing:
+By posting to a link URI, the server should associate all of the entities in the payload to the linked entities, but the payload takes precedence over the URI, so that if an `author` is specified in the payload, that should be considered. An alternative and more flexible way of doing the same thing:
 
 ```http
 POST /posts
@@ -227,7 +231,7 @@ POST /posts
 }
 ```
 
-Either way is fine and allowed. The response **MUST** include the created entities, no empty response is allowed. The specification is agnostic about whether client side IDs may be specified, so a payload may include `@id`.
+Either way is fine and allowed. The response should include the created entities with a `Location` header to be helpful to the client. The specification is agnostic about whether client side IDs may be specified, so a payload may include `@id`.
 
 
 ## Update Example
@@ -254,7 +258,7 @@ PATCH /posts
 }
 ```
 
-IDs **MUST** be specified per entity to patch, and patch requests may be made wherever the entity may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified entity does not exist at the URL it should return an error. The assumption is that *patch replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
+IDs **MUST** be specified per entity to patch, and patch requests may be made wherever the entity may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified entity does not exist at the requested location, it should return an error. The assumption is that *patch replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
 
 Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is **NOT** allowed to change any reserved property except for an `@id` within `@links`, but the `@operate` property may be used freely.
 
@@ -265,7 +269,7 @@ Patch requests can only update existing entities, it may not create or delete. B
 DELETE /posts/2
 ```
 
-A delete request **MUST** return no payload if it succeeds, and applies to any accessible URL, including collections. Pretty simple.
+A delete request **MUST** return no payload if it succeeds, and applies to any accessible URI, including collections. Pretty simple.
 
 ```http
 DELETE /users/1/posts
