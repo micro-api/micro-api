@@ -53,6 +53,7 @@ pre.group + pre.group {
 pre > code {
   background: none;
   padding: 0;
+  font-size: 1em;
 }
 
 code {
