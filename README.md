@@ -39,7 +39,11 @@ The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/
 
 ## Key Concepts
 
-All entities are uniquely identified by `@id` and `@type`. All types have links to collections which non-idempotent updates may be made to. The relationship graph is entirely defined in the entry point and subsets of it may appear in other payloads. Inverse links should be assumed to make reciprocal updates on linked entities. There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the entity and not just remove the relationship. There is no difference in the structure of a payload based on the request method, it should be consistent.
+- All entities are uniquely identified by `@id` and `@type`.
+- All types have links to collections which non-idempotent updates may be made to.
+- The relationship graph is entirely defined in the entry point and subsets of it may appear in other payloads.
+- Inverse links should be assumed to make reciprocal updates on linked entities. There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the entity and not just remove the relationship.
+- There is no difference in the structure of a payload based on the request method, it should be consistent.
 
 
 ## Entry Point
