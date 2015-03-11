@@ -20,7 +20,7 @@
   "devDependencies": {
     "babel": "^4.7.8",
     "babel-eslint": "^2.0.0",
-    "eslint": "^0.16.1",
+    "eslint": "^0.16.2",
     "highlight.js": "^8.4.0",
     "html-minifier": "^0.7.0",
     "jsdom": "^4.0.2",

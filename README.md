@@ -30,11 +30,16 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 | `@id`        | `null`, `String`, `[String]` | Each entity must have an ID, it may also refer to foreign IDs. |
 | `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. Optional but recommended to use. |
 | `@links`     | `Object`   | Each entity must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
-| `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may only exist at the top level. |
+| `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may exist at the top level. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an entity. |
 | `@type`      | `String`   | Type of an entity.                              |
 
 The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but may be used interchangeably.
+
+
+## Key Concepts
+
+All entities are uniquely identified by `@id` and `@type`. All types have links to collections which non-idempotent updates may be made to. The relationship graph is entirely defined in the entry point and subsets of it may appear in other payloads. Inverse links should be assumed to make reciprocal updates on linked entities. There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the entity and not just remove the relationship. There is no difference in the structure of a payload based on the request method, it should be consistent.
 
 
 ## Entry Point
@@ -296,7 +301,7 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 
 Do not use this media type if:
 
-- Your API requires polymorphic relationships. Micro API strictly disallows this.
+- Your API requires polymorphic types in relationships. Micro API strictly disallows this.
 - Your entities do not have unique IDs. This shouldn't be too much of a burden.
 
 
@@ -327,4 +332,4 @@ There should be no negotiation of extensions, additional features must be additi
 
 ## About
 
-Micro API is authored by [Dali Zheng](http://daliwa.li) ([GitHub](https://github.com/daliwali)), and it is licensed under the [CC0 1.0 License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).
+Micro API is authored by [Dali Zheng](http://daliwa.li) ([GitHub](https://github.com/daliwali)), and the source for this document is on [GitHub](https://github.com/micro-api/micro-api). It is licensed under the [CC0 1.0 License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).
