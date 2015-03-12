@@ -20,6 +20,18 @@ Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limi
 It should be assumed that the network protocol should facilitate common actions on URIs. For example, Micro API over HTTP should assume that `GET`, `POST`, `PUT`, `PATCH`, and `DELETE` work as they should.
 
 
+## Key Concepts
+
+*This section is non-normative.*
+
+- All records are uniquely identified by `@id` and `@type`.
+- All types have links to collections which non-idempotent updates may be made to.
+- The relationship graph is entirely defined in the entry point and subsets of it may appear in other entities.
+- Inverse links should be assumed to make reciprocal updates on linked records.
+- There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the record and not just remove the relationship.
+- There is no difference in the structure of a payload based on the request method, it should be consistent.
+
+
 ## Reserved Keys
 
 All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all of the reserved keys:
@@ -39,21 +51,9 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but may be used interchangeably.
 
 
-## Key Concepts
-
-*This section is non-normative.*
-
-- All records are uniquely identified by `@id` and `@type`.
-- All types have links to collections which non-idempotent updates may be made to.
-- The relationship graph is entirely defined in the entry point and subsets of it may appear in other entities.
-- Inverse links should be assumed to make reciprocal updates on linked records.
-- There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the record and not just remove the relationship.
-- There is no difference in the structure of a payload based on the request method, it should be consistent.
-
-
 ## Payload Structure
 
-There are certain restrictions on what may exist in the payload in different scopes. Here is an enumeration of restrictions, which should be considered normative.
+There are certain restrictions on what may exist in the payload in different contexts. Here is an enumeration of restrictions, which should be considered normative.
 
 - The top-level JSON object **MUST** be singular, not an array.
 - The `@links` and `@meta` object may only exist at the top-level and per record.
@@ -62,7 +62,7 @@ There are certain restrictions on what may exist in the payload in different sco
 - The top-level `@links` object is required and may only contain fields corresponding to a `@type`, and each field must be valued as an object with at least a `@href` field that refers to the collection of records of that type.
 - The `@href` field may only exist within a `@links` object.
 - `@array`, `@type`, and `@inverse` may only exist on a relationship field in the top-level `@links` object.
-- `@error` object may only exist at the top-level and no other fields should exist at the top-level when `@error` is present.
+- `@error` object may only exist at the top-level and no other fields should exist at the top-level when it is present.
 - `@operate` may only exist per record in a request payload to update a record.
 
 
