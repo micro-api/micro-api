@@ -345,7 +345,7 @@ Do not use this media type if:
 
 *This section is non-normative.*
 
-Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting, since these are extraneous concerns to hypermedia. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc. For example:
+Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting, since these are extraneous concerns. The `@meta` object may contain hints on what queries may be appended to GET requests. For example:
 
 ```json
 {
@@ -365,7 +365,35 @@ Micro API does not dictate anything about pagination, filtering, limiting fields
 }
 ```
 
-There should be no negotiation of extensions, additional features must be additive and optional. If there are implementation specific details outside the scope of this specification that are required to function, this can be signalled via parameters of the `Content-Type` header, such as `application/vnd.micro+json; version=1.0`, where `version` does not specify the version of this specification but rather that of the implementation.
+Additional features **MUST** be additive and optional, and may not conflict with the base specification. If there are versioning concerns with the implementation, this can be signalled via parameters of the `Content-Type` header, such as `application/vnd.micro+json; version=1.0`, where `version` does not specify the version of this specification but rather that of the implementation. Versioning is [highly discouraged](https://twitter.com/fielding/status/376835835670167552).
+
+Extensions of the base specification should be considered out-of-band information, and Micro API is agnostic about negotiation of extensions. Generally, extensions may be advertised by the server so that clients may discover them. Micro API does not try to restrict arbitrary keys except where it may be necessary, such as at the top level and in the `@links` object. For example, a relationship object may embed additional meta-information about the relationship:
+
+```json
+{
+  "@links": {
+    "order": {
+      "customer": {
+        "@type": "customer",
+        "@array": false,
+        "@inverse": "orders"
+      }
+    }
+  },
+  "order": [{
+    "@id": "1",
+    "@links": {
+      "@href": "/orders/1",
+      "customer": {
+        "@href": "/orders/1/customer",
+        "@id": "1",
+        "orderedAt": "2015-03-29",
+        "shippedAt": "2015-03-30"
+      }
+    }
+  }]
+}
+```
 
 
 ## About
