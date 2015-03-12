@@ -25,7 +25,7 @@ It should be assumed that the network protocol should facilitate common actions 
 *This section is non-normative.*
 
 - All records are uniquely identified by `@id` and `@type`.
-- All types have links to collections which non-idempotent updates may be made to.
+- All types have links to collections which requests may be made to.
 - The relationship graph is entirely defined in the entry point and subsets of it may appear in other entities.
 - Inverse links should be assumed to make reciprocal updates on linked records.
 - There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the record and not just remove the relationship.
@@ -38,11 +38,11 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 
 | Key          | Type       | Description                                     |
 |:-------------|:-----------|:------------------------------------------------|
-| `@array`     | `Boolean`  | Indicates whether or not a link is to many. |
+| `@array`     | `Boolean`  | Indicates whether or not a relationship is to many. |
 | `@error`     | `Object`   | If a request fails for any reason, it must return an error. |
 | `@href`      | `String`   | Must be a absolute or relative link. |
 | `@id`        | `null`, `String`, `[String]` | Each record must have an ID, it may also refer to foreign IDs. |
-| `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. Optional but recommended to use. |
+| `@inverse`   | `null`, `String`   | A link must define an inverse link if it is bi-directional. |
 | `@links`     | `Object`   | Each record must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
 | `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may exist at either the top level or per record. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
@@ -58,11 +58,12 @@ There are certain restrictions on what may exist in the payload in different con
 - The top-level JSON object **MUST** be singular, not an array.
 - The `@links` and `@meta` object may only exist at the top-level and per record.
 - The top level object may only contain `@meta`, `@links`, or fields keyed by `@type`. Non-reserved fields should be assumed to be types, and must be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
-- Every record must contain an `@id` field and a `@links` object. A record's `@links` object **MUST** have at least a `@href` field to link to the individual record, and contain relationship objects that **MUST** have at least `@href` and `@id` fields.
+- Every record must contain an `@id` field and a `@links` object. A record's `@links` object **MUST** contain at least a `@href` field to link to the individual record, and optionally contain relationship objects that **MUST** contain at least `@href` and `@id` fields.
 - The top-level `@links` object is required and may only contain fields corresponding to a `@type`, and each field must be valued as an object with at least a `@href` field that refers to the collection of records of that type.
 - The `@href` field may only exist within a `@links` object.
-- `@array`, `@type`, and `@inverse` may only exist on a relationship field in the top-level `@links` object.
+- `@array`, `@type`, and `@inverse` **MUST** exist on a relationship field object in the top-level `@links` object.
 - `@error` object may only exist at the top-level and no other fields should exist at the top-level when it is present.
+- Request payloads are limited to the following reserved keys: `@links` (on records only), `@id`, and `@operate`. All other reserved keys should be ignored.
 - `@operate` may only exist per record in a request payload to update a record.
 
 
