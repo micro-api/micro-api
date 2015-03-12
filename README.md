@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-A media type for resilient web APIs using hypermedia. Its goal is to cover the absolute minimum surface area of a hypermedia API that uses JSON as its format, and nothing more. The contracts of this media type will *never change*, it is final and not open for debate, only clarification. There are no optional features, everything is required to implement. The media type is:
+A media type for resilient web APIs using hypermedia. Its goal is to cover a minimal surface area of a hypermedia API that uses JSON as its format, and nothing more. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification. There are no optional features, everything is required to implement. The media type is:
 
 ```
 application/vnd.micro+json
@@ -13,7 +13,7 @@ The media type proposal is currently pending from the [IANA](http://www.internet
 
 *This section is non-normative.*
 
-There are many media types for hypermedia, but Micro API aims to limit its scope close to a minimum for implementing an API. Micro API is mostly concerned with the entity payload, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
+There are many media types for building APIs with, but Micro API aims to limit its scope to a minimum of practical concerns. Micro API is mostly concerned with the structure of the payload, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
 
 Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification. It follows [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
 
@@ -32,9 +32,9 @@ It should be assumed that the network protocol should facilitate common actions 
 - There is no difference in the structure of a payload based on the request method, it should be consistent.
 
 
-## Reserved Keys
+## Reserved Keywords
 
-All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all of the reserved keys:
+All reserved keywords are prefixed with a `@` symbol. Here is an enumeration of all of the reserved keywords:
 
 | Key          | Type       | Description                                     |
 |:-------------|:-----------|:------------------------------------------------|
@@ -48,7 +48,7 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
 | `@type`      | `String`   | Type of a record. Synonymous with collection. |
 
-The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but may be used interchangeably.
+The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but may be used interchangeably.
 
 
 ## Payload Structure
@@ -171,9 +171,9 @@ GET /users/1?include=posts
 }
 ```
 
-The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and should be ignored. The top-level keys that are not reserved **MUST** correspond to a `@type`, and their values **MUST** be an array of objects, no singular objects are allowed.
+The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and should be ignored. The top-level fields that are not reserved **MUST** correspond to a `@type`, and their values **MUST** be an array of objects, no singular objects are allowed.
 
-There is no concept of primary versus included documents, it is up to the client to consider which records were requested. The keys `@href` and `@id` are a **MUST** in the `@links` object of a record.
+There is no concept of primary versus included documents, it is up to the client to consider which records were requested. The fields `@href` and `@id` are a **MUST** in the `@links` object of a record.
 
 An `@array` value that is `true` indicates a to-many association, while a singular value indicates a to-one association. The corresponding `@id`s must match `@array` value of the top-level `@links`. A null value or empty array indicates no link, and it is a **MUST** to include.
 
@@ -341,7 +341,7 @@ Do not use this media type if:
 - Your records do not have unique IDs. This shouldn't be too much of a burden.
 
 
-## Implementation Concerns
+## Extending
 
 *This section is non-normative.*
 
