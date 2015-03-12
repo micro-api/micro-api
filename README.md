@@ -316,6 +316,8 @@ This **MUST** actually delete all of a users' posts, not just the link. There is
 
 ## Error Payload
 
+*This section is non-normative.*
+
 If a request fails for any reason, it **MUST** return a single `@error` object. The contents of the error object are opaque to this specification.
 
 ```json
