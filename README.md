@@ -27,22 +27,23 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 | `@array`     | `Boolean`  | Indicates whether or not a link is to many.     |
 | `@error`     | `Object`   | If a request fails for any reason, it must return an error. |
 | `@href`      | `String`   | Must be a absolute or relative link.            |
-| `@id`        | `null`, `String`, `[String]` | Each entity must have an ID, it may also refer to foreign IDs. |
+| `@id`        | `null`, `String`, `[String]` | Each record must have an ID, it may also refer to foreign IDs. |
 | `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. Optional but recommended to use. |
-| `@links`     | `Object`   | Each entity must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
+| `@links`     | `Object`   | Each record must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
 | `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may exist at the top level. |
-| `@operate`   | `Object`   | Reserved for arbitrary operations to update an entity. |
-| `@type`      | `String`   | Type of an entity.                              |
+| `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
+| `@type`      | `String`   | Type of a record. |
 
 The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but may be used interchangeably.
 
 
 ## Key Concepts
 
-- All entities are uniquely identified by `@id` and `@type`.
+- All records are uniquely identified by `@id` and `@type`.
 - All types have links to collections which non-idempotent updates may be made to.
 - The relationship graph is entirely defined in the entry point and subsets of it may appear in other payloads.
-- Inverse links should be assumed to make reciprocal updates on linked entities. There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the entity and not just remove the relationship.
+- Inverse links should be assumed to make reciprocal updates on linked records.
+- There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the record and not just remove the relationship.
 - There is no difference in the structure of a payload based on the request method, it should be consistent.
 
 
@@ -83,7 +84,7 @@ The top-level `@links` in the index is a superset of that which exists in a coll
 
 ## Find Example
 
-Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload entities. Hint: available queries may be advertised in the `@meta` object.
+Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload records. Hint: available queries may be advertised in the `@meta` object.
 
 ```http
 GET /users/1?include=posts
@@ -150,11 +151,11 @@ GET /users/1?include=posts
 
 The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and should be ignored. The top-level keys that are not reserved **MUST** be names of types, and their values **MUST** be an array of objects, no singular objects are allowed.
 
-There is no concept of primary versus included documents, it is up to the client to consider which entities were requested. The keys `@href` and `@id` are a **MUST** in the `@links` object of an entity.
+There is no concept of primary versus included documents, it is up to the client to consider which records were requested. The keys `@href` and `@id` are a **MUST** in the `@links` object of a record.
 
 An `@array` value that is `true` indicates a to-many association, while a singular value indicates a to-one association. The corresponding `@id`s must match `@array` value of the top-level `@links`. A null value or empty array indicates no link, and it is a **MUST** to include.
 
-Following the `@href` within a `@links` object **MUST** return entities corresponding to that field, and its payload **MUST** contain all of the `@id`s or else it should return an error.
+Following the `@href` within a `@links` object **MUST** return records corresponding to that field, and its payload **MUST** contain all of the `@id`s or else it should return an error.
 
 ```http
 GET /users/1/posts
@@ -205,7 +206,7 @@ Note that the top-level `@links` omits the `user` information since it is not re
 
 ## Create Example
 
-Requesting to create an entity may be allowed at wherever URI that type exists.
+Requesting to create an record may be allowed at wherever URI that type exists.
 
 ```http
 POST /users/1/posts
@@ -219,7 +220,7 @@ POST /users/1/posts
 }
 ```
 
-By posting to a link URI, the server should associate all of the entities in the payload to the linked entities, but the payload takes precedence over the URI, so that if an `author` is specified in the payload, that should be considered. An alternative and more flexible way of doing the same thing:
+By posting to a link URI, the server should associate all of the records in the payload to the linked records, but the payload takes precedence over the URI, so that if an `author` is specified in the payload, that should be considered. An alternative and more flexible way of doing the same thing:
 
 ```http
 POST /posts
@@ -240,7 +241,7 @@ POST /posts
 }
 ```
 
-Either way is fine and allowed. The response should include the created entities with a `Location` header to be helpful to the client. The specification is agnostic about whether client side IDs may be specified, so a payload may include `@id`.
+Either way is fine and allowed. The response should include the created records with a `Location` header to be helpful to the client. The specification is agnostic about whether client side IDs may be specified, so a payload may include `@id`.
 
 
 ## Update Example
@@ -267,9 +268,9 @@ PATCH /posts
 }
 ```
 
-IDs **MUST** be specified per entity to patch, and patch requests may be made wherever the entity may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified entity does not exist at the requested location, it should return an error. The assumption is that *patch replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire entity, so in the vast majority of cases, `PATCH` is actually what you want to do.
+IDs **MUST** be specified per record to patch, and patch requests may be made wherever the record may exist (side-effect of this: IDs cannot be changed, only specified). If the a specified record does not exist at the requested location, it should return an error. The assumption is that *patch replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request should *overwrite* the entire record, so in the vast majority of cases, `PATCH` is actually what you want to do.
 
-Patch requests can only update existing entities, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is **NOT** allowed to change any reserved property except for an `@id` within `@links`, but the `@operate` property may be used freely.
+Patch requests can only update existing records, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is **NOT** allowed to change any reserved property except for an `@id` within `@links`, but the `@operate` property may be used freely.
 
 
 ## Delete Example
@@ -295,7 +296,7 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 {
   "@error": {
     "title": "NotFoundError",
-    "message": "The requested entity was not found."
+    "message": "The requested record was not found."
   }
 }
 ```
@@ -306,7 +307,7 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 Do not use this media type if:
 
 - Your API requires polymorphic types in relationships. Micro API strictly disallows this.
-- Your entities do not have unique IDs. This shouldn't be too much of a burden.
+- Your records do not have unique IDs. This shouldn't be too much of a burden.
 
 
 ## Suggestions on Implementation
