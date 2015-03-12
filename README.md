@@ -11,7 +11,9 @@ The media type proposal is currently pending from the [IANA](http://www.internet
 
 ## Motivation and Purpose
 
-There are many media types for hypermedia, but Micro API aims to limit its scope close to a minimum for implementing an API. Micro API is mostly concerned with the payload, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
+*This section is non-normative.*
+
+There are many media types for hypermedia, but Micro API aims to limit its scope close to a minimum for implementing an API. Micro API is mostly concerned with the entity payload, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
 
 Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification.
 
@@ -24,13 +26,13 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 
 | Key          | Type       | Description                                     |
 |:-------------|:-----------|:------------------------------------------------|
-| `@array`     | `Boolean`  | Indicates whether or not a link is to many.     |
+| `@array`     | `Boolean`  | Indicates whether or not a link is to many. |
 | `@error`     | `Object`   | If a request fails for any reason, it must return an error. |
-| `@href`      | `String`   | Must be a absolute or relative link.            |
+| `@href`      | `String`   | Must be a absolute or relative link. |
 | `@id`        | `null`, `String`, `[String]` | Each record must have an ID, it may also refer to foreign IDs. |
 | `@inverse`   | `String`   | A link must define an inverse link if it is bi-directional. Optional but recommended to use. |
 | `@links`     | `Object`   | Each record must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
-| `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may exist at the top level. |
+| `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may exist at either the top level or per record. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
 | `@type`      | `String`   | Type of a record. |
 
@@ -39,15 +41,34 @@ The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/
 
 ## Key Concepts
 
+*This section is non-normative.*
+
 - All records are uniquely identified by `@id` and `@type`.
 - All types have links to collections which non-idempotent updates may be made to.
-- The relationship graph is entirely defined in the entry point and subsets of it may appear in other payloads.
+- The relationship graph is entirely defined in the entry point and subsets of it may appear in other entities.
 - Inverse links should be assumed to make reciprocal updates on linked records.
 - There is no concept of relationship entities, so for example a `DELETE` request on a `@href` within a `@links` object should actually delete the record and not just remove the relationship.
 - There is no difference in the structure of a payload based on the request method, it should be consistent.
 
 
+## Payload Structure
+
+There are certain restrictions on what may exist in the payload in different scopes. Here is an enumeration of restrictions, which should be considered normative.
+
+- The top-level JSON object **MUST** be singular, not an array.
+- The `@links` and `@meta` object may only exist at the top-level and per record.
+- The top level object may only contain `@meta`, `@links`, or fields keyed by `@type`. Non-reserved fields should be assumed to be types, and must be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
+- Every record must contain an `@id` field and a `@links` object. A record's `@links` object **MUST** have at least a `@href` field to link to the individual record, and contain relationship objects that **MUST** have at least `@href` and `@id` fields.
+- The top-level `@links` object is required and may only contain fields corresponding to a `@type`, and each field must be valued as an object with at least a `@href` field that refers to the collection of records of that type.
+- The `@href` field may only exist within a `@links` object.
+- `@array`, `@type`, and `@inverse` may only exist on a relationship field in the top-level `@links` object.
+- `@error` object may only exist at the top-level and no other fields should exist at the top-level when `@error` is present.
+- `@operate` may only exist per record in a request payload to update a record.
+
+
 ## Entry Point
+
+*This section is non-normative.*
 
 This is significant for client discovery, think of it as the home page. At least a top-level `@links` object should be present.
 
@@ -58,7 +79,6 @@ GET /
 ```json
 {
   "@links": {
-    "@href": "/",
     "user": {
       "@href": "/users",
       "posts": {
@@ -79,10 +99,12 @@ GET /
 }
 ```
 
-The top-level `@links` in the index is a superset of that which exists in a collection, it **MUST** enumerate all types and each type **MUST** include the `@href` link per collection, and a `@href` to the current document. Within a type object, fields that are links **MUST** be enumerated. This lays out the relationship graph between types.
+The top-level `@links` in the index is a superset of that which exists in a collection, it **MUST** enumerate all types and each type **MUST** include the `@href` link per collection. Within a type object, fields that are links **MUST** be enumerated. This lays out the relationship graph between types.
 
 
 ## Find Example
+
+*This section is non-normative.*
 
 Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload records. Hint: available queries may be advertised in the `@meta` object.
 
@@ -96,7 +118,6 @@ GET /users/1?include=posts
     "count": 3
   },
   "@links": {
-    "@href": "/users/1",
     "user": {
       "@href": "/users",
       "posts": {
@@ -149,7 +170,7 @@ GET /users/1?include=posts
 }
 ```
 
-The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and should be ignored. The top-level keys that are not reserved **MUST** be names of types, and their values **MUST** be an array of objects, no singular objects are allowed.
+The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and should be ignored. The top-level keys that are not reserved **MUST** correspond to a `@type`, and their values **MUST** be an array of objects, no singular objects are allowed.
 
 There is no concept of primary versus included documents, it is up to the client to consider which records were requested. The keys `@href` and `@id` are a **MUST** in the `@links` object of a record.
 
@@ -167,7 +188,6 @@ GET /users/1/posts
     "count": 2
   },
   "@links": {
-    "@href": "/users/1/posts",
     "post": {
       "@href": "/posts",
       "author": {
@@ -205,6 +225,8 @@ Note that the top-level `@links` omits the `user` information since it is not re
 
 
 ## Create Example
+
+*This section is non-normative.*
 
 Requesting to create an record may be allowed at wherever URI that type exists.
 
@@ -246,6 +268,8 @@ Either way is fine and allowed. The response should include the created records 
 
 ## Update Example
 
+*This section is non-normative.*
+
 ```http
 PATCH /posts
 ```
@@ -274,6 +298,8 @@ Patch requests can only update existing records, it may not create or delete. By
 
 
 ## Delete Example
+
+*This section is non-normative.*
 
 ```http
 DELETE /posts/2
@@ -304,15 +330,19 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 
 ## Caveats
 
+*This section is non-normative.*
+
 Do not use this media type if:
 
 - Your API requires polymorphic types in relationships. Micro API strictly disallows this.
 - Your records do not have unique IDs. This shouldn't be too much of a burden.
 
 
-## Suggestions on Implementation
+## Implementation Concerns
 
-Feel free to ignore this section, it is only meant to provide hints on how one might implement common features. Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting, since these are extraneous concerns to hypermedia. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc. For example:
+*This section is non-normative.*
+
+Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting, since these are extraneous concerns to hypermedia. The `@meta` object may contain hints on what queries may be appended to GET requests, such as filtering, pagination, fields, sorting, etc. For example:
 
 ```json
 {
@@ -336,5 +366,7 @@ There should be no negotiation of extensions, additional features must be additi
 
 
 ## About
+
+*This section is non-normative.*
 
 Micro API is authored by [Dali Zheng](http://daliwa.li) ([GitHub](https://github.com/daliwali)), and the source for this document is on [GitHub](https://github.com/micro-api/micro-api). It is licensed under the [CC0 1.0 License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).
