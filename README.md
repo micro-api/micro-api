@@ -15,7 +15,7 @@ The media type proposal is currently pending from the [IANA](http://www.internet
 
 There are many media types for hypermedia, but Micro API aims to limit its scope close to a minimum for implementing an API. Micro API is mostly concerned with the entity payload, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
 
-Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification.
+Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification. It follows [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
 
 It should be assumed that the network protocol should facilitate common actions on URIs. For example, Micro API over HTTP should assume that `GET`, `POST`, `PUT`, `PATCH`, and `DELETE` work as they should.
 
@@ -46,7 +46,7 @@ All reserved keys are prefixed with a `@` symbol. Here is an enumeration of all 
 | `@links`     | `Object`   | Each record must have this object with at least the `@href` property. It may also exist at the top level to describe links. |
 | `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This may exist at either the top level or per record. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
-| `@type`      | `String`   | Type of a record. |
+| `@type`      | `String`   | Type of a record. Synonymous with collection. |
 
 The reserved keys `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but may be used interchangeably.
 
