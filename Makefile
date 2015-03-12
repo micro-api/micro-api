@@ -8,7 +8,7 @@ SRC_DIR = src/
 DIST_DIR = dist/
 
 # Git
-REPO_GIT = git@github.com:micro-api/micro-media-type.git
+REPO_GIT = git@github.com:micro-api/micro-api.git
 CNAME = micro-api.org
 
 # Phonies
