@@ -11,8 +11,6 @@ The media type proposal is currently pending from the [IANA](http://www.internet
 
 ## Motivation and Purpose
 
-*This section is non-normative.*
-
 There are many media types for building APIs with, but Micro API aims to limit its scope to a minimum of practical concerns. Micro API is mostly concerned with the structure of the payload, and does not dictate how the server should implement HTTP. Other concepts such as querying, operational transforms, schemas, and linked data are opaque to this specification.
 
 Micro API draws inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification. It follows [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
@@ -21,8 +19,6 @@ It should be assumed that the network protocol should facilitate common actions 
 
 
 ## Key Concepts
-
-*This section is non-normative.*
 
 - All records are uniquely identified by `@id` and `@type`.
 - All types have links to collections which requests may be made to.
@@ -34,7 +30,7 @@ It should be assumed that the network protocol should facilitate common actions 
 
 ## Reserved Keywords
 
-All reserved keywords are prefixed with a `@` symbol. Here is an enumeration of all of the reserved keywords:
+All reserved keywords are prefixed with a `@` symbol. Here is an enumeration of all of the reserved keywords, which should be considered normative:
 
 | Key          | Type       | Description                                     |
 |:-------------|:-----------|:------------------------------------------------|
@@ -53,7 +49,7 @@ The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org
 
 ## Payload Structure
 
-There are certain restrictions on what may exist in the payload in different contexts. Here is an enumeration of restrictions, which should be considered normative.
+There are certain restrictions on what may exist in the payload in different contexts. Here is an enumeration of restrictions, which should be considered normative:
 
 - The top-level JSON object **MUST** be singular, not an array.
 - The `@links` and `@meta` object may only exist at the top-level and per record.
@@ -68,8 +64,6 @@ There are certain restrictions on what may exist in the payload in different con
 
 
 ## Entry Point
-
-*This section is non-normative.*
 
 This is significant for client discovery, think of it as the home page. At least a top-level `@links` object should be present.
 
@@ -104,8 +98,6 @@ The top-level `@links` in the index is a superset of that which exists in a coll
 
 
 ## Find Example
-
-*This section is non-normative.*
 
 Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload records. Hint: available queries may be advertised in the `@meta` object.
 
@@ -227,8 +219,6 @@ Note that the top-level `@links` omits the `user` information since it is not re
 
 ## Create Example
 
-*This section is non-normative.*
-
 Requesting to create an record may be allowed at wherever URI that type exists.
 
 ```http
@@ -269,8 +259,6 @@ Either way is fine and allowed. The response should include the created records 
 
 ## Update Example
 
-*This section is non-normative.*
-
 ```http
 PATCH /posts
 ```
@@ -300,8 +288,6 @@ Patch requests can only update existing records, it may not create or delete. By
 
 ## Delete Example
 
-*This section is non-normative.*
-
 ```http
 DELETE /posts/2
 ```
@@ -317,8 +303,6 @@ This **MUST** actually delete all of a users' posts, not just the link. There is
 
 ## Error Payload
 
-*This section is non-normative.*
-
 If a request fails for any reason, it **MUST** return a single `@error` object. The contents of the error object are opaque to this specification.
 
 ```json
@@ -333,8 +317,6 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 
 ## Caveats
 
-*This section is non-normative.*
-
 Do not use this media type if:
 
 - Your API requires polymorphic types in relationships. Micro API strictly disallows this.
@@ -342,8 +324,6 @@ Do not use this media type if:
 
 
 ## Extending
-
-*This section is non-normative.*
 
 Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting, since these are extraneous concerns. The `@meta` object may contain hints on what queries may be appended to GET requests. For example:
 
@@ -397,7 +377,5 @@ Extensions of the base specification should be considered out-of-band informatio
 
 
 ## About
-
-*This section is non-normative.*
 
 Micro API is authored by [Dali Zheng](http://daliwa.li) ([GitHub](https://github.com/daliwali)), and the source for this document is on [GitHub](https://github.com/micro-api/micro-api). It is licensed under the [CC0 1.0 License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).
