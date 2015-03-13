@@ -257,7 +257,7 @@ POST /posts
 Either way is fine and allowed. The response should include the created records with a `Location` header to be helpful to the client. The specification is agnostic about whether client side IDs may be specified, so a payload may include `@id`.
 
 
-## Update Records
+## Updating Records
 
 ```http
 PATCH /posts
@@ -286,7 +286,7 @@ IDs **MUST** be specified per record to patch, and patch requests may be made wh
 Patch requests can only update existing records, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is **NOT** allowed to change any reserved property except for an `@id` within `@links`, but the `@operate` property may be used freely.
 
 
-## Delete Records
+## Deleting Records
 
 ```http
 DELETE /posts/2
