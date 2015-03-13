@@ -97,7 +97,7 @@ GET /
 The top-level `@links` in the index is a superset of that which exists in a collection, it **MUST** enumerate all types and each type **MUST** include the `@href` link per collection. Within a type object, fields that are links **MUST** be enumerated. This lays out the relationship graph between types.
 
 
-## Find Example
+## Finding Records
 
 Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload records. Hint: available queries may be advertised in the `@meta` object.
 
@@ -217,7 +217,7 @@ GET /users/1/posts
 Note that the top-level `@links` omits the `user` information since it is not required in this context.
 
 
-## Create Example
+## Creating Records
 
 Requesting to create an record may be allowed at wherever URI that type exists.
 
@@ -257,7 +257,7 @@ POST /posts
 Either way is fine and allowed. The response should include the created records with a `Location` header to be helpful to the client. The specification is agnostic about whether client side IDs may be specified, so a payload may include `@id`.
 
 
-## Update Example
+## Update Records
 
 ```http
 PATCH /posts
@@ -286,7 +286,7 @@ IDs **MUST** be specified per record to patch, and patch requests may be made wh
 Patch requests can only update existing records, it may not create or delete. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It is **NOT** allowed to change any reserved property except for an `@id` within `@links`, but the `@operate` property may be used freely.
 
 
-## Delete Example
+## Delete Records
 
 ```http
 DELETE /posts/2
