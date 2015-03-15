@@ -2,11 +2,15 @@
 
   body {
       padding: calc(var(--line-height) * 2) 0 calc(var(--line-height) * 1);
-      font-size: calc(var(--body-size) - 1px);
+      font-size: calc(var(--body-size) - 2px);
   }
 
   main {
     max-width: 100%;
+  }
+
+  img {
+    margin-bottom: calc(var(--line-height) * 2);
   }
 
   h2 {

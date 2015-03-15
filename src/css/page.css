@@ -9,7 +9,7 @@ body {
   font-size: var(--body-size);
   font-family: var(--body-font);
   line-height: var(--line-height);
-  padding: calc(var(--line-height) * 3) 0 calc(var(--line-height) * 5);
+  padding: calc(var(--line-height) * 4) 0 calc(var(--line-height) * 5);
 }
 
 main {
@@ -65,7 +65,7 @@ code {
 
 img {
   display: block;
-  margin: 0 auto calc(var(--line-height) * 2);
+  margin: 0 auto calc(var(--line-height) * 3);
   max-width: 100%;
   height: calc(var(--line-height) * 5);
 }
