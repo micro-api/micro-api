@@ -6,7 +6,7 @@ A media type for resilient web APIs using hypermedia. Its goal is to cover a min
 application/vnd.micro+json
 ```
 
-The media type proposal is currently pending from the [IANA](http://www.internetassignednumbersauthority.org/).
+The media type is [registered](http://www.iana.org/assignments/media-types) with the [Internet Assigned Numbers Authority](http://www.iana.org/).
 
 
 ## Motivation and Purpose
