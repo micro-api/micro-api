@@ -21,6 +21,7 @@ It should be assumed that the network protocol should facilitate common actions 
 ## Key Concepts
 
 - All records are uniquely identified by `@id` and `@type`.
+- A type is just a collection of records that share the same set of `@links`. It may be inferred that a type has a schema associated with it, but this is optional.
 - All types have links to collections which requests may be made to.
 - The relationship graph is entirely defined in the entry point and subsets of it may appear in other entities.
 - Inverse links should be assumed to make reciprocal updates on linked records.
