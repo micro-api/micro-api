@@ -15,15 +15,15 @@
   "author": "Dali Zheng",
   "license": "CC0",
   "dependencies": {
-    "http-server": "^0.7.5"
+    "http-server": "^0.8.0"
   },
   "devDependencies": {
-    "babel": "^4.7.12",
+    "babel": "^4.7.16",
     "babel-eslint": "^2.0.2",
-    "eslint": "^0.17.0",
+    "eslint": "^0.17.1",
     "highlight.js": "^8.4.0",
     "html-minifier": "^0.7.0",
-    "jsdom": "^4.0.2",
+    "jsdom": "^4.0.3",
     "marked": "^0.3.3",
     "mustache": "^1.1.0",
     "myth": "^1.4.0"
