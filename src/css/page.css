@@ -16,6 +16,8 @@ main {
   margin: auto;
   max-width: var(--max-width);
   padding: 0 calc(var(--line-height) * 1);
+  text-align: justify;
+  hyphens: auto;
 }
 
 a {
