@@ -3,7 +3,7 @@ body {
   background-image: url('./bg.svg');
   background-position: center;
   background-repeat: repeat;
-  background-size: 60%;
+  background-size: 50%;
   background-attachment: fixed;
   color: var(--color-primary);
   font-size: var(--body-size);
@@ -19,7 +19,7 @@ main {
 }
 
 a {
-  color: var(--color-link);
+  color: inherit;
 }
 
 pre, code {
@@ -91,7 +91,7 @@ h2 a.anchor {
 }
 
 ul {
-  margin-left: var(--line-height);
+  margin-left: 1em;
 }
 
 table {
