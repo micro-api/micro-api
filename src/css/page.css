@@ -3,7 +3,7 @@ body {
   background-image: url('./bg.svg');
   background-position: center;
   background-repeat: repeat;
-  background-size: 50%;
+  background-size: 60%;
   background-attachment: fixed;
   color: var(--color-primary);
   font-size: var(--body-size);
