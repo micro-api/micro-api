@@ -3,7 +3,7 @@ body {
   background-image: url('./bg.svg');
   background-position: center;
   background-repeat: repeat;
-  background-size: 60%;
+  background-size: calc(100% / 2);
   background-attachment: fixed;
   color: var(--color-primary);
   font-size: var(--body-size);
@@ -27,6 +27,7 @@ a {
 pre, code {
   font-family: var(--mono-font);
   font-size: calc(1em / var(--size-ratio));
+  line-height: calc(var(--line-height) * var(--size-ratio));
 }
 
 pre {
@@ -62,7 +63,6 @@ code {
   background-color: var(--color-alt);
   border-radius: var(--border-radius);
   padding: 0.1em 0.3em;
-  line-height: calc(var(--line-height) * var(--size-ratio));
 }
 
 img {
