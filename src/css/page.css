@@ -39,6 +39,10 @@ pre {
   overflow: auto;
 }
 
+pre:first-of-type {
+  color: var(--color-dark);
+}
+
 pre.group {
   border-radius: var(--big-border-radius) var(--big-border-radius) 0 0;
   margin: 0;
@@ -63,6 +67,10 @@ code {
   background-color: var(--color-alt);
   border-radius: var(--border-radius);
   padding: 0.1em 0.3em;
+}
+
+code.lang-http span {
+  color: var(--color-primary);
 }
 
 img {

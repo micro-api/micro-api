@@ -18,14 +18,14 @@
     "http-server": "^0.8.0"
   },
   "devDependencies": {
-    "babel": "^4.7.16",
-    "babel-eslint": "^2.0.2",
-    "eslint": "^0.17.1",
-    "highlight.js": "^8.4.0",
-    "html-minifier": "^0.7.0",
-    "jsdom": "^4.0.4",
+    "babel": "^5.1.11",
+    "babel-eslint": "^3.0.1",
+    "eslint": "^0.19.0",
+    "highlight.js": "^8.5.0",
+    "html-minifier": "^0.7.2",
+    "jsdom": "^5.0.1",
     "marked": "^0.3.3",
-    "mustache": "^1.1.0",
+    "mustache": "^2.0.0",
     "myth": "^1.4.0"
   }
 }
