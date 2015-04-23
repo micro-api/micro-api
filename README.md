@@ -11,7 +11,7 @@ The media type is [registered](http://www.iana.org/assignments/media-types) with
 
 ## Introduction
 
-Micro API aims to limit its scope to a minimum of practical concerns. It is mostly concerned with the structure of the payload, and does not dictate how the server should implement HTTP. Concepts relevant to APIs such as querying, operational transforms, schemas, and linked data are opaque to this specification.
+Micro API aims to limit its scope to a minimum of practical concerns for implementing a hypermedia API, as the name implies. It is mostly concerned with the structure of the payload, and does not dictate how the server should implement HTTP. Concepts relevant to APIs such as querying, operational transforms, schemas, and linked data are opaque to this specification.
 
 Micro API draws some inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification. It should follow [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
 
