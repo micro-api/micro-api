@@ -59,15 +59,15 @@ The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions, which are considered normative:
 
 - The top-level JSON object **MUST** be singular, not an array.
-- The `@links` and `@meta` object **MAY** only exist at the top-level and per record.
-- The top level object **MAY** only contain `@meta`, `@links`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
+- The `@links` and `@meta` object **MUST** exist at the top-level and per record.
+- The top level object **MUST** contain `@meta`, `@links`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
 - Every record **MUST** contain an `@id` field and a `@links` object. A record's `@links` object **MUST** contain at least a `@href` field to link to the individual record, and optionally contain relationship objects that **MUST** contain at least `@href` and `@id` fields.
-- The top-level `@links` object **MUST** exist and **MAY** only contain fields corresponding to a `@type`, and each field **MUST** be valued as an object with at least a `@href` field that refers to the collection of records of that type.
-- The `@href` field **MAY** only exist within a `@links` object.
+- The top-level `@links` object **MUST** exist and **MUST** contain fields corresponding to a `@type`, and each field **MUST** be valued as an object with at least a `@href` field that refers to the collection of records of that type.
+- The `@href` field **MUST** exist within a `@links` object.
 - `@array`, `@type`, and `@inverse` **MUST** exist on a relationship field object in the top-level `@links` object.
-- `@error` object **MAY** only exist at the top-level and other fields **SHOULD NOT** exist at the top-level when it is present.
+- `@error` object **MUST** exist at the top-level and other fields **SHOULD NOT** exist at the top-level when it is present.
 - Request payloads are limited to the following reserved keys: `@links` (on records only), `@id`, and `@operate`. All other reserved keys **SHOULD** be ignored.
-- `@operate` **MAY** only exist per record in a request payload to update a record.
+- `@operate` **MUST** exist per record in a request payload to update a record.
 
 
 ## Entry Point
