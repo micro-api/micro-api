@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-A media type for resilient web APIs using hypermedia. Its goal is to cover a minimal surface area of a hypermedia API that uses JSON as its format, and nothing more. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification. There are no optional features, everything is required to implement. The media type is:
+A media type for resilient web APIs using hypermedia. Its goal is to cover a minimal surface area of a hypermedia API that uses JSON as its format, and nothing more. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification. The media type is:
 
 ```
 application/vnd.micro+json
@@ -26,7 +26,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 ## Key Concepts
 
 - All records **MUST** uniquely identified by `@id` and `@type`.
-- A type is just a collection of records that share the same set of `@links`. It can be inferred that a type has a schema associated with it, but this is **OPTIONAL**.
+- A type is just a collection of records that share the same set of `@links`. It can be inferred that a type has a schema associated with it, but this is not required.
 - All types have links to collection endpoints which requests can be made to.
 - The relationship graph is entirely defined in the entry point and subsets of it can appear in other entities.
 - Inverse links **SHOULD** be assumed to make reciprocal updates on linked records.
@@ -46,7 +46,7 @@ All reserved keywords are prefixed with a `@` symbol. Here is an enumeration of 
 | `@href`      | `String`   | An absolute or relative link. |
 | `@id`        | `null`, `String`, `[String]` | Each record **MUST** have an ID, it **MAY** also refer to foreign IDs. |
 | `@inverse`   | `null`, `String`   | A link **MUST** define an inverse link if it is bi-directional. |
-| `@links`     | `Object`   | Each record **MUST** have this object with at least the `@href` property. It **MAY** also exist at the top level to describe links. |
+| `@links`     | `Object`   | Each record **MUST** have this object with at least the `@href` property. It **MUST** also exist at the top level to describe links. |
 | `@meta`      | `Object`   | Anything goes here, it's the junk drawer. This **MAY** exist at either the top level or per record. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
 | `@type`      | `String`   | Type of a record. Synonymous with collection. |
@@ -59,15 +59,15 @@ The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions, which are considered normative:
 
 - The top-level JSON object **MUST** be singular, not an array.
-- The `@links` and `@meta` object **MUST** exist at the top-level and per record.
-- The top level object **MUST** contain `@meta`, `@links`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
+- The `@links` and `@meta` object **MUST** only exist at the top-level and per record.
+- The top level object **MUST** only contain `@meta`, `@links`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
 - Every record **MUST** contain an `@id` field and a `@links` object. A record's `@links` object **MUST** contain at least a `@href` field to link to the individual record, and optionally contain relationship objects that **MUST** contain at least `@href` and `@id` fields.
-- The top-level `@links` object **MUST** exist and **MUST** contain fields corresponding to a `@type`, and each field **MUST** be valued as an object with at least a `@href` field that refers to the collection of records of that type.
-- The `@href` field **MUST** exist within a `@links` object.
+- The top-level `@links` object **MUST** exist and **MUST** only contain fields corresponding to a `@type`, and each field **MUST** be valued as an object with at least a `@href` field that refers to the collection of records of that type.
+- The `@href` field **MUST** only exist within a `@links` object.
 - `@array`, `@type`, and `@inverse` **MUST** exist on a relationship field object in the top-level `@links` object.
-- `@error` object **MUST** exist at the top-level and other fields **SHOULD NOT** exist at the top-level when it is present.
+- `@error` object can only exist at the top-level and other fields **SHOULD NOT** exist at the top-level when it is present.
 - Request payloads are limited to the following reserved keys: `@links` (on records only), `@id`, and `@operate`. All other reserved keys **SHOULD** be ignored.
-- `@operate` **MUST** exist per record in a request payload to update a record.
+- `@operate` can only exist per record in a request payload to update a record.
 
 
 ## Entry Point
