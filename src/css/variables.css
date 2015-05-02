@@ -3,26 +3,26 @@
   /* colors */
   --color-background:   #323e4e;
   --color-dark:         #ffffff;
-  --color-primary:      rgba(255, 255, 255, 0.74);
+  --color-primary:      rgba(255, 255, 255, 0.75);
   --color-link:         #3aaaff;
   --color-attribute:    #8FB2DB;
   --color-value:        #A5F2D6;
   --color-literal:      #DFA5F2;
-  --color-border:       rgba(255, 255, 255, 0.09);
-  --color-alt-head:     rgba(255, 255, 255, 0.06);
-  --color-alt:          rgba(255, 255, 255, 0.03);
+  --color-border:       rgba(255, 255, 255, 0.1);
+  --color-alt-head:     rgba(255, 255, 255, 0.05);
+  --color-alt:          rgba(255, 255, 255, 0.025);
 
   /* fonts */
   --body-font: 'Varela Round', sans-serif;
   --mono-font: 'Inconsolata', monospace;
 
   /* measurements */
-  --max-width: 48em;
+  --max-width: 44em;
   --mobile-breakpoint: 640px;
   --body-size: 16px;
-  --size-ratio: calc(17 / 19);
-  --line-height: calc(1em * 27 / 17);
+  --size-ratio: calc(16 / 18);
+  --line-height: calc(1em * 24 / 16);
   --border-radius: 3px;
-  --big-border-radius: 5px;
+  --big-border-radius: 6px;
 
 }
