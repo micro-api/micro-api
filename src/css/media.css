@@ -26,7 +26,7 @@
     margin-top: calc(var(--line-height) * 5 / 3);
   }
 
-  .top-links {
+  .top-links, .top-line {
     display: none;
   }
 

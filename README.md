@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia. The specification covers basic requirements of a hypermedia API that uses JSON as its format, and nothing more.
+Micro API is a media type for web APIs using hypermedia. The specification covers basic requirements for hypermedia APIs that use JSON as a format.
 
 ```
 Content-Type: application/vnd.micro+json
@@ -11,7 +11,7 @@ The media type is [registered](http://www.iana.org/assignments/media-types) with
 
 ## Introduction
 
-Micro API is only concerned with the structure of the payload, and does not dictate how the server should implement the application protocol. Concepts relevant to APIs such as querying, schemas, and linked data are opaque to this specification. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification.
+Micro API is only concerned with the structure of the payload, and does not dictate how the server should implement the application protocol. Concepts such as querying, schemas, and linked data are opaque to this specification. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification.
 
 The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI, but could support all of the H-Factors by extending the base specification. It should follow [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
 
