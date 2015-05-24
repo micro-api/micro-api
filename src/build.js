@@ -35,7 +35,7 @@ const readme = fs.readFileSync(paths.readme).toString()
 renderer.heading = (text, level) => {
   let escapedText = text.toLowerCase().replace(/[^\w]+/g, '-')
 
-  return `<h${level}>${text} <a name="${escapedText}" class="anchor" ` +
+  return `<h${level} id="${escapedText}">${text} <a class="anchor" ` +
     `href="#${escapedText}" title="Link to this section “${text}”">#</a>` +
     `</h${level}>`
 }
