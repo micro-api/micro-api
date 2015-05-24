@@ -73,6 +73,13 @@ aside {
   text-align: left;
 }
 
+aside img {
+  height: calc(var(--line-height) * 1);
+  line-height: calc(var(--line-height) * 1);
+  margin-right: calc(var(--line-height) * 1 / 2);
+  vertical-align: middle;
+}
+
 aside div {
   position: relative;
   padding-bottom: calc(var(--line-height) * 1 / 2);
@@ -175,6 +182,15 @@ h1 {
   color: var(--color-dark);
   font-size: 1em;
   margin-bottom: calc(var(--line-height) * 2);
+}
+
+h1 a {
+  text-decoration: none;
+}
+
+h1 span {
+  position: relative;
+  top: calc(1em / 5);
 }
 
 h2 {
