@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for resilient web APIs using hypermedia. The purpose is to cover the minimum requirements of a hypermedia API that uses JSON as its format, and nothing more.
+Micro API is a media type for web APIs using hypermedia. The specification covers basic requirements of a hypermedia API that uses JSON as its format, and nothing more.
 
 ```
 Content-Type: application/vnd.micro+json

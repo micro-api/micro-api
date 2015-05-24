@@ -18,7 +18,7 @@
   --mono-font: 'Inconsolata', monospace;
 
   /* measurements */
-  --max-width: 60em;
+  --max-width: 65em;
   --menu-width: 15em;
   --mobile-breakpoint: 640px;
   --body-size: 16px;
@@ -26,5 +26,6 @@
   --line-height: calc(1em * 26 / 16);
   --border-radius: 3px;
   --big-border-radius: 6px;
+  --fade-speed: 0.15s;
 
 }

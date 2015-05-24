@@ -23,7 +23,7 @@
   }
 
   h2 {
-    margin-top: calc(var(--line-height) * 4 / 3);
+    margin-top: calc(var(--line-height) * 5 / 3);
   }
 
   .top-links {

@@ -1,11 +1,11 @@
 {
   "name": "micro-api",
   "version": "1.0.0",
-  "description": "A media type for resilient web APIs using hypermedia.",
+  "description": "A media type for serializing hypermedia APIs.",
   "homepage": "http://micro-api.org",
   "private": true,
   "scripts": {
-    "start": ": ${PORT:=4096}; make build && http-server dist -p $PORT",
+    "start": ": ${PORT:=2048}; make build && http-server dist -p $PORT",
     "deploy": "make && make deploy"
   },
   "repository": {
