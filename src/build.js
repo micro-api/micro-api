@@ -1,67 +1,85 @@
-import fs from 'fs';
-import path from 'path';
-import mustache from 'mustache';
-import minifier from 'html-minifier';
-import marked from 'marked';
-import hjs from 'highlight.js';
-import jsdom from 'jsdom';
+import fs from 'fs'
+import path from 'path'
+import mustache from 'mustache'
+import minifier from 'html-minifier'
+import marked from 'marked'
+import hjs from 'highlight.js'
+import jsdom from 'jsdom'
 
 
-const renderer = new marked.Renderer();
+const renderer = new marked.Renderer()
 
-const lineBreak = '\n';
+const lineBreak = '\n'
 const firstLine = '[![Micro API](./assets/logo_light.svg)]' +
-  '(https://github.com/micro-api/micro-api)';
+  '(https://github.com/micro-api/micro-api)'
 
-const from = str => path.join(__dirname, str);
+const from = str => path.join(__dirname, str)
 const pkg = JSON.parse(fs.readFileSync(
-  from('../package.json')).toString());
+  from('../package.json')).toString())
 
 const paths = {
   readme: from('../README.md'),
   template: from('templates/index.html'),
   destination: from('../dist/index.html')
-};
+}
 
 const minifierSettings = {
   collapseWhitespace: true
-};
+}
 
 const readme = fs.readFileSync(paths.readme).toString()
   .split(lineBreak).map((line, number) => number === 0 ?
-    firstLine : line).join(lineBreak);
+    firstLine : line).join(lineBreak)
 
 
 renderer.heading = (text, level) => {
-  let escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+  let escapedText = text.toLowerCase().replace(/[^\w]+/g, '-')
 
   return `<h${level}>${text} <a name="${escapedText}" class="anchor" ` +
     `href="#${escapedText}" title="Link to this section “${text}”">#</a>` +
-    `</h${level}>`;
-};
+    `</h${level}>`
+}
+
 
 marked.setOptions({
   highlight: code => hjs.highlightAuto(code).value
-});
+})
+
+
+let menu
 
 
 new Promise(resolve =>
   jsdom.env(marked(readme, { renderer }), (errors, window) => {
-    [...window.document.querySelectorAll('pre')].map(node => {
-      let previous = node.previousSibling.previousSibling;
-      let next = node.nextSibling.nextSibling;
+    const { document } = window
 
-      if (~[previous.nodeName, next.nodeName].indexOf('PRE')) {
-        node.className += 'group';
-      }
+    document.querySelector('p:first-of-type').className = 'header'
 
-      return node;
-    });
+    const pre = [ ...document.querySelectorAll('pre') ]
 
-  return resolve(window.document.body.innerHTML);
-})).then(content => {
+    pre.map(node => {
+      const { previousSibling } = node.previousSibling
+      const { nextSibling } = node.nextSibling
+      const names = new Set([ previousSibling.nodeName, nextSibling.nodeName ])
+
+      if (names.has('PRE'))
+        node.className += 'group'
+
+      return node
+    })
+
+    const headers = [ ...document.querySelectorAll('h1, h2, h3') ]
+
+    menu = '<ul>' + headers.map(node =>
+      '<li><a href="#' + node.children[0].href.split('#')[1] + '">' +
+        node.textContent.slice(0, -2) + '</a></li>').join('') + '</ul>'
+
+    return resolve(window.document.body.innerHTML)
+  }))
+
+.then(content => {
   fs.writeFileSync(paths.destination, minifier.minify(
   mustache.render(fs.readFileSync(paths.template).toString(), {
-    content, pkg
-  }), minifierSettings));
-});
+    content, menu, pkg
+  }), minifierSettings))
+})

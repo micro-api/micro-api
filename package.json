@@ -5,12 +5,12 @@
   "homepage": "http://micro-api.org",
   "private": true,
   "scripts": {
-    "start": ": ${PORT:=4096}; make && http-server dist -p $PORT",
+    "start": ": ${PORT:=4096}; make build && http-server dist -p $PORT",
     "deploy": "make && make deploy"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/micro-api/micro-media-type.git"
+    "url": "https://github.com/micro-api/micro-api.git"
   },
   "author": "Dali Zheng",
   "license": "CC0",
@@ -18,14 +18,17 @@
     "http-server": "^0.8.0"
   },
   "devDependencies": {
-    "babel": "^5.2.6",
-    "babel-eslint": "^3.0.1",
-    "eslint": "^0.20.0",
-    "highlight.js": "^8.5.0",
+    "babel": "^5.4.7",
+    "babel-eslint": "^3.1.8",
+    "eslint": "^0.21.2",
+    "highlight.js": "^8.6.0",
     "html-minifier": "^0.7.2",
-    "jsdom": "^5.3.0",
+    "jsdom": "^5.4.3",
     "marked": "^0.3.3",
     "mustache": "^2.0.0",
     "myth": "^1.4.0"
+  },
+  "engines": {
+    "iojs": ">=2"
   }
 }

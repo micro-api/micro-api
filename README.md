@@ -1,9 +1,9 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-A media type for resilient web APIs using hypermedia. Its goal is to cover a minimal surface area of a hypermedia API that uses JSON as its format, and nothing more. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification. The media type is:
+Micro API is a media type for resilient web APIs using hypermedia. The purpose is to cover the minimum requirements of a hypermedia API that uses JSON as its format, and nothing more.
 
 ```
-application/vnd.micro+json
+Content-Type: application/vnd.micro+json
 ```
 
 The media type is [registered](http://www.iana.org/assignments/media-types) with the [IANA](http://www.iana.org/).
@@ -11,9 +11,9 @@ The media type is [registered](http://www.iana.org/assignments/media-types) with
 
 ## Introduction
 
-Micro API aims to limit its scope to a minimum of practical concerns for implementing a hypermedia API, as the name implies. It is mostly concerned with the structure of the payload, and does not dictate how the server should implement HTTP. Concepts relevant to APIs such as querying, operational transforms, schemas, and linked data are opaque to this specification.
+Micro API is mostly concerned with the structure of the payload, and does not dictate how the server should implement HTTP. Concepts relevant to APIs such as querying, operational transforms, schemas, and linked data are opaque to this specification. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification.
 
-Micro API draws some inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and formal in its restrictions. Its [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI in the base specification, but could support all of the H-Factors by extending the base specification. It should follow [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
+Micro API draws some inspiration from [JSON API](http://jsonapi.org) but is more limited in scope and generally more permissive. The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI, but could support all of the H-Factors by extending the base specification. It should follow [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
 
 
 ## Reading this Document
@@ -322,14 +322,6 @@ If a request fails for any reason, it **MUST** return a single `@error` object. 
 ```
 
 
-## Caveats
-
-Do not use this media type if:
-
-- Your API requires polymorphic types in relationships. Micro API does not define the semantics to express this.
-- Your records do not have unique IDs. This shouldn't be too much of a burden.
-
-
 ## Extending
 
 Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting, since these are extraneous concerns. The `@meta` object **MAY** contain hints on what queries can be appended to GET requests. For example:
@@ -381,6 +373,14 @@ Extensions of the base specification is considered out-of-band information, and 
   }]
 }
 ```
+
+
+## Caveats
+
+Do not use this media type if:
+
+- Your API requires polymorphic types in relationships. Micro API does not define the semantics to express this.
+- Your records do not have unique IDs. This shouldn't be too much of a burden.
 
 
 ## About

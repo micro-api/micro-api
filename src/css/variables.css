@@ -1,27 +1,29 @@
 :root {
 
   /* colors */
-  --color-background:   #323e4e;
-  --color-dark:         #ffffff;
-  --color-primary:      rgba(255, 255, 255, 0.75);
-  --color-link:         #3aaaff;
+  --color-background:   #36404D;
+  --color-dark:         #FFFFFF;
+  --color-primary:      rgba(255, 255, 255, 0.76);
+  --color-secondary:    rgba(255, 255, 255, 0.32);
+  --color-link:         #3AAAFF;
   --color-attribute:    #8FB2DB;
   --color-value:        #A5F2D6;
   --color-literal:      #DFA5F2;
-  --color-border:       rgba(255, 255, 255, 0.1);
-  --color-alt-head:     rgba(255, 255, 255, 0.05);
-  --color-alt:          rgba(255, 255, 255, 0.025);
+  --color-border:       rgba(255, 255, 255, 0.09);
+  --color-alt-head:     rgba(255, 255, 255, 0.06);
+  --color-alt:          rgba(255, 255, 255, 0.03);
 
   /* fonts */
   --body-font: 'Varela Round', sans-serif;
   --mono-font: 'Inconsolata', monospace;
 
   /* measurements */
-  --max-width: 48em;
+  --max-width: 62em;
+  --menu-width: 15em;
   --mobile-breakpoint: 640px;
   --body-size: 16px;
   --size-ratio: calc(16 / 18);
-  --line-height: calc(1em * 25 / 16);
+  --line-height: calc(1em * 26 / 16);
   --border-radius: 3px;
   --big-border-radius: 6px;
 
