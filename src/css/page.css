@@ -29,12 +29,12 @@ main:before {
   right: 100%;
   width: 200%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.16);
-  /*background-image: url('./bg.svg');
+  background-color: rgba(0, 0, 0, 0.12);
+  background-image: url('./bg.svg');
   background-position: center;
   background-repeat: repeat;
-  background-size: calc(100% / 8);
-  background-attachment: fixed;*/
+  background-size: calc(100% / 6);
+  background-attachment: fixed;
 }
 
 a {
@@ -69,7 +69,7 @@ aside {
     calc(var(--line-height) * 1)
     calc(var(--line-height) * 1)
     0;
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: rgba(0, 0, 0, 0.06);
   overflow: auto;
   text-align: left;
 }

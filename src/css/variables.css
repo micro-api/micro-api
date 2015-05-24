@@ -3,8 +3,8 @@
   /* colors */
   --color-background:   #36404D;
   --color-dark:         #FFFFFF;
-  --color-primary:      rgba(255, 255, 255, 0.76);
-  --color-secondary:    rgba(255, 255, 255, 0.32);
+  --color-primary:      rgba(255, 255, 255, 0.75);
+  --color-secondary:    rgba(255, 255, 255, 0.35);
   --color-link:         #3AAAFF;
   --color-attribute:    #8FB2DB;
   --color-value:        #A5F2D6;
@@ -18,8 +18,8 @@
   --mono-font: 'Inconsolata', monospace;
 
   /* measurements */
-  --max-width: 65em;
-  --menu-width: 15em;
+  --max-width: 66em;
+  --menu-width: 16em;
   --mobile-breakpoint: 640px;
   --body-size: 16px;
   --size-ratio: calc(16 / 18);
