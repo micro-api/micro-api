@@ -11,9 +11,9 @@ The media type is [registered](http://www.iana.org/assignments/media-types) with
 
 ## Introduction
 
-Micro API is only concerned with the structure of the payload, and does not dictate how the server should implement the application protocol. Concepts such as querying, schemas, and linked data are opaque to this specification. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification.
+Micro API is only concerned with the structure of the payload, and does not restrict how the server should implement the application protocol (typically HTTP). Example payloads and HTTP requests should be considered non-normative.
 
-The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI, but could support all of the H-Factors by extending the base specification. It should follow [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
+The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI, but could support all of the H-Factors by extending the base specification. Concepts such as querying, schemas, and linked data are opaque to this specification. It should follow [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification.
 
 
 ## Reading this Document
@@ -25,16 +25,17 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 ## Key Concepts
 
-- A type is just a collection of records that share the same set of `@links`. It can be inferred that a type has a schema associated with it, but this is not required.
-- The relationship graph is entirely defined in the entry point and subsets of it can appear in other entities.
-- There is no distinction between a relationship and an entity.
+- A type is just a collection of records that share the same set of links. It can be inferred that a type has a schema associated with it, but this is not required.
+- The specification is concerned with representing the relationship graph between types.
 - There is no difference in the structure of a payload based on the request.
-- Assume that the application protocol controls the semantics of the interaction.
+- Assume that the application protocol (typically HTTP) controls the semantics of the interaction.
 
 
 ## Reserved Keywords
 
-All reserved keywords are prefixed with a `@` symbol. Here is an enumeration of all of the reserved keywords, which are considered normative:
+*This section should be considered as normative.*
+
+All reserved keywords are prefixed with the symbol `@`. Here is an enumeration of all of the reserved keywords:
 
 | Key          | Type       | Description                                     |
 |:-------------|:-----------|:------------------------------------------------|
@@ -53,7 +54,9 @@ The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org
 
 ## Payload Structure
 
-There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions, which are considered normative:
+*This section should be considered as normative.*
+
+There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
 - The `@links` and `@meta` object **MUST** only exist at the top-level and per record.
 - The top level object **MAY** only contain `@meta`, `@links`, `@error`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
@@ -101,17 +104,14 @@ The top-level `@links` in the index is a superset of that which exists in a coll
 
 ## Finding Records
 
-Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload records. Hint: available queries **MAY** be advertised in the `@meta` object.
+A `GET` request **MAY** be allowed on the collection URI for a particular type.
 
 ```http
-GET /users/1?include=posts
+GET /users?include=posts
 ```
 
 ```json
 {
-  "@meta": {
-    "count": 3
-  },
   "@links": {
     "user": {
       "@href": "/users",
@@ -137,13 +137,13 @@ GET /users/1?include=posts
       "@href": "/users/1",
       "posts": {
         "@href": "/users/1/posts",
-        "@id": ["1", "2"]
+        "@id": ["1"]
       }
     }
   }],
   "post": [{
     "@id": "1",
-    "message": "Micro API is a pretty minimal hypermedia format.",
+    "message": "Micro API is a hypermedia serialization format.",
     "@links": {
       "@href": "/posts/1",
       "author": {
@@ -151,27 +151,19 @@ GET /users/1?include=posts
         "@id": "1"
       }
     }
-  }, {
-    "@id": "2",
-    "message": "Micro API is quite small.",
-    "@links": {
-      "@href": "/posts/2",
-      "author": {
-        "@href": "/posts/2/author",
-        "@id": "1"
-      }
-    }
   }]
 }
 ```
 
+Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload records. Hint: available queries **MAY** be advertised in the `@meta` object.
+
 The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and can be ignored. The top-level fields that are not reserved **MUST** correspond to a `@type`, and their values **MUST** be an array of objects, no singular objects are allowed.
 
-There is no concept of primary versus included documents, it is up to the client to consider which records were requested. The fields `@href` and `@id` are a **MUST** in the `@links` object of a record.
+There is no concept of primary versus included documents, it is up to the client to consider which records were requested. The field `@href` is a **MUST** in the `@links` object of a record, and in each link object.
 
-An `@array` value that is `true` indicates a to-many association, while a singular value indicates a to-one association. The corresponding `@id`s **MUST** match `@array` value of the top-level `@links`. A null value or empty array indicates no link, and it is a **MUST** to include.
+An `@array` value that is `true` indicates a to-many association, while a singular value indicates a to-one association. The corresponding `@id`s **MUST** match `@array` value of the top-level `@links`. If `@id` is specified, a null value or empty array indicates that there are no linked records.
 
-Following the `@href` link within a `@links` object **MUST** return records corresponding to that field.
+Following the `@href` within a `@links` object **MUST** return records corresponding to that field.
 
 ```http
 GET /users/1/posts
@@ -221,21 +213,7 @@ Note that the top-level `@links` omits the `user` information since it is not re
 
 ## Creating Records
 
-Requesting to create an record **MAY** be allowed at wherever URI that type exists.
-
-```http
-POST /users/1/posts
-```
-
-```json
-{
-  "post": [{
-    "message": "Micro API is best type."
-  }]
-}
-```
-
-By posting to a link URI, the server **SHOULD** associate all of the records in the payload to the linked records. An alternative and more flexible way of doing the same thing:
+Requesting to create an record **MAY** be allowed at the collection URI for that type.
 
 ```http
 POST /posts
@@ -244,22 +222,36 @@ POST /posts
 ```json
 {
   "post": [{
-    "message": "Micro API is best type.",
+    "message": "Micro API is a hypermedia serialization format.",
     "@links": {
       "author": {
         "@id": "1"
       }
     }
-  }, {
-    "message": "This post is not linked to an author."
   }]
 }
 ```
 
-Either way is allowed. It may be helpful that the response has a `Location` header. The specification is agnostic about whether client side IDs can be specified, so a payload can include `@id`.
+An alternative way may be posting to a link URI, in which the server **SHOULD** associate all of the records in the payload to the linked records. For example, here is a request which may be isomorphic to the above example:
+
+```http
+POST /users/1/posts
+```
+
+```json
+{
+  "post": [{
+    "message": "Micro API is a hypermedia serialization format."
+  }]
+}
+```
+
+It may be helpful for the response to have a `Location` header, but it is not required since the response body may include a link to the created record. The specification is agnostic about whether client side IDs can be specified, so a payload can include `@id`.
 
 
 ## Updating Records
+
+IDs **MUST** be specified in the payload per record to update, and `PATCH` requests can be made wherever the record exists (side-effect of this: IDs cannot be changed, only specified).
 
 ```http
 PATCH /posts
@@ -283,9 +275,9 @@ PATCH /posts
 }
 ```
 
-IDs **MUST** be specified per record to patch, and patch requests can be made wherever the record exists (side-effect of this: IDs cannot be changed, only specified). If the a specified record does not exist at the requested location, it **SHOULD** return an error. The assumption is that *patch replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. The `PUT` method is highly discouraged and actually a `PUT` request *overwrites* the entire record, so in the vast majority of cases, `PATCH` is actually what you want to do.
+If the a specified record does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
-`PATCH` requests can update existing records, however Micro API does not define the semantics to create or delete with this method. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It **MUST NOT** be allowed to change any reserved property except for an `@id` within `@links`.
+`PATCH` requests can update existing records, however Micro API does not define the semantics to create or delete resources with this method. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It **MUST NOT** be allowed to change any reserved property except for an `@id` within `@links`.
 
 
 ## Deleting Records
@@ -294,7 +286,7 @@ IDs **MUST** be specified per record to patch, and patch requests can be made wh
 DELETE /posts/2
 ```
 
-A delete request can return no payload (204 No Content) if it succeeds, and applies to any accessible URI, including collections. Pretty simple.
+A delete request can return no payload (204 No Content) if it succeeds. It can apply to any URI, including collections.
 
 ```http
 DELETE /users/1/posts
@@ -319,7 +311,7 @@ If a request fails for any reason, it **MUST** return a `@error` object. The con
 
 ## Extending
 
-Micro API does not dictate anything about pagination, filtering, limiting fields, or sorting, since these are extraneous concerns. The `@meta` object **MAY** contain hints on what queries can be appended to GET requests. For example:
+Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc, since these may be coupled with the implementation of the application protocol. For example, the `@meta` object **MAY** contain hints on what queries can be appended to GET requests:
 
 ```json
 {
@@ -333,7 +325,7 @@ Micro API does not dictate anything about pagination, filtering, limiting fields
 
 Additional features **MUST** be additive and optional, and can not conflict with the base specification.
 
-Micro API does not try to restrict arbitrary keys except where it is be necessary, such as at the top level and in the `@links` object. For example, a relationship object can embed additional meta-information about the relationship:
+Micro API does not restrict arbitrary keys except where it is necessary, such as at the root level and in the `@links` object. For example, an object in the `@links` can embed additional meta-information about the link:
 
 ```json
 {
@@ -367,7 +359,7 @@ Micro API does not try to restrict arbitrary keys except where it is be necessar
 Do not use this media type if:
 
 - Your records do not have unique IDs. This shouldn't be too much of a burden.
-- Your API requires polymorphic record types in relationships. Micro API does not define the semantics to express this, and is in fact designed to restrict this use case.
+- Your API requires polymorphic types in links. Micro API does not define the semantics to express this, and is in fact designed to restrict this use case.
 
 
 ## About
