@@ -171,9 +171,6 @@ GET /users/1/posts
 
 ```json
 {
-  "@meta": {
-    "count": 2
-  },
   "@links": {
     "post": {
       "@href": "/posts",
@@ -186,21 +183,11 @@ GET /users/1/posts
   },
   "post": [{
     "@id": "1",
-    "message": "Micro API is cool.",
+    "message": "Micro API is a hypermedia serialization format.",
     "@links": {
       "@href": "/posts/1",
       "author": {
         "@href": "/posts/1/author",
-        "@id": "1"
-      }
-    }
-  }, {
-    "@id": "2",
-    "message": "I like turtles.",
-    "@links": {
-      "@href": "/posts/2",
-      "author": {
-        "@href": "/posts/2/author",
         "@id": "1"
       }
     }
