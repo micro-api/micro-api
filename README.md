@@ -248,15 +248,12 @@ PATCH /posts
 {
   "post": [{
     "@id": "1",
-    "message": "I like APIs.",
+    "message": "I like turtles.",
     "@links": {
       "author": {
-        "@id": "2"
+        "@id": "1"
       }
-    }
-  }, {
-    "@id": "2",
-    "message": "Micro API just works.",
+    },
     "@operate": {}
   }]
 }
@@ -270,7 +267,7 @@ If the a specified record does not exist at the requested location, it **SHOULD*
 ## Deleting Records
 
 ```http
-DELETE /posts/2
+DELETE /posts/1
 ```
 
 A delete request can return no payload (204 No Content) if it succeeds. It can apply to any URI, including collections.
