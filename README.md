@@ -6,7 +6,7 @@ Micro API is a media type for web APIs using hypermedia. The specification cover
 Content-Type: application/vnd.micro+json
 ```
 
-The media type is [registered](http://www.iana.org/assignments/media-types) with the [IANA](http://www.iana.org/).
+The media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
 
 
 ## Introduction
