@@ -18,7 +18,7 @@
   --mono-font: 'Inconsolata', monospace;
 
   /* measurements */
-  --max-width: 65em;
+  --max-width: 67em;
   --menu-width: 15em;
   --body-size: 16px;
   --size-ratio: calc(16 / 18);
