@@ -9,7 +9,8 @@ body {
   font-size: var(--body-size);
   font-family: var(--body-font);
   line-height: var(--line-height);
-  padding: 0 calc(var(--line-height) * 2);
+  padding-right: calc(var(--line-height) * 2);
+  padding-left: calc(var(--line-height) * 2);
 }
 
 main {
@@ -59,7 +60,7 @@ article .header {
   display: none;
 }
 
-aside {
+nav {
   position: fixed;
   width: var(--menu-width);
   height: 100%;
@@ -73,33 +74,33 @@ aside {
   text-align: left;
 }
 
-aside img {
+nav img {
   height: calc(var(--line-height) * 1);
   line-height: calc(var(--line-height) * 1);
   margin-right: calc(var(--line-height) * 1 / 2);
   vertical-align: middle;
 }
 
-aside div {
+nav div {
   position: relative;
   padding-bottom: calc(var(--line-height) * 1 / 2);
   min-height: 100%;
 }
 
-aside ul {
+nav ul {
   list-style-type: none;
   margin: 0;
 }
 
-aside li {
+nav li {
   position: relative;
 }
 
-aside li:first-of-type:before {
+nav li:first-of-type:before {
   display: none;
 }
 
-aside li:before {
+nav li:before {
   position: absolute;
   top: -1px;
   left: 0;
@@ -110,7 +111,7 @@ aside li:before {
   background-color: var(--color-border);
 }
 
-aside li a {
+nav li a {
   text-decoration: none;
   color: var(--color-secondary);
   display: block;
@@ -119,7 +120,7 @@ aside li a {
   padding: calc(var(--line-height) * 1 / 2 * 8 / 7) 0;
 }
 
-aside a:hover {
+nav a:hover {
   color: var(--color-dark);
 }
 

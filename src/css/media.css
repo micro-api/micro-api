@@ -1,3 +1,9 @@
+@media screen and (max-width: 1092px) {
+  body {
+    padding-left: 0;
+  }
+}
+
 @media screen and (max-width: 960px) {
 
   body {
@@ -10,7 +16,7 @@
     text-align: justify;
   }
 
-  aside {
+  nav {
     display: none;
   }
 
