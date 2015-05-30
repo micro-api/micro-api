@@ -15,7 +15,7 @@ body {
 main {
   margin: auto;
   max-width: var(--max-width);
-  text-align: justify;
+  text-align: left;
   hyphens: auto;
   position: relative;
 }
@@ -50,7 +50,7 @@ article {
   padding:
     calc(var(--line-height) * 1)
     calc(var(--line-height) * 1)
-    calc(var(--line-height) * 1)
+    calc(var(--line-height) * 3 / 2)
     calc(var(--line-height) * 3);
   margin-left: var(--menu-width);
   border-left: 1px var(--color-alt-head) solid;
