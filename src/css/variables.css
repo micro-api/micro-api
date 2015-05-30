@@ -20,7 +20,6 @@
   /* measurements */
   --max-width: 65em;
   --menu-width: 15em;
-  --mobile-breakpoint: 640px;
   --body-size: 16px;
   --size-ratio: calc(16 / 18);
   --line-height: calc(1em * 26 / 16);
