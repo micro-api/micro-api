@@ -5,7 +5,7 @@
   "homepage": "http://micro-api.org",
   "private": true,
   "scripts": {
-    "start": ": ${PORT:=2048}; make build && http-server dist -p $PORT",
+    "start": "make build && http-server dist",
     "deploy": "make && make deploy"
   },
   "repository": {

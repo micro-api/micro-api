@@ -15,7 +15,6 @@ body {
 main {
   margin: auto;
   max-width: var(--max-width);
-  text-align: left;
   hyphens: auto;
   position: relative;
 }
