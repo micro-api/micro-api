@@ -107,7 +107,7 @@ The top-level `@links` in the index is a superset of that which exists in a coll
 A `GET` request **MAY** be allowed on the collection URI for a particular type.
 
 ```http
-GET /users?include=posts
+GET /users
 ```
 
 ```json
@@ -119,14 +119,6 @@ GET /users?include=posts
         "@type": "post",
         "@array": true,
         "@inverse": "author"
-      }
-    },
-    "post": {
-      "@href": "/posts",
-      "author": {
-        "@type": "user",
-        "@array": false,
-        "@inverse": "posts"
       }
     }
   },
@@ -140,22 +132,9 @@ GET /users?include=posts
         "@id": ["1"]
       }
     }
-  }],
-  "post": [{
-    "@id": "1",
-    "message": "Micro API is a hypermedia serialization format.",
-    "@links": {
-      "@href": "/posts/1",
-      "author": {
-        "@href": "/posts/1/author",
-        "@id": "1"
-      }
-    }
   }]
 }
 ```
-
-Note that the `include` query is not mandated by the specification, it is left to the implementer to decide how to sideload records. Hint: available queries **MAY** be advertised in the `@meta` object.
 
 The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and can be ignored. The top-level fields that are not reserved **MUST** correspond to a `@type`, and their values **MUST** be an array of objects, no singular objects are allowed.
 
@@ -215,20 +194,6 @@ POST /posts
         "@id": "1"
       }
     }
-  }]
-}
-```
-
-An alternative way may be posting to a link URI, in which the server **SHOULD** associate all of the records in the payload to the linked records. For example, here is a request which may be isomorphic to the above example:
-
-```http
-POST /users/1/posts
-```
-
-```json
-{
-  "post": [{
-    "message": "Micro API is a hypermedia serialization format."
   }]
 }
 ```
