@@ -15,17 +15,17 @@
   "author": "Dali Zheng",
   "license": "CC0",
   "dependencies": {
-    "http-server": "^0.8.0"
+    "http-server": "0.8.0"
   },
   "devDependencies": {
-    "babel": "^5.4.7",
-    "eslint": "^0.21.2",
-    "highlight.js": "^8.6.0",
-    "html-minifier": "^0.7.2",
-    "jsdom": "^5.4.3",
-    "marked": "^0.3.3",
-    "mustache": "^2.0.0",
-    "myth": "^1.4.0"
+    "babel": "5.6.4",
+    "eslint": "0.23.0",
+    "highlight.js": "8.6.0",
+    "html-minifier": "0.7.2",
+    "jsdom": "5.4.3",
+    "marked": "0.3.3",
+    "mustache": "2.1.2",
+    "myth": "1.4.0"
   },
   "engines": {
     "iojs": ">=2"
