@@ -1,6 +1,6 @@
 # Commands
 LINT_CMD = node_modules/.bin/eslint
-MYTH_CMD = node_modules/.bin/myth
+CSS_CMD = node_modules/.bin/cssnext
 NODE_CMD = node_modules/.bin/babel-node
 
 # Directories
@@ -22,7 +22,7 @@ build:
 	mkdir -p $(DIST_DIR) $(DIST_DIR)assets
 	cp -rf $(SRC_DIR)assets $(DIST_DIR)
 	echo $(CNAME) > $(DIST_DIR)CNAME
-	$(MYTH_CMD) -c $(SRC_DIR)css/index.css $(DIST_DIR)assets/index.css
+	$(CSS_CMD) $(SRC_DIR)css/index.css $(DIST_DIR)assets/index.css
 	$(NODE_CMD) $(SRC_DIR)build
 
 

@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
 
-@import "fonts.css";
 @import "variables.css";
 @import "page.css";
 @import "highlight.css";

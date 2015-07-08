@@ -44,7 +44,7 @@ All reserved keywords are prefixed with the symbol `@`. Here is an enumeration o
 | `@href`      | `String`   | An absolute or relative link. |
 | `@id`        | `null`, `String`, `[String]` | Each record **MUST** have an ID. |
 | `@inverse`   | `null`, `String`   | A link **MUST** define an inverse link if it is bi-directional. |
-| `@links`     | `Object`   | Each record **MUST** have this object with at least the `@href` property. It **MUST** also exist at the top level to describe links. |
+| `@links`     | `Object`   | Each record **MUST** have this object with at least the `@href` property. It **MAY** also exist at the top level to describe links. |
 | `@meta`      | `Object`   | Anything goes here, it's the junk drawer. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
 | `@type`      | `String`   | Type of a record. Synonymous with collection. |
@@ -58,10 +58,10 @@ The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org
 
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
-- The `@links` and `@meta` object **MUST** only exist at the top-level and per record.
+- The `@links` and `@meta` object **MUST** only exist at the top-level or per record.
 - The top level object **MAY** only contain `@meta`, `@links`, `@error`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
 - Every record **MUST** contain an `@id` field and a `@links` object. A record's `@links` object **MUST** contain at least a `@href` field to link to the individual record, and optionally contain relationship objects that **MUST** contain at least a `@href` field.
-- The top-level `@links` object **MUST** exist and contain fields corresponding to the `@type`s present in the document, and each field **MUST** be valued as an object with at least a `@href` field that refers to the collection of records of that type.
+- The top-level `@links` object **MUST** enumerate `@type` by field, and each field **MUST** be valued as an object with at least a `@href` field that refers to the collection of records of that type.
 - The `@href` field **MUST** only exist within a `@links` object.
 - `@type` and `@array` **MUST** exist on a relationship field object in the top-level `@links` object.
 - `@error` object can only exist at the top-level.
@@ -99,7 +99,7 @@ GET /
 }
 ```
 
-The top-level `@links` in the index is a superset of that which exists in a collection, it **MUST** enumerate all types and each type **MUST** include the `@href` link per collection. Within a type object, fields that are links **MUST** be enumerated. This lays out the relationship graph between types.
+The top-level `@links` **MUST** enumerate all types and each type **MUST** include the `@href` link per collection. Within a type object, fields that are links **MUST** be enumerated. This lays out the relationship graph between types.
 
 
 ## Finding Records
@@ -112,16 +112,6 @@ GET /users
 
 ```json
 {
-  "@links": {
-    "user": {
-      "@href": "/users",
-      "posts": {
-        "@type": "post",
-        "@array": true,
-        "@inverse": "author"
-      }
-    }
-  },
   "user": [{
     "@id": "1",
     "name": "Dali Zheng",
@@ -140,7 +130,7 @@ The `@links` object in a collection **MUST** be a subset of the index `@links` b
 
 There is no concept of primary versus included documents, it is up to the client to consider which records were requested. The field `@href` is a **MUST** in the `@links` object of a record, and in each link object.
 
-An `@array` value that is `true` indicates a to-many association, while a singular value indicates a to-one association. The corresponding `@id`s **MUST** match `@array` value of the top-level `@links`. If `@id` is specified, a null value or empty array indicates that there are no linked records.
+An `@array` value that is `true` indicates a to-many association, while a singular value indicates a to-one association. If `@id` is specified, a null value or empty array indicates that there are no linked records. The corresponding `@id`s **MUST** match `@array` value of the top-level `@links`.
 
 Following the `@href` within a `@links` object **MUST** return records corresponding to that field.
 
@@ -150,16 +140,6 @@ GET /users/1/posts
 
 ```json
 {
-  "@links": {
-    "post": {
-      "@href": "/posts",
-      "author": {
-        "@type": "user",
-        "@array": false,
-        "@inverse": "posts"
-      }
-    }
-  },
   "post": [{
     "@id": "1",
     "message": "Micro API is a hypermedia serialization format.",
@@ -173,8 +153,6 @@ GET /users/1/posts
   }]
 }
 ```
-
-Note that the top-level `@links` omits the `user` information since it is not required in this context.
 
 
 ## Creating Records

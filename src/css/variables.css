@@ -14,15 +14,15 @@
   --color-alt:          rgba(255, 255, 255, 0.03);
 
   /* fonts */
-  --body-font: 'Varela Round', sans-serif;
-  --mono-font: 'Inconsolata', monospace;
+  --body-font: sans-serif;
+  --mono-font: monospace;
 
   /* measurements */
-  --max-width: 67em;
+  --max-width: 69em;
   --menu-width: 15em;
   --body-size: 16px;
-  --size-ratio: calc(16 / 18);
-  --line-height: calc(1em * 26 / 16);
+  --size-ratio: calc(16 / 16);
+  --line-height: calc(1em * 27 / 16);
   --border-radius: 3px;
   --big-border-radius: 6px;
   --fade-speed: 0.15s;
