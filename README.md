@@ -256,15 +256,6 @@ Micro API does not restrict arbitrary keys except where it is necessary, such as
 
 ```json
 {
-  "@links": {
-    "order": {
-      "customer": {
-        "@type": "customer",
-        "@array": false,
-        "@inverse": "orders"
-      }
-    }
-  },
   "order": [{
     "@id": "1",
     "@links": {
