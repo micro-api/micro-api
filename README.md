@@ -6,7 +6,7 @@ Micro API is a media type for web APIs using hypermedia. The specification cover
 Content-Type: application/vnd.micro+json
 ```
 
-The media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
+The current published version is **12 July 2015**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
 
 
 ## Introduction
@@ -41,10 +41,10 @@ All reserved keywords are prefixed with the symbol `@`. Here is an enumeration o
 |:-------------|:-----------|:------------------------------------------------|
 | `@array`     | `Boolean`  | Indicates whether or not a relationship is to many. |
 | `@error`     | `Object`   | If a request fails for any reason, it **MUST** return an error. |
-| `@href`      | `String`   | An absolute or relative link. |
+| `@href`      | `String`   | An absolute or relative link, it **MUST** be included on each record. |
 | `@id`        | `null`, `String`, `[String]` | Each record **MUST** have an ID. |
 | `@inverse`   | `null`, `String`   | A link **MUST** define an inverse link if it is bi-directional. |
-| `@links`     | `Object`   | Each record **MUST** have this object with at least the `@href` property. It **MAY** also exist at the top level to describe links. |
+| `@links`     | `Object`   | It **MAY** exist at the top level to describe links per type. |
 | `@meta`      | `Object`   | Anything goes here, it's the junk drawer. |
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
 | `@type`      | `String`   | Type of a record. Synonymous with collection. |
@@ -58,14 +58,13 @@ The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org
 
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
-- The `@links` and `@meta` object **MUST** only exist at the top-level or per record.
-- The top level object **MAY** only contain `@meta`, `@links`, `@error`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects. Each non-reserved field **MUST** have a corresponding field in the top-level `@links` object.
-- Every record **MUST** contain an `@id` field and a `@links` object. A record's `@links` object **MUST** contain at least a `@href` field to link to the individual record, and optionally contain relationship objects that **MUST** contain at least a `@href` field.
+- The `@links` and `@meta` object **MUST** only exist at the top-level.
+- The top level object **MAY** only contain `@meta`, `@links`, `@error`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects.
+- Every record **MUST** contain at least an `@id` and a `@href` field.
 - The top-level `@links` object **MUST** enumerate `@type` by field, and each field **MUST** be valued as an object with at least a `@href` field that refers to the collection of records of that type.
-- The `@href` field **MUST** only exist within a `@links` object.
 - `@type` and `@array` **MUST** exist on a relationship field object in the top-level `@links` object.
-- `@error` object can only exist at the top-level.
-- Request payloads are limited to the following reserved keys: `@links` (on records only), `@id`, and `@operate`. All other reserved keys **SHOULD** be ignored.
+- The `@error` object can only exist at the top-level.
+- Request payloads are limited to the following reserved keys: `@id` and `@operate`. All other reserved keys **SHOULD** be ignored.
 
 
 ## Entry Point
@@ -113,26 +112,24 @@ GET /users
 ```json
 {
   "user": [{
+    "@href": "/users/1",
     "@id": "1",
     "name": "Dali Zheng",
-    "@links": {
-      "@href": "/users/1",
-      "posts": {
-        "@href": "/users/1/posts",
-        "@id": ["1"]
-      }
+    "posts": {
+      "@href": "/users/1/posts",
+      "@id": ["1"]
     }
   }]
 }
 ```
 
-The `@links` object in a collection **MUST** be a subset of the index `@links` based on the types that are present in the payload, describing links of other types is extraneous and can be ignored. The top-level fields that are not reserved **MUST** correspond to a `@type`, and their values **MUST** be an array of objects, no singular objects are allowed.
+The top-level fields that are not reserved **MUST** correspond to a `@type`, and their values **MUST** be an array of objects, no singular objects are allowed.
 
-There is no concept of primary versus included documents, it is up to the client to consider which records were requested. The field `@href` is a **MUST** in the `@links` object of a record, and in each link object.
+There is no concept of primary versus included documents, it is up to the client to consider which records were requested.
 
-An `@array` value that is `true` indicates a to-many association, while a singular value indicates a to-one association. If `@id` is specified, a null value or empty array indicates that there are no linked records. The corresponding `@id`s **MUST** match `@array` value of the top-level `@links`.
+If `@id` is specified in a link object, a null value or empty array indicates that there are no linked records. The corresponding `@id`s **MUST** match the `@array` value of the top-level `@links`.
 
-Following the `@href` within a `@links` object **MUST** return records corresponding to that field.
+Following the `@href` within a link object **MUST** return records corresponding to that field.
 
 ```http
 GET /users/1/posts
@@ -141,14 +138,12 @@ GET /users/1/posts
 ```json
 {
   "post": [{
+    "@href": "/posts/1",
     "@id": "1",
     "message": "Micro API is a hypermedia serialization format.",
-    "@links": {
-      "@href": "/posts/1",
-      "author": {
-        "@href": "/posts/1/author",
-        "@id": "1"
-      }
+    "author": {
+      "@href": "/posts/1/author",
+      "@id": "1"
     }
   }]
 }
@@ -167,10 +162,8 @@ POST /posts
 {
   "post": [{
     "message": "Micro API is a hypermedia serialization format.",
-    "@links": {
-      "author": {
-        "@id": "1"
-      }
+    "author": {
+      "@id": "1"
     }
   }]
 }
@@ -192,10 +185,8 @@ PATCH /posts
   "post": [{
     "@id": "1",
     "message": "I like turtles.",
-    "@links": {
-      "author": {
-        "@id": "1"
-      }
+    "author": {
+      "@id": "1"
     },
     "@operate": {}
   }]
@@ -204,7 +195,7 @@ PATCH /posts
 
 If the a specified record does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special reserved key `@operate` which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
-`PATCH` requests can update existing records, however Micro API does not define the semantics to create or delete resources with this method. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It **MUST NOT** be allowed to change any reserved property except for an `@id` within `@links`.
+`PATCH` requests can update existing records, however Micro API does not define the semantics to create or delete resources with this method. By setting a link's `@id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link. It **MUST NOT** be allowed to change any reserved property except for `@id` on a link object.
 
 
 ## Deleting Records
@@ -252,20 +243,18 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
 
 Additional features **MUST** be additive and optional, and can not conflict with the base specification.
 
-Micro API does not restrict arbitrary keys except where it is necessary, such as at the root level and in the `@links` object. For example, an object in the `@links` can embed additional meta-information about the link:
+Micro API does not restrict arbitrary keys except where it is necessary, such as at the root level and in the `@links` object. For example, a link object can embed additional meta-information about the link:
 
 ```json
 {
   "order": [{
+    "@href": "/orders/1",
     "@id": "1",
-    "@links": {
-      "@href": "/orders/1",
-      "customer": {
-        "@href": "/orders/1/customer",
-        "@id": "1",
-        "timesOrdered": 7,
-        "lastShipped": "2015-04-30"
-      }
+    "customer": {
+      "@href": "/orders/1/customer",
+      "@id": "1",
+      "timesOrdered": 7,
+      "lastShipped": "2015-04-30"
     }
   }]
 }
