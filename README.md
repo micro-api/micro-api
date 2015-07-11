@@ -58,7 +58,7 @@ The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org
 
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
-- The `@links` and `@meta` object **MUST** only exist at the top-level.
+- The `@links` object **MUST** only exist at the top-level.
 - The top level object **MAY** only contain `@meta`, `@links`, `@error`, or fields keyed by `@type`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects.
 - Every record **MUST** contain at least an `@id` and a `@href` field.
 - The top-level `@links` object **MUST** enumerate `@type` by field, and each field **MUST** be valued as an object with at least a `@href` field that refers to the collection of records of that type.
