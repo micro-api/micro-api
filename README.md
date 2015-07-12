@@ -57,7 +57,7 @@ The reserved keywords `@id`, `@type`, and `@graph` overlap with [JSON-LD](http:/
 
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
-- The top level object **MAY** only contain `@meta`, `@error`, or `@graph`.
+- The top level object **MUST** only contain `@meta`, `@error`, or `@graph`.
 - Every record and relationship **MUST** contain at least an `@id` field.
 - The top-level `@links` object **MUST** enumerate `@type` by field, and each field **MUST** be valued as an object with at least a `@id` field that refers to the collection of records of that type.
 - `@type` and `@array` **MUST** exist on a relationship field object in the top-level `@links` object.
