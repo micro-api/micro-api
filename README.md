@@ -48,7 +48,7 @@ All reserved keywords are prefixed with the symbol `@`. Here is an enumeration o
 | `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
 | `@error`     | `Object`   | If a request fails for any reason, it **MUST** return an error. |
 
-The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), but **SHOULD** be used interchangeably.
+The reserved keywords `@id`, `@type`, and `@graph` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), and **SHOULD** be used interchangeably.
 
 
 ## Payload Structure
@@ -57,8 +57,8 @@ The reserved keywords `@id` and `@type` overlap with [JSON-LD](http://www.w3.org
 
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
-- The top level object **MAY** only contain `@meta`, `@error`, or `@graph`. Non-reserved fields **SHOULD** be assumed to be types, and **MUST** be valued as arrays of objects.
-- Every record **MUST** contain at least an `@id` field.
+- The top level object **MAY** only contain `@meta`, `@error`, or `@graph`.
+- Every record and relationship **MUST** contain at least an `@id` field.
 - The top-level `@links` object **MUST** enumerate `@type` by field, and each field **MUST** be valued as an object with at least a `@id` field that refers to the collection of records of that type.
 - `@type` and `@array` **MUST** exist on a relationship field object in the top-level `@links` object.
 
