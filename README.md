@@ -233,7 +233,6 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
 {
   "@meta": {
     "include": [],
-    "includeOptions": {},
     "sort": {},
     "field": {},
     "match": {}
@@ -250,8 +249,8 @@ Micro API does not restrict arbitrary keys except where it is necessary, such as
 ```json
 {
   "order": [{
-    "@href": "/orders/1",
-    "@id": "1",
+    "@id": "/orders/1",
+    "id": "1",
     "customer": {
       "@id": "/orders/1/customer",
       "id": "1",
