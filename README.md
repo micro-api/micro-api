@@ -29,6 +29,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 - The specification is concerned with representing the relationship graph between types.
 - Interoperability with JSON-LD is a primary concern of this specification. A JSON-LD client may be able to parse a Micro API document, but without the additional semantics.
+- The `@context` object from JSON-LD is intentionally unspecified. Micro API does not restrict ad-hoc record types, but its structure enables context to be added.
 - Assume that the application protocol controls the flow of the interaction (HTTP `OPTIONS`, `GET`, `POST`, `PATCH`, `DELETE`).
 
 
