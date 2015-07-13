@@ -6,7 +6,7 @@ Micro API is a media type for web APIs using hypermedia and linked data. This sp
 Content-Type: application/vnd.micro+json
 ```
 
-The current published version is **12 July 2015**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
+The current published version is **13 July 2015**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
 
 
 ## Introduction
@@ -39,17 +39,17 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 All reserved keywords are prefixed with the symbol `@`. Here is an enumeration of all of the reserved keywords:
 
-| Key          | Type       | Description                                     |
-|:-------------|:-----------|:------------------------------------------------|
-| `@array`     | `Boolean`  | Indicates whether or not a relationship is to many. |
-| `@type`      | `String`   | Type of a record. |
-| `@inverse`   | `null`, `String` | A link **MUST** define an inverse link if it is bi-directional. |
-| `@id`        | `null`, `String` | Each record and relationship **MUST** have an ID. |
-| `@graph`     | `Object`   | Container for records. |
-| `@links`     | `Object`   | An object describing the relationship graph. |
-| `@meta`      | `Object`   | Anything goes here, it's the junk drawer. |
-| `@operate`   | `Object`   | Reserved for arbitrary operations to update an record. |
-| `@error`     | `Object`   | If a request fails for any reason, it **MUST** return an error. |
+| Key          | Type             | Description                                                   |
+|:-------------|:-----------------|:--------------------------------------------------------------|
+| `@array`     | `Boolean`        | Indicates whether or not a relationship is to many.           |
+| `@type`      | `String`         | Type of a record.                                             |
+| `@inverse`   | `null`, `String` | The inverse field of a relationship.                          |
+| `@id`        | `String`         | Each record **MUST** have an ID.                              |
+| `@graph`     | `Object`         | Container for records.                                        |
+| `@links`     | `Object`         | An object describing the relationship graph.                  |
+| `@meta`      | `Object`         | Anything goes here, it's the junk drawer.                     |
+| `@operate`   | `Object`         | Reserved for arbitrary operations to update an record.        |
+| `@error`     | `Object`         | If a request fails, it **MUST** return an error.              |
 
 The reserved keywords `@id`, `@type`, and `@graph` overlap with [JSON-LD](http://www.w3.org/TR/json-ld/), and **SHOULD** be used interchangeably.
 
@@ -61,7 +61,7 @@ The reserved keywords `@id`, `@type`, and `@graph` overlap with [JSON-LD](http:/
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
 - The top level object **MUST** only contain `@meta`, `@error`, `@links`, or `@graph`.
-- Every record and relationship **MUST** contain at least an `@id` field.
+- Every record **MUST** contain at least an `@id` field, and every link object must contain a `@id` field.
 - The top-level `@links` object **MUST** enumerate `@type` by field, and each field **MUST** be valued as an object with at least a `@id` field that refers to the collection of records of that type.
 - `@type` and `@array` **MUST** exist on a relationship field object in the top-level `@links` object.
 
