@@ -18,8 +18,8 @@
   --mono-font: 'Lucida Console', 'Monaco', 'Bitstream Vera Sans Mono', monospace;
 
   /* measurements */
-  --max-width: 72em;
-  --menu-width: 16em;
+  --max-width: 70em;
+  --menu-width: 15em;
   --body-size: 16px;
   --size-ratio: calc(16 / 16);
   --line-height: calc(1em * 27 / 16);

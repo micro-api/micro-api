@@ -222,9 +222,10 @@ ul {
 }
 
 table {
-    border-spacing: 0;
-    border-collapse: collapse;
-    position: relative;
+  min-width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  position: relative;
 }
 
 table td, table th {
