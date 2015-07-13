@@ -20,6 +20,8 @@ The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) sup
 
 Micro API extends the generic JSON media type, defined in [RFC 4627](https://www.ietf.org/rfc/rfc4627), and more specifically the [JSON-LD](http://json-ld.org) media type.
 
+This specification uses the terms [IRI](https://en.wikipedia.org/wiki/Internationalized_resource_identifier), [API](https://en.wikipedia.org/wiki/Web_API), [hypermedia](https://en.wikipedia.org/wiki/Hypermedia), & [linked data](https://en.wikipedia.org/wiki/Linked_data) accordingly.
+
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and **OPTIONAL** in this specification have the meaning defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119).
 
 
@@ -99,7 +101,7 @@ The top-level `@links` **MUST** enumerate all types and each type **MUST** inclu
 
 ## Finding Records
 
-A `GET` request **MAY** be allowed on the collection URI for a particular type.
+A `GET` request **MAY** be allowed on the collection IRI for a particular type.
 
 ```http
 GET /users
@@ -148,7 +150,7 @@ GET /users/1/posts
 
 ## Creating Records
 
-Requesting to create an record **MAY** be allowed at the collection URI for that type.
+Requesting to create an record **MAY** be allowed at the collection IRI for that type.
 
 ```http
 POST /posts
@@ -202,7 +204,7 @@ If the a specified record does not exist at the requested location, it **SHOULD*
 DELETE /posts/1
 ```
 
-A delete request can return no payload (204 No Content) if it succeeds. It can apply to any URI, including collections.
+A delete request can return no payload (204 No Content) if it succeeds. It can apply to any IRI, including collections.
 
 ```http
 DELETE /users/1/posts
