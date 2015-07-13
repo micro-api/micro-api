@@ -43,7 +43,7 @@ All reserved keywords are prefixed with the symbol `@`. Here is an enumeration o
 |:-------------|:-----------------|:--------------------------------------------------------------|
 | `@array`     | `Boolean`        | Indicates whether or not a relationship is to many.           |
 | `@type`      | `String`         | Type of a record.                                             |
-| `@inverse`   | `null`, `String` | The inverse field of a relationship.                          |
+| `@inverse`   | `String`         | The inverse field of a relationship.                          |
 | `@id`        | `String`         | Each record **MUST** have an ID.                              |
 | `@graph`     | `Object`         | Container for records.                                        |
 | `@links`     | `Object`         | An object describing the relationship graph.                  |
