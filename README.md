@@ -159,7 +159,7 @@ POST /posts
 ```json
 {
   "@graph": [{
-    "@type": "post"
+    "@type": "post",
     "message": "Micro API is a hypermedia serialization format.",
     "author": {
       "id": "1"
@@ -237,7 +237,7 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
     "include": [],
     "sort": {},
     "field": {},
-    "match": {}
+    "match": {},
     "limit": 1000,
     "offset": 0
   }
