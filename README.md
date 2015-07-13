@@ -11,14 +11,14 @@ The current published version is **12 July 2015**, and the media type is [regist
 
 ## Introduction
 
-Micro API is only concerned with the structure of the payload, and does not restrict how the server should implement the application protocol (typically HTTP). Example payloads and HTTP requests should be considered non-normative.
+Micro API is only concerned with the structure of the payload, and does not restrict how the server should implement the application protocol (typically HTTP). Example payloads and HTTP requests should be considered non-normative. It should adhere to [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
 
-The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI, but could support all of the H-Factors by extending the base specification. Concepts such as querying, schemas, and linked data are opaque to this specification. It should follow [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible. The contracts of this media type are designed to *never change*, it is considered final and only open for clarification.
+The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI, CL (similar to [Atom](https://en.wikipedia.org/wiki/Atom_%28standard%29)), but could support all of the H-Factors by extending the base specification. Implementation features such as pagination, filtering, sorting, etc. are opaque to this specification.
 
 
 ## Reading this Document
 
-Micro API extends the generic JSON media type, defined in [RFC 4627](https://www.ietf.org/rfc/rfc4627).
+Micro API extends the generic JSON media type, defined in [RFC 4627](https://www.ietf.org/rfc/rfc4627), and more specifically the [JSON-LD](http://json-ld.org) media type.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and **OPTIONAL** in this specification have the meaning defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119).
 
@@ -26,8 +26,8 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 ## Key Concepts
 
 - The specification is concerned with representing the relationship graph between types.
-- A type is a collection of records that share the same set of attributes.
-- Assume that the application protocol (typically HTTP) controls the semantics of the interaction.
+- Interoperability with JSON-LD is a primary concern of this specification. A JSON-LD client may be able to parse a Micro API document, but without the additional semantics.
+- Assume that the application protocol controls the flow of the interaction (HTTP `OPTIONS`, `GET`, `POST`, `PATCH`, `DELETE`).
 
 
 ## Reserved Keywords
@@ -57,7 +57,7 @@ The reserved keywords `@id`, `@type`, and `@graph` overlap with [JSON-LD](http:/
 
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
-- The top level object **MUST** only contain `@meta`, `@error`, or `@graph`.
+- The top level object **MUST** only contain `@meta`, `@error`, `@links`, or `@graph`.
 - Every record and relationship **MUST** contain at least an `@id` field.
 - The top-level `@links` object **MUST** enumerate `@type` by field, and each field **MUST** be valued as an object with at least a `@id` field that refers to the collection of records of that type.
 - `@type` and `@array` **MUST** exist on a relationship field object in the top-level `@links` object.
