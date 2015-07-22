@@ -1,24 +1,24 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia and linked data. This specification is a subset of [JSON-LD](http://json-ld.org) to simplify processing, so that all Micro API documents are also JSON-LD documents, but not vice-versa. Micro API adds semantics of its own.
+Micro API is a media type for web APIs using hypermedia and linked data. This specification is intended to be interoperable with [JSON-LD](http://json-ld.org), however Micro API adds semantics of its own.
 
 ```
 Content-Type: application/vnd.micro+json
 ```
 
-The current published version is **13 July 2015**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
+The current published version is **22 July 2015**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
 
 
 ## Introduction
 
-Micro API is only concerned with the structure of the payload, and does not restrict how the server should implement the application protocol (typically HTTP). Example payloads and HTTP requests should be considered non-normative. It should adhere to [Roy Fielding's definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
+Micro API essentially restricts JSON-LD to a subset and adds new keywords that should be known *a priori* without context. It assumes no prior knowledge of JSON-LD or existing vocabularies such as [Hydra](http://www.hydra-cg.com/). Implementation features such as pagination, filtering, sorting, read/write permissions, etc. are opaque to this specification.
 
-The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI, CL (similar to [Atom](https://en.wikipedia.org/wiki/Atom_%28standard%29)), but could support all of the H-Factors by extending the base specification. Implementation features such as pagination, filtering, sorting, etc. are opaque to this specification.
+The base specification's [H-Factor](http://amundsen.com/hypermedia/hfactor/) supports LE, LO, LN, LI, CL (similar to [Atom](https://en.wikipedia.org/wiki/Atom_%28standard%29)), but could support all of the H-Factors by extending the base specification. Example payloads and HTTP requests should be considered non-normative, but should adhere to the [definition of REST](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) as closely as possible.
 
 
 ## Reading this Document
 
-Micro API extends the generic JSON media type, defined in [RFC 4627](https://www.ietf.org/rfc/rfc4627), and more specifically the [JSON-LD](http://json-ld.org) media type.
+Micro API extends the generic JSON media type, defined in [RFC 4627](https://www.ietf.org/rfc/rfc4627), and is interoperable with the [JSON-LD](http://json-ld.org) media type.
 
 This specification uses the terms [IRI](https://en.wikipedia.org/wiki/Internationalized_resource_identifier), [API](https://en.wikipedia.org/wiki/Web_API), [hypermedia](https://en.wikipedia.org/wiki/Hypermedia), & [linked data](https://en.wikipedia.org/wiki/Linked_data) accordingly.
 
@@ -27,10 +27,9 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 ## Key Concepts
 
-- The specification is concerned with representing the relationship graph between types.
+- The specification is concerned with representing an overall relationship graph between types.
 - Interoperability with JSON-LD is a primary concern of this specification. A JSON-LD client may be able to parse a Micro API document, but without the additional semantics.
 - The `@context` object from JSON-LD is intentionally unspecified. Micro API does not restrict ad-hoc record types, but its structure enables context to be added.
-- Assume that the application protocol controls the flow of the interaction (HTTP `OPTIONS`, `GET`, `POST`, `PATCH`, `DELETE`).
 
 
 ## Reserved Keywords
@@ -42,7 +41,7 @@ All reserved keywords are prefixed with the symbol `@`. Here is an enumeration o
 | Key          | Type             | Description                                                   |
 |:-------------|:-----------------|:--------------------------------------------------------------|
 | `@array`     | `Boolean`        | Indicates whether or not a relationship is to many.           |
-| `@type`      | `String`         | Type of a record.                                             |
+| `@type`      | `String`         | Each record **MUST** have a type.                             |
 | `@inverse`   | `String`         | The inverse field of a relationship.                          |
 | `@id`        | `String`         | Each record **MUST** have an ID.                              |
 | `@graph`     | `Object`         | Container for records.                                        |
@@ -61,7 +60,7 @@ The reserved keywords `@id`, `@type`, and `@graph` overlap with [JSON-LD](http:/
 There are certain restrictions on what can exist in the payload in different contexts. Here is an enumeration of restrictions:
 
 - The top level object **MUST** only contain `@meta`, `@error`, `@links`, or `@graph`.
-- Every record **MUST** contain at least an `@id` field, and every link object must contain a `@id` field.
+- Every record **MUST** contain at least an `@id` and `@type` field, and every link object must contain a `@id` field.
 - The top-level `@links` object **MUST** enumerate `@type` by field, and each field **MUST** be valued as an object with at least a `@id` field that refers to the collection of records of that type.
 - `@type` and `@array` **MUST** exist on a relationship field object in the top-level `@links` object.
 
