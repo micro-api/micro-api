@@ -43,7 +43,7 @@ a:hover {
 
 article {
   padding:
-    calc(var(--line-height) * 1)
+    calc(var(--line-height) * 11 / 2)
     calc(var(--line-height) * 1)
     calc(var(--line-height) * 3 / 2)
     calc(var(--line-height) * 3);
@@ -246,8 +246,8 @@ tbody tr:nth-of-type(2n) {
 }
 
 .top-links {
-  text-align: right;
-  margin-bottom: calc(var(--line-height) * 3);
+  float: right;
+  margin: 0;
 }
 
 .top-links a {
