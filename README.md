@@ -34,7 +34,8 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 - The top level **MUST** be a singular object.
 - There **MUST** be a top-level `@context` object.
-- Records **MUST** be represented as an array via `@graph`.
+- Records **MUST** be represented as an array via the default `@graph`.
+- Key names **MUST NOT** be expanded into IRIs in the payload.
 - References **MUST** be represented as a singular object with either the `@id` property *or* the `id` property.
 - The `@reverse` property **MUST** only exist on a node object.
 

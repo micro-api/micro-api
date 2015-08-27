@@ -212,7 +212,7 @@ h2:after {
 }
 
 h2 a.anchor {
-  float: right;
+  margin-left: calc(1em * 2 / 3);
   text-decoration: none;
   color: var(--color-border);
 }
