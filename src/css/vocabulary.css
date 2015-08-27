@@ -15,7 +15,7 @@ body.vocabulary article h2 {
 
 section {
   padding: calc(var(--line-height) * 1);
-  max-width: 45em;
+  max-width: 50em;
   margin: 0 auto;
 }
 
