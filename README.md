@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia and linked data. It consists of a *strict* subset and a vocabulary for [JSON-LD](http://json-ld.org).
+Micro API is a media type for web APIs using hypermedia and linked data. It is fully interoperable with [JSON-LD](http://json-ld.org), and consists of a *strict* subset and a vocabulary.
 
 ```
 Content-Type: application/vnd.micro+json

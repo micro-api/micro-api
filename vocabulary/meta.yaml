@@ -1,0 +1,28 @@
+types:
+  - Object
+
+description: >
+  A container for meta-information. For example, it may include some relevant
+  information and querying hints about the current collection:
+
+
+  ```json
+
+  {
+    "@context": {
+      "@vocab": "http://schema.org/",
+      "µ": "http://micro-api.org/"
+    },
+    "µ:meta": {
+      "@context": null,
+      "include": [],
+      "sort": {},
+      "field": {},
+      "match": {},
+      "limit": 1000,
+      "offset": 0,
+      "count": 0
+    }
+  }
+
+  ```

@@ -5,22 +5,40 @@ import minifier from 'html-minifier'
 import marked from 'marked'
 import hjs from 'highlight.js'
 import jsdom from 'jsdom'
+import yaml from 'js-yaml'
+import chalk from 'chalk'
+
+
+marked.setOptions({
+  highlight: code => hjs.highlightAuto(code).value
+})
 
 
 const renderer = new marked.Renderer()
 
 const lineBreak = '\n'
+const name = 'Micro API'
+const markdownExtension = '.md'
+const htmlExtension = '.html'
+const yamlExtension = '.yaml'
+const index = `index${htmlExtension}`
 const firstLine = '[![Micro API](./assets/logo_light.svg)]' +
   '(https://github.com/micro-api/micro-api)'
+const documentComment = [ `<!--`,
+  `This page is automatically generated from a build script.`,
+  `https://github.com/micro-api/micro-api`,
+  `-->` ].join(lineBreak)
+
 
 const from = str => path.join(__dirname, str)
 const pkg = JSON.parse(fs.readFileSync(
   from('../package.json')).toString())
 
 const paths = {
-  readme: from('../README.md'),
-  template: from('templates/index.html'),
-  destination: from('../dist/index.html')
+  readme: from(`../README${markdownExtension}`),
+  vocabulary: from('../vocabulary/'),
+  template: from('templates/'),
+  destination: from('../dist/')
 }
 
 const minifierSettings = {
@@ -30,6 +48,21 @@ const minifierSettings = {
 const readme = fs.readFileSync(paths.readme).toString()
   .split(lineBreak).map((line, number) => number === 0 ?
     firstLine : line).join(lineBreak)
+
+const vocabulary = fs.readdirSync(paths.vocabulary)
+  .reduce((object, filename) => {
+    const term = path.basename(filename, yamlExtension)
+
+    object[term] = yaml.load(
+      fs.readFileSync(path.join(paths.vocabulary, filename)).toString())
+
+    if ('description' in object[term]) {
+      const value = object[term].description
+      object[term].description = marked(value, { renderer })
+    }
+
+    return object
+  }, {})
 
 
 renderer.heading = (text, level) => {
@@ -41,15 +74,12 @@ renderer.heading = (text, level) => {
 }
 
 
-marked.setOptions({
-  highlight: code => hjs.highlightAuto(code).value
-})
-
-
 let menu
 
 
-new Promise(resolve =>
+Promise.resolve()
+
+.then(() => new Promise(resolve =>
   jsdom.env(marked(readme, { renderer }), (errors, window) => {
     const { document } = window
 
@@ -62,8 +92,7 @@ new Promise(resolve =>
       const { nextSibling } = node.nextSibling
       const names = new Set([ previousSibling.nodeName, nextSibling.nodeName ])
 
-      if (names.has('PRE'))
-        node.className += 'group'
+      if (names.has('PRE')) node.className += 'group'
 
       return node
     })
@@ -75,11 +104,25 @@ new Promise(resolve =>
         node.textContent.slice(0, -2) + '</a></li>').join('') + '</ul>'
 
     return resolve(window.document.body.innerHTML)
-  }))
+  })))
 
 .then(content => {
-  fs.writeFileSync(paths.destination, minifier.minify(
-  mustache.render(fs.readFileSync(paths.template).toString(), {
-    content, menu, pkg
-  }), minifierSettings))
+  fs.writeFileSync(
+    path.join(paths.destination, index),
+    minifier.minify(mustache.render(
+      fs.readFileSync(path.join(paths.template, index)).toString(),
+      { name, content, menu, pkg, documentComment }), minifierSettings))
+
+  for (let term in vocabulary)
+    fs.writeFileSync(
+      path.join(paths.destination, `${term}${htmlExtension}`),
+      minifier.minify(mustache.render(fs.readFileSync(
+          path.join(paths.template, `vocabulary${htmlExtension}`)).toString(),
+          Object.assign({ term, name, documentComment }, vocabulary[term])),
+          minifierSettings))
+})
+
+.catch(error => {
+  process.stderr.write(chalk.red(error.stack))
+  process.exit(1)
 })

@@ -1,0 +1,23 @@
+types:
+  - Object
+
+description: >
+  A container for an error. It **MUST** exist only at the top-level document.
+  The contents of the error object are opaque to this specification. For
+  example:
+
+
+  ```json
+
+  {
+    "@context": {
+      "@vocab": "http://schema.org/",
+      "µ": "http://micro-api.org/"
+    },
+    "µ:error": {
+      "name": "NotFoundError",
+      "description": "A requested record was not found."
+    }
+  }
+
+  ```
