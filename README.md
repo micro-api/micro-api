@@ -20,12 +20,12 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 *This section should be considered normative.*
 
-|Property|Type|Description|
-|:-|:-|:-|
-|[`id`](id)|`String`, `Number`|A unique value used for identifying record(s).|
-|[`meta`](meta)|`Object`|Any meta-information may be contained here.|
-|[`operate`](operate)|`Object`|Reserved for arbitrary operations to update an record.|
-|[`error`](error)|`Object`|If a request fails for any reason, it **SHOULD** return an error.|
+| Property | Type | Description |
+|:---------|:-----|:------------|
+| [`id`](http://micro-api.org/id) | `String`, `Number` | A unique value used for identifying record(s). |
+| [`meta`](http://micro-api.org/meta) | `Object` | Any meta-information may be contained here. |
+| [`operate`](http://micro-api.org/operate) | `Object` | Reserved for arbitrary operations to update an record. |
+| [`error`](http://micro-api.org/error) | `Object` | If a request fails for any reason, it **SHOULD** return an error. |
 
 
 ## Payload Restrictions
