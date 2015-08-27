@@ -11,7 +11,7 @@ The current published version is **27 August 2015**, and the media type is [regi
 
 ## Introduction
 
-Micro API lowers the processing complexity of [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using expansion and compaction algorithms. It also provides a minimal vocabulary for basic fields. Example payloads and HTTP requests should be considered non-normative.
+Micro API lowers the complexity of [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using processing algorithms. It also provides a minimal vocabulary for basic fields. Example payloads and HTTP requests should be considered non-normative.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and **OPTIONAL** in this specification have the meaning defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119).
 
@@ -32,12 +32,15 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 *This section should be considered normative.*
 
+In general, the payload should look like the compacted form of JSON-LD, with some additional restrictions:
+
 - The top level **MUST** be a singular object.
 - There **MUST** be a top-level `@context` object.
 - Records **MUST** be represented as an array via the default `@graph`.
-- Key names **MUST NOT** be expanded into IRIs in the payload.
 - References **MUST** be represented as a singular object with either the `@id` property *or* the `id` property.
-- The `@reverse` property **MUST** only exist on a node object.
+- The `@reverse` property **MUST** only exist adjacent to an `id` property.
+
+The entirety of Micro API can be expressed using only a few reserved keywords from JSON-LD: `@context`, `@vocab`, `@base`, `@graph`, `@type`, `@id`, and `@reverse`.
 
 
 ## Entry Point
@@ -75,12 +78,12 @@ GET /movies
   },
   "@graph": [ {
     "@type": "Movie",
-    "@id": "/movies/the-matrix",
-    "µ:id": "the-matrix",
+    "@id": "/movies/1",
+    "µ:id": 1,
     "name": "The Matrix",
     "actor": {
-      "@id": "/movies/the-matrix/actors",
-      "µ:id": [ "keanu-reeves", "laurence-fishburne" ]
+      "@id": "/movies/1/actors",
+      "µ:id": [ 1, 2, 3 ]
     }
   } ]
 }
@@ -100,13 +103,13 @@ GET /movies/the-matrix/actors?limit=1
   },
   "@graph": [ {
     "@type": "Person",
-    "@id": "/people/keanu-reeves",
-    "µ:id": "keanu-reeves",
+    "@id": "/people/1",
+    "µ:id": 1,
     "name": "Keanu Reeves",
     "@reverse": {
       "actor": {
-        "@id": "/people/keanu-reeves/acted-in",
-        "µ:id": [ "the-matrix" ]
+        "@id": "/people/1/acted-in",
+        "µ:id": [ 1 ]
       }
     }
   } ]
