@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia and linked data. It is fully interoperable with [JSON-LD](http://json-ld.org), and consists of a strict subset and a vocabulary.
+Micro API is a media type for web APIs using hypermedia and linked data. It consists of a *strict* subset and a vocabulary for [JSON-LD](http://json-ld.org).
 
 ```
 Content-Type: application/vnd.micro+json
@@ -11,7 +11,7 @@ The current published version is **31 August 2015**, and the media type is [regi
 
 ## Introduction
 
-Micro API lowers the processing complexity of JSON-LD by limiting it to a subset which can be traversed without much overhead. It also provides a minimal vocabulary for basic fields. Example payloads and HTTP requests should be considered non-normative.
+Micro API lowers the processing complexity of [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using expansion and compaction algorithms. It also provides a minimal vocabulary for basic fields. Example payloads and HTTP requests should be considered non-normative.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and **OPTIONAL** in this specification have the meaning defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119).
 
@@ -23,7 +23,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 |Property|Type|Description|
 |:-|:-|:-|
 |[`id`](id)|`String`, `Number`|A unique value used for identifying record(s).|
-|[`meta`](meta)|`Object`|Any meta-information may go in here.|
+|[`meta`](meta)|`Object`|Any meta-information may be contained here.|
 |[`operate`](operate)|`Object`|Reserved for arbitrary operations to update an record.|
 |[`error`](error)|`Object`|If a request fails for any reason, it **SHOULD** return an error.|
 
@@ -130,7 +130,7 @@ POST /people
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
-    "@type": "Person"
+    "@type": "Person",
     "name": "John Doe",
     "@reverse": {
       "actor": {
