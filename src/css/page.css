@@ -169,7 +169,7 @@ p, table, ul, ol {
 h1 {
   color: var(--color-dark);
   font-size: 1em;
-  margin-bottom: calc(var(--line-height) * 5 / 2);
+  margin-bottom: calc(var(--line-height) * 3 / 2);
 }
 
 h1 a {
