@@ -51,8 +51,7 @@ GET /
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/",
-    "µ": "http://micro-api.org/"
+    "@vocab": "http://schema.org/"
   },
   "Person": { "@id": "/people" },
   "Movie": { "@id": "/movies" }
