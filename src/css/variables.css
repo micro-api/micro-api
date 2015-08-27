@@ -14,8 +14,8 @@
   --color-alt:          rgba(255, 255, 255, 0.03);
 
   /* fonts */
-  --body-font: 'Avenir', 'Calibri', 'Helvetica', sans-serif;
-  --mono-font: 'Andale Mono', 'Bitstream Vera Sans Mono', monospace;
+  --body-font: 'Avenir', 'DejaVu Sans', 'Calibri', sans-serif;
+  --mono-font: 'DejaVu Sans Mono', 'Andale Mono', monospace;
 
   /* measurements */
   --max-width: 70em;
