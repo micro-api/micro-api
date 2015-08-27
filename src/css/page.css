@@ -227,6 +227,7 @@ table td, table th {
 
 table th {
   background-color: var(--color-alt);
+  white-space: nowrap;
 }
 
 tbody code {

@@ -17,7 +17,7 @@
 
 :--vocab section {
   padding: calc(var(--line-height) * 1);
-  max-width: 50em;
+  max-width: 52em;
   margin: 0 auto;
 }
 
