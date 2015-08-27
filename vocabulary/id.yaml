@@ -1,0 +1,31 @@
+types:
+  - String
+  - Number
+
+description: >
+  A *unique* value used for identifying a record(s). For identifying an
+  individual record, it should be a singular value, but for identifying
+  a reference, it **MAY** be an array. For example:
+
+
+  ```json
+
+  {
+    "@context": {
+      "@vocab": "http://schema.org/",
+      "µ": "http://micro-api.org/"
+    },
+    "@graph": [ {
+      "@type": "Movie",
+      "@id": "/movies/the-matrix",
+      "µ:id": "the-matrix",
+      "name": "The Matrix",
+      "actor": {
+        "@id": "/movies/the-matrix/actors",
+        "µ:id": [ "keanu-reeves", "laurence-fishburne" ]
+      }
+    } ]
+  }
+
+  ```
+

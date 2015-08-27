@@ -1,0 +1,23 @@
+types:
+  - Object
+
+description: >
+  A container for custom operations to update a record. Typically, its context
+  should be set to `null`. For example:
+
+
+  ```json
+
+  {
+    "@context": {
+      "@vocab": "http://schema.org/",
+      "µ": "http://micro-api.org/"
+    },
+    "µ:operate": {
+      "@context": null,
+      "push": [ "foo", "bar" ],
+      "pull": "baz"
+    }
+  }
+
+  ```

@@ -15,7 +15,7 @@
 
   /* fonts */
   --body-font: 'Avenir', 'Calibri', 'Helvetica', sans-serif;
-  --mono-font: 'Lucida Console', 'Monaco', 'Bitstream Vera Sans Mono', monospace;
+  --mono-font: 'Andale Mono', 'Bitstream Vera Sans Mono', monospace;
 
   /* measurements */
   --max-width: 70em;

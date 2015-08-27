@@ -6,7 +6,7 @@
 
 @media screen and (max-width: 960px) {
 
-  body {
+  body:not(.vocabulary) {
     padding: calc(var(--line-height) * 2) 0 calc(var(--line-height) * 1);
     background-size: 100%;
   }

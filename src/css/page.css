@@ -68,13 +68,6 @@ nav {
   overflow: auto;
 }
 
-nav img {
-  height: calc(var(--line-height) * 1);
-  line-height: calc(var(--line-height) * 1);
-  margin-right: calc(var(--line-height) * 1 / 2);
-  vertical-align: middle;
-}
-
 nav div {
   position: relative;
   padding-bottom: calc(var(--line-height) * 1 / 2);
@@ -212,7 +205,7 @@ h2:after {
 }
 
 h2 a.anchor {
-  float: right;
+  margin-left: calc(1em * 2 / 3);
   text-decoration: none;
   color: var(--color-border);
 }
@@ -243,6 +236,13 @@ tbody code {
 
 tbody tr:nth-of-type(2n) {
   background-color: var(--color-alt);
+}
+
+.logo {
+  height: calc(var(--line-height) * 1);
+  line-height: calc(var(--line-height) * 1);
+  margin-right: calc(var(--line-height) * 1 / 2);
+  vertical-align: middle;
 }
 
 .top-links {
