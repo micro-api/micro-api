@@ -19,17 +19,17 @@
           </h1>
         </section>
     </header>
-    <article>
+    <article resource="http://micro-api.org/{{term}}" typeof="rdfs:Property" vocab="http://schema.org/">
       <section>
         <h2>{{term}}</h2>
         <p>
           <b>Expected types</b>:
           {{#types}}
-            <span class="type"><code>{{.}}</code></span>
+            <a class="type" property="rangeIncludes" href="http://schema.org/{{.}}"><code>{{.}}</code></a>
           {{/types}}
         </p>
         <span class="description"><b>Description</b>:</span>
-        {{{description}}}
+        <span property="rdfs:comment">{{{description}}}</span>
       </section>
     </article>
   </body>

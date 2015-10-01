@@ -1,12 +1,14 @@
-import fs from 'fs'
-import path from 'path'
-import mustache from 'mustache'
-import minifier from 'html-minifier'
-import marked from 'marked'
-import hjs from 'highlight.js'
-import jsdom from 'jsdom'
-import yaml from 'js-yaml'
-import chalk from 'chalk'
+'use strict'
+
+const fs = require('fs')
+const path = require('path')
+const mustache = require('mustache')
+const minifier = require('html-minifier')
+const marked = require('marked')
+const hjs = require('highlight.js')
+const jsdom = require('jsdom')
+const yaml = require('js-yaml')
+const chalk = require('chalk')
 
 
 marked.setOptions({
@@ -81,23 +83,23 @@ Promise.resolve()
 
 .then(() => new Promise(resolve =>
   jsdom.env(marked(readme, { renderer }), (errors, window) => {
-    const { document } = window
+    const document = window.document
 
     document.querySelector('p:first-of-type').className = 'header'
 
-    const pre = [ ...document.querySelectorAll('pre') ]
+    const pre = Array.from(document.querySelectorAll('pre'))
 
     pre.map(node => {
-      const { previousSibling } = node.previousSibling
-      const { nextSibling } = node.nextSibling
-      const names = new Set([ previousSibling.nodeName, nextSibling.nodeName ])
+      const prev = node.previousSibling.previousSibling.nodeName
+      const next = node.nextSibling.nextSibling.nodeName
+      const names = new Set([ prev, next ])
 
       if (names.has('PRE')) node.className += 'group'
 
       return node
     })
 
-    const headers = [ ...document.querySelectorAll('h1, h2, h3') ]
+    const headers = Array.from(document.querySelectorAll('h1, h2, h3'))
 
     menu = '<ul>' + headers.map(node =>
       '<li><a href="#' + node.children[0].href.split('#')[1] + '">' +

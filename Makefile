@@ -1,7 +1,7 @@
 # Commands
 LINT_CMD = node_modules/.bin/eslint
 CSS_CMD = node_modules/.bin/cssnext
-NODE_CMD = node_modules/.bin/babel-node
+NODE_CMD = node
 
 # Directories
 SRC_DIR = src/

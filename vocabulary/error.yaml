@@ -1,5 +1,5 @@
 types:
-  - Object
+  - Thing
 
 description: >
   A container for an error. It **MUST** exist only at the top-level document.

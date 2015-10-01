@@ -1,5 +1,5 @@
 types:
-  - Object
+  - Thing
 
 description: >
   A container for meta-information. For example, it may include some relevant

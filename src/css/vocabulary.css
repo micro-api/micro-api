@@ -30,6 +30,10 @@
   margin: 0;
 }
 
+:--vocab .type {
+  text-decoration: none;
+}
+
 :--vocab .type:after {
   content: ', ';
 }

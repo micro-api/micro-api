@@ -1,5 +1,5 @@
 types:
-  - Object
+  - Thing
 
 description: >
   A container for custom operations to update a record. Typically, its context

@@ -1,5 +1,5 @@
 types:
-  - String
+  - Text
   - Number
 
 description: >
