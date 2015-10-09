@@ -35,7 +35,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 In general, the payload should look like the compacted form of JSON-LD, with some additional restrictions:
 
 - The top level **MUST** be a singular object.
-- There **MUST** be a top-level `@context` object.
+- There **MUST** be a top-level `@context` object, containing at least the exact key-value pair: `{ "µ": "http://micro-api.org/" }`.
 - Records **MUST** be represented as an array via the default `@graph`.
 - References **MUST** be represented as a singular object with either the `@id` property *or* the `id` property.
 - The `@reverse` property **MUST** only exist adjacent to an `id` property.
@@ -54,7 +54,8 @@ GET /
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/"
+    "@vocab": "http://schema.org/",
+    "µ": "http://micro-api.org/"
   },
   "Person": { "@id": "/people" },
   "Movie": { "@id": "/movies" }
