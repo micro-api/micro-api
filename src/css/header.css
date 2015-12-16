@@ -13,7 +13,8 @@
   margin: auto;
   padding: calc(var(--line-height) * 1);
   height: calc(var(--line-height) * 3);
-  background-color: var(--color-background);
+  background: linear-gradient(to left,
+    var(--color-background), var(--color-header));
   position: relative;
 }
 
@@ -21,11 +22,11 @@
   content: ' ';
   display: block;
   position: absolute;
-  bottom: 0;
+  top: 100%;
   left: 0;
   width: calc(100% - var(--line-height) * 1);
   height: 1px;
-  background-color: var(--color-alt-head);
+  background-color: var(--color-border);
 }
 
 :--header h1 {

@@ -1,8 +1,8 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia and linked data. It is fully interoperable with [JSON-LD](http://json-ld.org), and consists of a *strict* subset and a vocabulary.
+Micro API is a media type for web APIs using hypermedia and linked data. It is fully interoperable with [JSON-LD](http://json-ld.org), and consists of a *strict* subset, a vocabulary, and semantics for write operations.
 
-```
+```yaml
 Content-Type: application/vnd.micro+json
 ```
 
@@ -11,7 +11,7 @@ The current published version is **27 August 2015**, and the media type is [regi
 
 ## Introduction
 
-Micro API lowers the complexity of [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using processing algorithms. It also provides a minimal vocabulary for basic fields. Example payloads and HTTP requests should be considered non-normative.
+Micro API simplifies [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using processing algorithms. It also provides a minimal vocabulary for basic fields. Example payloads and HTTP requests should be considered non-normative.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and **OPTIONAL** in this specification have the meaning defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119).
 

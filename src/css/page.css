@@ -55,6 +55,10 @@ article .header {
   display: none;
 }
 
+article > pre:first-of-type {
+  color: var(--color-value);
+}
+
 nav {
   position: fixed;
   width: var(--menu-width);
