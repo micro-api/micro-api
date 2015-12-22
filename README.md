@@ -22,9 +22,9 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 | Property | Type | Description |
 |:---------|:-----|:------------|
-| [`id`](http://micro-api.org/id) | `String`, `Number` | A unique value used for identifying record(s). |
+| [`id`](http://micro-api.org/id) | `String`, `Number` | A unique value used for identifying resources. |
 | [`meta`](http://micro-api.org/meta) | `Object` | Any meta-information may be contained here. |
-| [`operate`](http://micro-api.org/operate) | `Object` | Reserved for arbitrary operations to update an record. |
+| [`operate`](http://micro-api.org/operate) | `Object` | Reserved for arbitrary operations to update resources. |
 | [`error`](http://micro-api.org/error) | `Object` | If a request fails for any reason, it **SHOULD** return an error. |
 
 
@@ -36,7 +36,7 @@ In general, the payload should look like the compacted form of JSON-LD, with som
 
 - The top level **MUST** be a singular object.
 - There **MUST** be a top-level `@context` object, containing at least the exact key-value pair: `{ "µ": "http://micro-api.org/" }`.
-- Records **MUST** be represented as an array via the default `@graph`.
+- Resources **MUST** be represented as an array via the default `@graph`.
 - References **MUST** be represented as a singular object with either the `@id` property *or* the `id` property.
 - The `@reverse` property **MUST** only exist adjacent to an `id` property.
 
@@ -63,7 +63,7 @@ GET /
 ```
 
 
-## Finding Records
+## Finding Resources
 
 A `GET` request **MAY** be allowed on the collection IRI for a particular type.
 
@@ -118,9 +118,9 @@ GET /movies/the-matrix/actors?limit=1
 ```
 
 
-## Creating Records
+## Creating Resources
 
-Requesting to create an record **MAY** be allowed at the collection IRI for that type. The payload **MUST** be a valid Micro API document, and referenced IDs must be specified using the `id` property.
+Requesting to create an resource **MAY** be allowed at the collection IRI for that type. The payload **MUST** be a valid Micro API document, and referenced IDs must be specified using the `id` property.
 
 ```http
 POST /people
@@ -144,12 +144,12 @@ POST /people
 }
 ```
 
-It may be helpful for the response to have a `Location` header, but it is not required since the response body may include a link to the created record.
+It may be helpful for the response to have a `Location` header, but it is not required since the response body may include a link to the created resource.
 
 
-## Updating Records
+## Updating Resources
 
-IDs **MUST** be specified in the payload per record to update, and `PATCH` requests can be made wherever the record exists (side-effect of this: IDs cannot be changed, only specified).
+IDs **MUST** be specified in the payload per resource to update, and `PATCH` requests can be made wherever the resource exists (corollary: IDs cannot be changed, only specified).
 
 ```http
 PATCH /people
@@ -173,12 +173,12 @@ PATCH /people
 }
 ```
 
-If the a specified record does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
+If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
-`PATCH` requests can update existing records, however Micro API does not define the semantics to create or delete resources with this method. In this example, by setting a link's `id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
+`PATCH` requests can update existing resources, however Micro API does not define the semantics to create or delete resources with this method. In this example, by setting a link's `id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
 
 
-## Deleting Records
+## Deleting Resources
 
 ```http
 DELETE /people/john-doe
@@ -205,7 +205,7 @@ If a request fails for any reason, it **MUST** return a `error` object. The cont
   },
   "µ:error": {
     "name": "NotFoundError",
-    "description": "The requested record was not found."
+    "description": "The requested resource was not found."
   }
 }
 ```

@@ -2,7 +2,7 @@ types:
   - Thing
 
 description: >
-  A container for custom operations to update a record. Typically, its context
+  A container for custom operations to update a resource. Typically, its context
   should be set to `null`. For example:
 
 

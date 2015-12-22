@@ -3,8 +3,8 @@ types:
   - Number
 
 description: >
-  A *unique* value used for identifying a record(s). For identifying an
-  individual record, it should be a singular value, but for identifying
+  A *unique* value used for identifying a resource. For identifying an
+  individual resource, it should be a singular value, but for identifying
   a reference, it **MAY** be an array. For example:
 
 
