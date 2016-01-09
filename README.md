@@ -6,7 +6,7 @@ Micro API is a media type for web APIs using hypermedia and linked data. It is f
 Content-Type: application/vnd.micro+json
 ```
 
-The current published version is **27 August 2015**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
+The current published version is **9 January 2016**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
 
 
 ## Introduction
@@ -24,6 +24,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 |:---------|:-----|:------------|
 | [`id`](http://micro-api.org/id) | `String`, `Number` | A unique value used for identifying resources. |
 | [`meta`](http://micro-api.org/meta) | `Object` | Any meta-information may be contained here. |
+| [`query`](http://micro-api.org/query) | `Object` | A container for showing information about the current query. |
 | [`operate`](http://micro-api.org/operate) | `Object` | Reserved for arbitrary operations to update resources. |
 | [`error`](http://micro-api.org/error) | `Object` | If a request fails for any reason, it **SHOULD** return an error. |
 
@@ -211,9 +212,9 @@ If a request fails for any reason, it **MUST** return a `error` object. The cont
 ```
 
 
-## Extending
+## Querying
 
-Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the `meta` object **MAY** contain hints on what queries can be appended to GET requests:
+Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the `query` object **MAY** contain hints on what queries can be appended to GET requests, with further information about the query provided by a vocabulary (optional):
 
 ```json
 {
@@ -221,7 +222,7 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
     "@vocab": "http://schema.org/",
     "µ": "http://micro-api.org/"
   },
-  "µ:meta": {
+  "µ:query": {
     "@context": null,
     "include": [],
     "sort": {},

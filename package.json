@@ -26,10 +26,10 @@
     "cssnext": "^1.8.4",
     "eslint": "^1.10.3",
     "eslint-config-0x8890": "^1.0.1",
-    "highlight.js": "^9.0.0",
-    "html-minifier": "^1.0.0",
+    "highlight.js": "^9.1.0",
+    "html-minifier": "^1.1.1",
     "js-yaml": "^3.4.6",
-    "jsdom": "^7.2.1",
+    "jsdom": "^7.2.2",
     "marked": "^0.3.5",
     "mustache": "^2.2.1"
   },

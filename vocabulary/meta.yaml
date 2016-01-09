@@ -2,8 +2,7 @@ types:
   - Thing
 
 description: >
-  A container for meta-information. For example, it may include some relevant
-  information and querying hints about the current collection:
+  A generic container for meta-information.
 
 
   ```json
@@ -15,13 +14,7 @@ description: >
     },
     "µ:meta": {
       "@context": null,
-      "include": [],
-      "sort": {},
-      "field": {},
-      "match": {},
-      "limit": 1000,
-      "offset": 0,
-      "count": 0
+      "retrievedAt": "2016-01-09T04:10:09.606Z"
     }
   }
 

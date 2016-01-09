@@ -1,0 +1,29 @@
+types:
+  - Thing
+
+description: >
+  A container for showing information about the current query. It **MUST**
+  exist only at the top-level document. For example, it may advertise query
+  options available in the query string.
+
+
+  ```json
+
+  {
+    "@context": {
+      "@vocab": "http://schema.org/",
+      "µ": "http://micro-api.org/"
+    },
+    "µ:query": {
+      "@context": null,
+      "include": [],
+      "sort": {},
+      "field": {},
+      "match": {},
+      "limit": 1000,
+      "offset": 0,
+      "count": 0
+    }
+  }
+
+  ```

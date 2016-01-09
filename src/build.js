@@ -105,7 +105,7 @@ Promise.resolve()
       '<li><a href="#' + node.children[0].href.split('#')[1] + '">' +
         node.textContent.slice(0, -2) + '</a></li>').join('') + '</ul>'
 
-    return resolve(window.document.body.innerHTML)
+    return resolve(document.body.innerHTML)
   })))
 
 .then(content => {
