@@ -68,7 +68,7 @@ nav {
     calc(var(--line-height) * 1)
     calc(var(--line-height) * 1)
     0;
-  background-color: rgba(0, 0, 0, 0.06);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0));
   overflow: auto;
 }
 
