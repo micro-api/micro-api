@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia and linked data. It is fully interoperable with [JSON-LD](http://json-ld.org), and consists of a *strict* subset, a vocabulary, and semantics for write operations.
+Micro API is a media type for web APIs using hypermedia and linked data. It is designed to be fully interoperable with [JSON-LD](http://json-ld.org), and consists of a *strict* subset, a vocabulary, and semantics for write operations.
 
 ```yaml
 Content-Type: application/vnd.micro+json
@@ -22,7 +22,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 | Property | Type | Description |
 |:---------|:-----|:------------|
-| [`id`](http://micro-api.org/id) | `String`, `Number` | A unique value used for identifying resources. |
+| [`id`](http://micro-api.org/id) | `Text`, `Number` | A unique value used for identifying resources. |
 | [`meta`](http://micro-api.org/meta) | `Object` | Any meta-information may be contained here. |
 | [`query`](http://micro-api.org/query) | `Object` | A container for showing information about the current query. |
 | [`operate`](http://micro-api.org/operate) | `Object` | Reserved for arbitrary operations to update resources. |
