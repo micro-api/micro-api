@@ -1,3 +1,11 @@
+/* Minimalist reset. */
+* {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-primary);
@@ -123,7 +131,7 @@ pre, code {
 
 pre {
   box-shadow: 0 -1px 0 var(--color-alt-head) inset;
-  background-color: var(--color-alt);
+  background: var(--color-alt);
   padding: calc(var(--line-height) / 2 * var(--size-ratio));
   margin: 0 0 calc(var(--line-height) * var(--size-ratio));
   border-radius: var(--big-border-radius);

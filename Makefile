@@ -1,6 +1,6 @@
 # Commands
 LINT_CMD = node_modules/.bin/eslint
-CSS_CMD = node_modules/.bin/cssnext
+CSS_CMD = node_modules/.bin/postcss
 NODE_CMD = node
 
 # Directories
@@ -22,7 +22,12 @@ build:
 	mkdir -p $(DIST_DIR) $(DIST_DIR)assets
 	cp -rf $(SRC_DIR)assets $(DIST_DIR)
 	echo $(CNAME) > $(DIST_DIR)CNAME
-	$(CSS_CMD) $(SRC_DIR)css/index.css $(DIST_DIR)assets/index.css
+	$(CSS_CMD) \
+    -u postcss-import \
+    -u postcss-cssnext \
+    -u cssnano \
+    -o $(DIST_DIR)assets/index.css \
+    $(SRC_DIR)css/index.css
 	$(NODE_CMD) $(SRC_DIR)build
 
 

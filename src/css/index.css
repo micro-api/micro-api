@@ -1,11 +1,3 @@
-/* Minimalist reset. */
-* {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
 @import "variables.css";
 @import "page.css";
 @import "header.css";
