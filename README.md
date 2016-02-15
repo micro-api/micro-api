@@ -33,7 +33,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 *This section should be considered normative.*
 
-In general, the payload should look like the compacted form of JSON-LD, with some additional restrictions:
+In general, the payload should look like the flattened form of JSON-LD, with some additional restrictions:
 
 - The root node **MUST** be a singular object.
 - There **MUST** be a top-level `@context` object, containing at least the exact key-value pair: `{ "µ": "http://micro-api.org/" }`.
