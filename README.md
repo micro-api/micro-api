@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia and linked data. It is designed to be fully interoperable with [JSON-LD](http://json-ld.org), and consists of a *strict* subset, a vocabulary, and semantics for write operations.
+Micro API is a media type for web APIs using hypermedia and linked data. It consists of a *strict* subset of [JSON-LD](http://json-ld.org), a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations.
 
 ```yaml
 Content-Type: application/vnd.micro+json
@@ -35,11 +35,11 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 In general, the payload should look like the compacted form of JSON-LD, with some additional restrictions:
 
-- The top level **MUST** be a singular object.
+- The root node **MUST** be a singular object.
 - There **MUST** be a top-level `@context` object, containing at least the exact key-value pair: `{ "µ": "http://micro-api.org/" }`.
 - Resources **MUST** be represented as an array via the default `@graph`.
-- References **MUST** be represented as a singular object with either the `@id` property *or* the `id` property.
-- The `@reverse` property **MUST** only exist adjacent to an `id` property.
+- References **MUST** be represented as a singular object with either the `@id` property *and/or* the `id` property.
+- The `@reverse` property **MUST** only exist adjacent to an `id` property. This property is useful for expressing inverse relationships without naming them.
 
 The entirety of Micro API can be expressed using only a few reserved keywords from JSON-LD: `@context`, `@vocab`, `@base`, `@graph`, `@type`, `@id`, and `@reverse`.
 
@@ -185,13 +185,13 @@ If the a specified resource does not exist at the requested location, it **SHOUL
 DELETE /people/john-doe
 ```
 
-A delete request can return no payload (204 No Content) if it succeeds. It can apply to any IRI, including collections.
+A delete request can return no payload (HTTP 204 No Content) if it succeeds. It can apply to any IRI, including collections.
 
 ```http
 DELETE /people/john-doe/children
 ```
 
-In this example, the request means delete all of a person's children, not just the link. There is no concept of relationship entities.
+In this example, the request means delete all of the resources at this IRI, not just the link. There is no concept of relationship entities.
 
 
 ## Error Response
