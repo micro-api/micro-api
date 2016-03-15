@@ -26,10 +26,10 @@ const yamlExtension = '.yaml'
 const index = `index${htmlExtension}`
 const firstLine = '[![Micro API](./assets/logo_light.svg)]' +
   '(https://github.com/micro-api/micro-api)'
-const documentComment = [ `<!--`,
-  `This page is automatically generated from a build script.`,
-  `https://github.com/micro-api/micro-api`,
-  `-->` ].join(lineBreak)
+const documentComment = [ '<!--',
+  'This page is automatically generated from a build script.',
+  'https://github.com/micro-api/micro-api',
+  '-->' ].join(lineBreak)
 
 
 const from = str => path.join(__dirname, str)
