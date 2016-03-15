@@ -19,22 +19,22 @@
   },
   "license": "CC0",
   "dependencies": {
-    "http-server": "^0.8.5"
+    "http-server": "^0.9.0"
   },
   "devDependencies": {
     "chalk": "^1.1.1",
-    "cssnano": "^3.5.1",
-    "eslint": "^1.10.3",
-    "eslint-config-0x8890": "^1.0.1",
-    "highlight.js": "^9.1.0",
-    "html-minifier": "^1.1.1",
-    "js-yaml": "^3.5.3",
-    "jsdom": "^8.0.2",
+    "cssnano": "^3.5.2",
+    "eslint": "^2.4.0",
+    "eslint-config-0x8890": "^1.0.2",
+    "highlight.js": "^9.2.0",
+    "html-minifier": "^1.2.0",
+    "js-yaml": "^3.5.4",
+    "jsdom": "^8.1.0",
     "marked": "^0.3.5",
     "mustache": "^2.2.1",
-    "postcss": "^5.0.15",
+    "postcss": "^5.0.19",
     "postcss-cli": "^2.5.1",
-    "postcss-cssnext": "^2.4.0",
+    "postcss-cssnext": "^2.5.1",
     "postcss-import": "^8.0.2"
   },
   "eslintConfig": {

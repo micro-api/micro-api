@@ -13,8 +13,7 @@
   margin: auto;
   padding: calc(var(--line-height) * 1);
   height: calc(var(--line-height) * 3);
-  background: linear-gradient(to left,
-    var(--color-background), var(--color-header));
+  background-color: var(--color-background);
   position: relative;
 }
 

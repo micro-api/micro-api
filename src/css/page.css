@@ -12,8 +12,7 @@ body {
   font-size: var(--body-size);
   font-family: var(--body-font);
   line-height: var(--line-height);
-  padding-right: calc(var(--line-height) * 2);
-  padding-left: calc(var(--line-height) * 2);
+  padding-right: calc(var(--line-height) * 1);
 }
 
 main {
@@ -51,10 +50,10 @@ a:hover {
 
 article {
   padding:
-    calc(var(--line-height) * 11 / 2)
+    calc(var(--line-height) * 5)
     calc(var(--line-height) * 1)
-    calc(var(--line-height) * 3 / 2)
-    calc(var(--line-height) * 3);
+    calc(var(--line-height) * 2)
+    calc(var(--line-height) * 2);
   margin-left: var(--menu-width);
   border-left: 1px var(--color-alt-head) solid;
 }
@@ -76,7 +75,7 @@ nav {
     calc(var(--line-height) * 1)
     calc(var(--line-height) * 1)
     0;
-  background-color: rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.06);
   overflow: auto;
 }
 
@@ -86,6 +85,12 @@ nav div {
   min-height: 100%;
 }
 
+nav h4 {
+  font-size: 1em;
+  color: var(--color-secondary);
+  margin-bottom: var(--line-height);
+}
+
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -93,10 +98,6 @@ nav ul {
 
 nav li {
   position: relative;
-}
-
-nav li:first-of-type:before {
-  display: none;
 }
 
 nav li:before {
@@ -114,9 +115,9 @@ nav li a {
   text-decoration: none;
   color: var(--color-secondary);
   display: block;
-  font-size: calc(1em * 7 / 8);
-  line-height: calc(var(--line-height) * 8 / 7);
-  padding: calc(var(--line-height) * 1 / 2 * 8 / 7) 0;
+  font-size: calc(1em * 3 / 4);
+  line-height: calc(var(--line-height) * 4 / 3);
+  padding: calc(var(--line-height) * 1 / 2 * 4 / 3) 0;
 }
 
 nav a:hover {
@@ -181,7 +182,7 @@ p, table, ul, ol {
 h1 {
   color: var(--color-dark);
   font-size: 1em;
-  margin-bottom: calc(var(--line-height) * 3 / 2);
+  margin-bottom: calc(var(--line-height) * 3);
 }
 
 h1 a {
@@ -265,8 +266,8 @@ tbody tr:nth-of-type(2n) {
 
 .top-links a {
   text-decoration: none;
-  font-size: calc(1em * 7 / 8);
-  line-height: calc(var(--line-height) * 8 / 7);
+  font-size: calc(1em * 3 / 4);
+  line-height: calc(var(--line-height) * 4 / 3);
   color: var(--color-secondary);
 }
 

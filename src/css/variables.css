@@ -2,10 +2,9 @@
 
   /* colors */
   --color-background:   #36404D;
-  --color-header:       #3F4957;
   --color-dark:         #FFFFFF;
-  --color-primary:      rgba(255, 255, 255, 0.72);
-  --color-secondary:    rgba(255, 255, 255, 0.44);
+  --color-primary:      rgba(255, 255, 255, 0.75);
+  --color-secondary:    rgba(255, 255, 255, 0.35);
   --color-link:         #3AAAFF;
   --color-attribute:    #8FB2DB;
   --color-value:        #A5F2D6;
@@ -19,11 +18,11 @@
   --mono-font: 'DejaVu Sans Mono', 'Andale Mono', monospace;
 
   /* measurements */
-  --max-width: 68em;
-  --menu-width: 14em;
+  --max-width: 62em;
+  --menu-width: 13em;
   --body-size: 16px;
-  --size-ratio: calc(16 / 16);
-  --line-height: calc(1em * 27 / 16);
+  --size-ratio: calc(17 / 16);
+  --line-height: calc(1em * 26 / 16);
   --border-radius: 3px;
   --big-border-radius: 6px;
   --fade-speed: 0.15s;
