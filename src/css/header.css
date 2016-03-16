@@ -23,7 +23,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: calc(100% - var(--line-height) * 1);
+  width: calc(100% + var(--line-height) * 1);
   height: 1px;
   background-color: var(--color-border);
 }

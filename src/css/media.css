@@ -19,6 +19,10 @@
     margin-left: 0;
   }
 
+  article:after {
+    display: none;
+  }
+
   article .header {
     display: block;
   }
@@ -26,6 +30,10 @@
   h2 {
     margin-top: 0;
     padding-top: calc(var(--line-height) * 2 / 3);
+  }
+
+  h2:after {
+    width: 100%;
   }
 
   .top-links, .top-line {
