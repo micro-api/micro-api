@@ -10,9 +10,17 @@
   border: none;
 }
 
+:--vocab article:after {
+  display: none;
+}
+
 :--vocab article h2 {
   margin-top: calc(var(--line-height) * 1 / 2);
   padding-top: 0;
+}
+
+:--vocab article h2:after {
+  width: 100%;
 }
 
 :--vocab section {
