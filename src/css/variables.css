@@ -14,15 +14,15 @@
   --color-alt:          rgba(255, 255, 255, 0.03);
 
   /* fonts */
-  --body-font: 'Avenir', 'DejaVu Sans', 'Calibri', sans-serif;
+  --body-font: Avenir, Calibri, Helvetica, Arial, sans-serif;
   --mono-font: 'DejaVu Sans Mono', 'Andale Mono', monospace;
 
   /* measurements */
-  --max-width: 62em;
-  --menu-width: 13em;
+  --max-width: 64em;
+  --menu-width: 12em;
   --body-size: 16px;
   --size-ratio: calc(17 / 16);
-  --line-height: calc(1em * 26 / 16);
+  --line-height: calc(1em * 5 / 3);
   --border-radius: 3px;
   --big-border-radius: 6px;
   --fade-speed: 0.15s;

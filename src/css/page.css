@@ -31,12 +31,6 @@ main:before {
   right: 100%;
   width: 200%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.12);
-  background-image: url('./bg.svg');
-  background-position: center;
-  background-repeat: repeat;
-  background-size: calc(100% / 6);
-  background-attachment: fixed;
 }
 
 a {
