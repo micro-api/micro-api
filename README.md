@@ -39,8 +39,8 @@ In general, the payload should look like the flattened form of JSON-LD, with som
 - There **MUST** be a top-level `@context` object, containing at least the exact key-value pair: `{ "µ": "http://micro-api.org/" }`.
 - Resources **MUST** contain a unique `@id` *and* `µ:id`, no blank nodes are allowed. The `@id` is an IRI, which is not to be confused with `µ:id` which is an application-specific identifier.
 - Resources **MUST** be represented as an array via the default `@graph`.
-- References **MUST** be represented as a singular object with either the `@id` property *and/or* the `id` property.
-- The `@reverse` property **MUST** only exist adjacent to an `id` property. This property is useful for expressing inverse relationships without naming them.
+- References **MUST** be represented as a singular object with either the `@id` property *and/or* the `µ:id` property.
+- The `@reverse` property **MUST** only exist adjacent to an `µ:id` property. This property is useful for expressing inverse relationships without naming them.
 
 The entirety of Micro API can be expressed using only a few reserved keywords from JSON-LD: `@context`, `@vocab`, `@base`, `@graph`, `@type`, `@id`, and `@reverse`.
 
@@ -175,9 +175,9 @@ PATCH /people
 }
 ```
 
-If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
+If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `µ:operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
-`PATCH` requests can update existing resources, however Micro API does not define the semantics to create or delete resources with this method. In this example, by setting a link's `id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
+`PATCH` requests can update existing resources, however Micro API does not define the semantics to create or delete resources with this method. In this example, by setting a link's `µ:id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
 
 
 ## Deleting Resources
@@ -197,7 +197,7 @@ In this example, the request means delete all of the resources at this IRI, not 
 
 ## Error Response
 
-If a request fails for any reason, it **MUST** return a `error` object. The contents of the error object are opaque to this specification.
+If a request fails for any reason, it **MUST** return a `µ:error` object. The contents of the error object are opaque to this specification.
 
 ```json
 {
@@ -215,7 +215,7 @@ If a request fails for any reason, it **MUST** return a `error` object. The cont
 
 ## Querying
 
-Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the `query` object **MAY** contain hints on what queries can be appended to GET requests, with further information about the query provided by a vocabulary (optional):
+Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the `µ:query` object **MAY** contain hints on what queries can be appended to GET requests, with further information about the query provided by a vocabulary (optional):
 
 ```json
 {
