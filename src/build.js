@@ -66,7 +66,7 @@ const vocabulary = fs.readdirSync(paths.vocabulary)
 
 
 renderer.heading = (text, level) => {
-  let escapedText = text.toLowerCase().replace(/[^\w]+/g, '-')
+  const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-')
 
   return `<h${level} id="${escapedText}">${text} <a class="anchor" ` +
     `href="#${escapedText}" title="Link to this section “${text}”">#</a>` +
@@ -99,9 +99,9 @@ Promise.resolve()
 
     const headers = Array.from(document.querySelectorAll('h1, h2, h3'))
 
-    menu = '<ul>' + headers.map(node =>
-      '<li><a href="#' + node.children[0].href.split('#')[1] + '">' +
-        node.textContent.slice(0, -2) + '</a></li>').join('') + '</ul>'
+    menu = `<ul>${headers.map(node =>
+      `<li><a href="#${node.children[0].href.split('#')[1]}">${
+        node.textContent.slice(0, -2)}</a></li>`).join('')}</ul>`
 
     return resolve(document.body.innerHTML)
   })))
@@ -113,7 +113,7 @@ Promise.resolve()
       fs.readFileSync(path.join(paths.template, index)).toString(),
       { name, content, menu, pkg, documentComment }), minifierSettings))
 
-  for (let term in vocabulary)
+  for (const term in vocabulary)
     fs.writeFileSync(
       path.join(paths.destination, `${term}${htmlExtension}`),
       minifier.minify(mustache.render(fs.readFileSync(

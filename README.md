@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia and linked data. It consists of a *strict* subset of [JSON-LD](http://json-ld.org), a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations.
+Micro API is a media type for web APIs using hypermedia and linked data. It consists of a *strict* subset of [JSON-LD](http://json-ld.org), a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. As the name implies, it is intended to be very concise and therefore easy to implement. Its registered media type is:
 
 ```yaml
 Content-Type: application/vnd.micro+json
@@ -37,6 +37,7 @@ In general, the payload should look like the flattened form of JSON-LD, with som
 
 - The root node **MUST** be a singular object.
 - There **MUST** be a top-level `@context` object, containing at least the exact key-value pair: `{ "µ": "http://micro-api.org/" }`.
+- Resources **MUST** contain a unique `@id` *and* `µ:id`, no blank nodes are allowed.
 - Resources **MUST** be represented as an array via the default `@graph`.
 - References **MUST** be represented as a singular object with either the `@id` property *and/or* the `id` property.
 - The `@reverse` property **MUST** only exist adjacent to an `id` property. This property is useful for expressing inverse relationships without naming them.
@@ -150,7 +151,7 @@ It may be helpful for the response to have a `Location` header, but it is not re
 
 ## Updating Resources
 
-IDs **MUST** be specified in the payload per resource to update, and `PATCH` requests can be made wherever the resource exists (corollary: IDs cannot be changed, only specified).
+IDs **MUST** be specified in the payload per resource to update, and `PATCH` requests can be made wherever the resource exists (*corollary*: IDs can not be changed, only specified).
 
 ```http
 PATCH /people
@@ -234,6 +235,22 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
   }
 }
 ```
+
+
+## Prior Art
+
+Micro API builds upon JSON-LD, which is a W3C recommendation. A JSON-based serialization format has the advantage of widespread tooling and developer understanding.
+
+In contrast to [Linked Data Platform](https://www.w3.org/TR/ldp/), it does not use the Turtle format, which is useful only for working within [RDF](https://www.w3.org/RDF/). It also lacks a concept of "containers", which assumes that relationships are hierarchical. What is similar is that both stipulate which actions may be taken on resources.
+
+Micro API is an alternative for [Hydra](http://www.markus-lanthaler.com/hydra/), another specification for Web APIs. It is much less prescriptive than Hydra, and is implicit in cases which Hydra is more explicit. For example, some differences are:
+
+- **Collection**: all resources are collections.
+- **Operation**: these are assumed to match HTTP semantics. Only `PATCH` requests may have special application-specific operations, using `µ:operate`.
+- **Templated link**: clients must follow server links and only queries are allowed.
+- **API Documentation**: this is expected to contain natural language.
+
+A key difference between Micro API and Hydra is that Micro API **does not** assume that documentation is machine-processable. Why this matters is that natural language may be the only way to express complicated application logic. For example, Hydra stipulates that properties can be required, readable, or writable, but does not specify under what conditions a property may be required, readable, or writable. Is it required on create but not update? Readable to some clients but not others? The possibilities are endless.
 
 
 ## About
