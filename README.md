@@ -37,7 +37,7 @@ In general, the payload should look like the flattened form of JSON-LD, with som
 
 - The root node **MUST** be a singular object.
 - There **MUST** be a top-level `@context` object, containing at least the exact key-value pair: `{ "µ": "http://micro-api.org/" }`.
-- Resources **MUST** contain a unique `@id` *and* `µ:id`, no blank nodes are allowed.
+- Resources **MUST** contain a unique `@id` *and* `µ:id`, no blank nodes are allowed. The `@id` is an IRI, which is not to be confused with `µ:id` which is an application-specific identifier.
 - Resources **MUST** be represented as an array via the default `@graph`.
 - References **MUST** be represented as a singular object with either the `@id` property *and/or* the `id` property.
 - The `@reverse` property **MUST** only exist adjacent to an `id` property. This property is useful for expressing inverse relationships without naming them.
@@ -239,7 +239,7 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
 
 ## Prior Art
 
-Micro API builds upon JSON-LD, which is a W3C recommendation. A JSON-based serialization format has the advantage of widespread tooling and developer understanding.
+Micro API builds upon [JSON-LD](https://www.w3.org/TR/json-ld/), which is a W3C recommendation. A JSON-based serialization format has the advantage of widespread tooling and developer understanding.
 
 In contrast to [Linked Data Platform](https://www.w3.org/TR/ldp/), it does not use the Turtle format, which is useful only for working within [RDF](https://www.w3.org/RDF/). It also lacks a concept of "containers", which assumes that relationships are hierarchical. What is similar is that both stipulate which actions may be taken on resources.
 
