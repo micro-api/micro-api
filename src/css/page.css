@@ -49,7 +49,6 @@ article {
     calc(var(--line-height) * 2)
     calc(var(--line-height) * 2);
   margin-left: var(--menu-width);
-  border-left: 1px var(--color-alt-head) solid;
   position: relative;
 }
 
@@ -82,6 +81,7 @@ nav {
     calc(var(--line-height) * 1)
     0;
   background: rgba(0, 0, 0, 0.06);
+  border-left: 1px var(--color-alt-head) solid;
   overflow: auto;
 }
 
