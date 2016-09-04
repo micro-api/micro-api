@@ -1,0 +1,111 @@
+<!DOCTYPE html><!--
+This page is automatically generated from a build script.
+https://github.com/micro-api/micro-api
+--><html lang="en"><head><meta charset="utf-8"><title>Micro API</title><link rel="stylesheet" href="./assets/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.12/css/perfect-scrollbar.min.css"><link rel="icon" href="./assets/icon.png"><meta name="description" content="A media type for serializing hypermedia APIs."><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><main><header class="fixed"><section><h1><a href="./"><img src="./assets/icon.svg" alt="µ" class="logo"><span>Micro API</span></a></h1><p class="top-links"><a href="https://github.com/micro-api/micro-api">Repository</a><!--
+            --><a href="https://github.com/micro-api/micro-api/issues">Issues</a></p></section></header><article><p class="top-line"><em>What is Micro API?</em></p><p class="header"><a href="https://github.com/micro-api/micro-api"><img src="./assets/logo_light.svg" alt="Micro API"></a></p><p>Micro API is a media type for web APIs using hypermedia and linked data. It consists of a <em>strict</em> subset of <a href="http://json-ld.org">JSON-LD</a>, a vocabulary, and semantics for <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD</a> operations. As the name implies, it is intended to be very concise and therefore easy to implement. Its registered media type is:</p><pre><code class="lang-yaml">Content-<span class="hljs-keyword">Type</span>: application/vnd.micro+json
+</code></pre><p>The current published version is <strong>9 January 2016</strong>, and the media type is <a href="https://www.iana.org/assignments/media-types/application/vnd.micro+json">registered</a> with the <a href="http://www.iana.org/">IANA</a>.</p><h2 id="introduction">Introduction <a class="anchor" href="#introduction" title="Link to this section “Introduction”">#</a></h2><p>Micro API simplifies <a href="http://json-ld.org">JSON-LD</a> by limiting it to a subset which can be traversed reliably without using processing algorithms. It also provides a minimal vocabulary for basic fields. Example payloads and HTTP requests should be considered non-normative.</p><p>The key words <strong>MUST</strong>, <strong>MUST NOT</strong>, <strong>REQUIRED</strong>, <strong>SHALL</strong>, <strong>SHALL NOT</strong>, <strong>SHOULD</strong>, <strong>SHOULD NOT</strong>, <strong>RECOMMENDED</strong>, <strong>NOT RECOMMENDED</strong>, <strong>MAY</strong>, and <strong>OPTIONAL</strong> in this specification have the meaning defined in <a href="https://www.ietf.org/rfc/rfc2119">RFC 2119</a>.</p><h2 id="vocabulary">Vocabulary <a class="anchor" href="#vocabulary" title="Link to this section “Vocabulary”">#</a></h2><p><em>This section should be considered normative.</em></p><table><thead><tr><th style="text-align:left">Property</th><th style="text-align:left">Type</th><th style="text-align:left">Description</th></tr></thead><tbody><tr><td style="text-align:left"><a href="http://micro-api.org/id"><code>id</code></a></td><td style="text-align:left"><code>Text</code>, <code>Number</code></td><td style="text-align:left">A unique value used for identifying resources.</td></tr><tr><td style="text-align:left"><a href="http://micro-api.org/meta"><code>meta</code></a></td><td style="text-align:left"><code>Object</code></td><td style="text-align:left">Any meta-information may be contained here.</td></tr><tr><td style="text-align:left"><a href="http://micro-api.org/query"><code>query</code></a></td><td style="text-align:left"><code>Object</code></td><td style="text-align:left">A container for showing information about the current query.</td></tr><tr><td style="text-align:left"><a href="http://micro-api.org/operate"><code>operate</code></a></td><td style="text-align:left"><code>Object</code></td><td style="text-align:left">Reserved for arbitrary operations to update resources.</td></tr><tr><td style="text-align:left"><a href="http://micro-api.org/error"><code>error</code></a></td><td style="text-align:left"><code>Object</code></td><td style="text-align:left">If a request fails for any reason, it <strong>SHOULD</strong> return an error.</td></tr></tbody></table><h2 id="payload-restrictions">Payload Restrictions <a class="anchor" href="#payload-restrictions" title="Link to this section “Payload Restrictions”">#</a></h2><p><em>This section should be considered normative.</em></p><p>In general, the payload should look like the flattened form of JSON-LD, with some additional restrictions:</p><ul><li>The root node <strong>MUST</strong> be a singular object.</li><li>There <strong>MUST</strong> be a top-level <code>@context</code> object, containing at least the exact key-value pair: <code>{ "µ": "http://micro-api.org/" }</code>.</li><li>Resources <strong>MUST</strong> contain a unique <code>@id</code> <em>and</em> <code>µ:id</code>, no blank nodes are allowed. The <code>@id</code> is an IRI, which is not to be confused with <code>µ:id</code> which is an application-specific identifier.</li><li>Resources <strong>MUST</strong> be represented as an array via the default <code>@graph</code>.</li><li>References <strong>MUST</strong> be represented as a singular object with either the <code>@id</code> property <em>and/or</em> the <code>µ:id</code> property.</li><li>The <code>@reverse</code> property <strong>MUST</strong> only exist adjacent to an <code>µ:id</code> property. This property is useful for expressing inverse relationships without naming them.</li></ul><p>The entirety of Micro API can be expressed using only a few reserved keywords from JSON-LD: <code>@context</code>, <code>@vocab</code>, <code>@base</code>, <code>@graph</code>, <code>@type</code>, <code>@id</code>, and <code>@reverse</code>.</p><h2 id="entry-point">Entry Point <a class="anchor" href="#entry-point" title="Link to this section “Entry Point”">#</a></h2><p>The expectation of a Micro API entry point is to enumerate types and provide links to their collections.</p><pre class="group"><code class="lang-http"><span class="hljs-attribute">GET</span> /
+</code></pre><pre class="group"><code class="lang-json">{
+  <span class="hljs-attr">"@context"</span>: {
+    <span class="hljs-attr">"@vocab"</span>: <span class="hljs-string">"http://schema.org/"</span>,
+    <span class="hljs-attr">"µ"</span>: <span class="hljs-string">"http://micro-api.org/"</span>
+  },
+  <span class="hljs-attr">"Person"</span>: { <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"/people"</span> },
+  <span class="hljs-attr">"Movie"</span>: { <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"/movies"</span> }
+}
+</code></pre><h2 id="finding-resources">Finding Resources <a class="anchor" href="#finding-resources" title="Link to this section “Finding Resources”">#</a></h2><p>A <code>GET</code> request <strong>MAY</strong> be allowed on the collection IRI for a particular type.</p><pre class="group"><code class="lang-http"><span class="hljs-attribute">GET</span> /movies
+</code></pre><pre class="group"><code class="lang-json">{
+  <span class="hljs-attr">"@context"</span>: {
+    <span class="hljs-attr">"@vocab"</span>: <span class="hljs-string">"http://schema.org/"</span>,
+    <span class="hljs-attr">"µ"</span>: <span class="hljs-string">"http://micro-api.org/"</span>
+  },
+  <span class="hljs-attr">"@graph"</span>: [ {
+    <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"Movie"</span>,
+    <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"/movies/1"</span>,
+    <span class="hljs-attr">"µ:id"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"The Matrix"</span>,
+    <span class="hljs-attr">"actor"</span>: {
+      <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"/movies/1/actors"</span>,
+      <span class="hljs-attr">"µ:id"</span>: [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ]
+    }
+  } ]
+}
+</code></pre><p>Dereferencing an <code>@id</code> <strong>MUST</strong> return types corresponding to that property.</p><pre class="group"><code class="lang-http">GET /movies/the-<span class="hljs-built_in">matrix</span>/actors?<span class="hljs-built_in">limit</span>=<span class="hljs-number">1</span>
+</code></pre><pre class="group"><code class="lang-json">{
+  <span class="hljs-attr">"@context"</span>: {
+    <span class="hljs-attr">"@vocab"</span>: <span class="hljs-string">"http://schema.org/"</span>,
+    <span class="hljs-attr">"µ"</span>: <span class="hljs-string">"http://micro-api.org/"</span>
+  },
+  <span class="hljs-attr">"@graph"</span>: [ {
+    <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"Person"</span>,
+    <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"/people/1"</span>,
+    <span class="hljs-attr">"µ:id"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Keanu Reeves"</span>,
+    <span class="hljs-attr">"@reverse"</span>: {
+      <span class="hljs-attr">"actor"</span>: {
+        <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"/people/1/acted-in"</span>,
+        <span class="hljs-attr">"µ:id"</span>: [ <span class="hljs-number">1</span> ]
+      }
+    }
+  } ]
+}
+</code></pre><h2 id="creating-resources">Creating Resources <a class="anchor" href="#creating-resources" title="Link to this section “Creating Resources”">#</a></h2><p>Requesting to create an resource <strong>MAY</strong> be allowed at the collection IRI for that type. The payload <strong>MUST</strong> be a valid Micro API document, and referenced IDs must be specified using the <code>id</code> property.</p><pre class="group"><code class="lang-http"><span class="hljs-attribute">POST</span> /people
+</code></pre><pre class="group"><code class="lang-json">{
+  <span class="hljs-attr">"@context"</span>: {
+    <span class="hljs-attr">"@vocab"</span>: <span class="hljs-string">"http://schema.org/"</span>,
+    <span class="hljs-attr">"µ"</span>: <span class="hljs-string">"http://micro-api.org/"</span>
+  },
+  <span class="hljs-attr">"@graph"</span>: [ {
+    <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"Person"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John Doe"</span>,
+    <span class="hljs-attr">"@reverse"</span>: {
+      <span class="hljs-attr">"actor"</span>: {
+        <span class="hljs-attr">"µ:id"</span>: [ <span class="hljs-string">"some-movie"</span> ]
+      }
+    }
+  } ]
+}
+</code></pre><p>It may be helpful for the response to have a <code>Location</code> header, but it is not required since the response body may include a link to the created resource.</p><h2 id="updating-resources">Updating Resources <a class="anchor" href="#updating-resources" title="Link to this section “Updating Resources”">#</a></h2><p>IDs <strong>MUST</strong> be specified in the payload per resource to update, and <code>PATCH</code> requests can be made wherever the resource exists (<em>corollary</em>: IDs can not be changed, only specified).</p><pre class="group"><code class="lang-http"><span class="hljs-attribute">PATCH</span> /people
+</code></pre><pre class="group"><code class="lang-json">{
+  <span class="hljs-attr">"@context"</span>: {
+    <span class="hljs-attr">"@vocab"</span>: <span class="hljs-string">"http://schema.org/"</span>,
+    <span class="hljs-attr">"µ"</span>: <span class="hljs-string">"http://micro-api.org/"</span>
+  },
+  <span class="hljs-attr">"@graph"</span>: [ {
+    <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"Person"</span>,
+    <span class="hljs-attr">"µ:id"</span>: <span class="hljs-string">"john-doe"</span>,
+    <span class="hljs-attr">"additionalName"</span>: <span class="hljs-string">"Johnny"</span>,
+    <span class="hljs-attr">"birthPlace"</span>: {
+      <span class="hljs-attr">"µ:id"</span>: <span class="hljs-string">"los-angeles"</span>
+    },
+    <span class="hljs-attr">"µ:operate"</span>: { <span class="hljs-attr">"@context"</span>: <span class="hljs-literal">null</span> }
+  } ]
+}
+</code></pre><p>If the a specified resource does not exist at the requested location, it <strong>SHOULD</strong> return an error. The assumption is that <em>the <code>PATCH</code> method replaces the fields specified</em>. There is a special <code>µ:operate</code> property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the <code>PUT</code> method defines that <a href="http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT">a resource may be created</a>), so <code>PATCH</code> is typically what you want to do.</p><p><code>PATCH</code> requests can update existing resources, however Micro API does not define the semantics to create or delete resources with this method. In this example, by setting a link's <code>µ:id</code> property to <code>null</code> (for a to-one relationship) or <code>[]</code> (empty array for a to-many relationship), it removes the link.</p><h2 id="deleting-resources">Deleting Resources <a class="anchor" href="#deleting-resources" title="Link to this section “Deleting Resources”">#</a></h2><pre><code class="lang-http"><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/people/</span>john-doe
+</code></pre><p>A delete request can return no payload (HTTP 204 No Content) if it succeeds. It can apply to any IRI, including collections.</p><pre><code class="lang-http"><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/people/</span>john-doe<span class="hljs-regexp">/children</span>
+</code></pre><p>In this example, the request means delete all of the resources at this IRI, not just the link. There is no concept of relationship entities.</p><h2 id="error-response">Error Response <a class="anchor" href="#error-response" title="Link to this section “Error Response”">#</a></h2><p>If a request fails for any reason, it <strong>MUST</strong> return a <code>µ:error</code> object. The contents of the error object are opaque to this specification.</p><pre><code class="lang-json">{
+  <span class="hljs-attr">"@context"</span>: {
+    <span class="hljs-attr">"@vocab"</span>: <span class="hljs-string">"http://schema.org/"</span>,
+    <span class="hljs-attr">"µ"</span>: <span class="hljs-string">"http://micro-api.org/"</span>
+  },
+  <span class="hljs-attr">"µ:error"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"NotFoundError"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The requested resource was not found."</span>
+  }
+}
+</code></pre><h2 id="querying">Querying <a class="anchor" href="#querying" title="Link to this section “Querying”">#</a></h2><p>Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the <code>µ:query</code> object <strong>MAY</strong> contain hints on what queries can be appended to GET requests, with further information about the query provided by a vocabulary (optional):</p><pre><code class="lang-json">{
+  <span class="hljs-attr">"@context"</span>: {
+    <span class="hljs-attr">"@vocab"</span>: <span class="hljs-string">"http://schema.org/"</span>,
+    <span class="hljs-attr">"µ"</span>: <span class="hljs-string">"http://micro-api.org/"</span>
+  },
+  <span class="hljs-attr">"µ:query"</span>: {
+    <span class="hljs-attr">"@context"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">"include"</span>: [],
+    <span class="hljs-attr">"sort"</span>: {},
+    <span class="hljs-attr">"field"</span>: {},
+    <span class="hljs-attr">"match"</span>: {},
+    <span class="hljs-attr">"limit"</span>: <span class="hljs-number">1000</span>,
+    <span class="hljs-attr">"offset"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"count"</span>: <span class="hljs-number">0</span>
+  }
+}
+</code></pre><h2 id="prior-art">Prior Art <a class="anchor" href="#prior-art" title="Link to this section “Prior Art”">#</a></h2><p>Micro API builds upon <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>, which is a W3C recommendation. A JSON-based serialization format has the advantage of widespread tooling and developer understanding.</p><p>In contrast to <a href="https://www.w3.org/TR/ldp/">Linked Data Platform</a>, it does not use the Turtle format, which is useful only for working within <a href="https://www.w3.org/RDF/">RDF</a>. It also lacks a concept of "containers", which assumes that relationships are hierarchical. What is similar is that both stipulate which actions may be taken on resources.</p><p>Micro API is an alternative for <a href="http://www.markus-lanthaler.com/hydra/">Hydra</a>, another specification for Web APIs. It is much less prescriptive than Hydra, and is implicit in cases which Hydra is more explicit. For example, some differences are:</p><ul><li><strong>Collection</strong>: all resources are collections.</li><li><strong>Operation</strong>: these are assumed to match HTTP semantics. Only <code>PATCH</code> requests may have special application-specific operations, using <code>µ:operate</code>.</li><li><strong>Templated link</strong>: clients must follow server links and only queries are allowed.</li><li><strong>API Documentation</strong>: this is expected to contain natural language.</li></ul><p>A key difference between Micro API and Hydra is that Micro API <strong>does not</strong> assume that documentation is machine-processable. Why this matters is that natural language may be the only way to express complicated application logic. For example, Hydra stipulates that properties can be required, readable, or writable, but does not specify under what conditions a property may be required, readable, or writable. Is it required on create but not update? Readable to some clients but not others? The possibilities are endless.</p><h2 id="about">About <a class="anchor" href="#about" title="Link to this section “About”">#</a></h2><p>The source for this document is on <a href="https://github.com/micro-api/micro-api">GitHub</a>. It is licensed under the <a href="https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE">CC0 1.0 License</a>.</p></article><nav><div class="container"><h1><a href="./"><img src="./assets/icon.svg" alt="µ" class="logo"></a></h1><h4>Contents</h4><ul><li><a href="#introduction">Introduction</a></li><li><a href="#vocabulary">Vocabulary</a></li><li><a href="#payload-restrictions">Payload Restrictions</a></li><li><a href="#entry-point">Entry Point</a></li><li><a href="#finding-resources">Finding Resources</a></li><li><a href="#creating-resources">Creating Resources</a></li><li><a href="#updating-resources">Updating Resources</a></li><li><a href="#deleting-resources">Deleting Resources</a></li><li><a href="#error-response">Error Response</a></li><li><a href="#querying">Querying</a></li><li><a href="#prior-art">Prior Art</a></li><li><a href="#about">About</a></li></ul></div></nav></main><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.12/js/perfect-scrollbar.min.js"></script><script>Ps.initialize(document.querySelector('nav'))</script></body></html>
