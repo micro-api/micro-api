@@ -76,18 +76,17 @@ nav {
   width: var(--menu-width);
   height: 100%;
   top: 0;
-  padding:
-    calc(var(--line-height) * 1)
-    calc(var(--line-height) * 1)
-    0;
   background: rgba(0, 0, 0, 0.06);
   border-left: 1px var(--color-alt-head) solid;
   overflow: auto;
 }
 
-nav div {
+nav > div.container {
   position: relative;
-  padding-bottom: calc(var(--line-height) * 1 / 2);
+  padding:
+    calc(var(--line-height) * 1)
+    calc(var(--line-height) * 1)
+    0;
   min-height: 100%;
 }
 
@@ -124,7 +123,7 @@ nav li a {
   display: block;
   font-size: calc(1em * 13 / 16);
   line-height: calc(var(--line-height) * 16 / 13);
-  padding: calc(var(--line-height) * 2 / 3 * 16 / 13) 0;
+  padding: calc(var(--line-height) * 1 / 2 * 16 / 13) 0;
 }
 
 nav a:hover {
