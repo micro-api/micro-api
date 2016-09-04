@@ -14,11 +14,11 @@
   --color-alt:          rgba(255, 255, 255, 0.03);
 
   /* fonts */
-  --body-font: Avenir, Calibri, Helvetica, Arial, sans-serif;
-  --mono-font: 'DejaVu Sans Mono', 'Andale Mono', monospace;
+  --body-font: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --mono-font: DejaVu Sans Mono, Andale Mono, monospace;
 
   /* measurements */
-  --max-width: 64em;
+  --max-width: 65em;
   --menu-width: 13em;
   --body-size: 16px;
   --size-ratio: calc(17 / 16);

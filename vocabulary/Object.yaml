@@ -1,0 +1,5 @@
+types:
+  - Type
+
+description: >
+  An object, or arbitrary data structure.

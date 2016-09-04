@@ -1,5 +1,5 @@
 types:
-  - Thing
+  - Object
 
 description: >
   A generic container for meta-information.
@@ -9,7 +9,7 @@ description: >
 
   {
     "@context": {
-      "@vocab": "http://schema.org/",
+      "@vocab": "/#",
       "µ": "http://micro-api.org/"
     },
     "µ:meta": {

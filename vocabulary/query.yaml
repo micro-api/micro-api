@@ -1,5 +1,5 @@
 types:
-  - Thing
+  - Object
 
 description: >
   A container for showing information about the current query. It **MUST**
@@ -11,7 +11,7 @@ description: >
 
   {
     "@context": {
-      "@vocab": "http://schema.org/",
+      "@vocab": "/#",
       "µ": "http://micro-api.org/"
     },
     "µ:query": {

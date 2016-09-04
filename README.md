@@ -1,12 +1,12 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for web APIs using hypermedia and linked data. It consists of a *strict* subset of [JSON-LD](http://json-ld.org), a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. As the name implies, it is intended to be very concise and therefore easy to implement. Its registered media type is:
+Micro API is a media type for self-documenting APIs on the web using hypermedia and linked data. It consists of a *strict* subset of [JSON-LD](http://json-ld.org), a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. As the name implies, it is intended to be very concise and therefore easy to implement. Its registered media type is:
 
 ```yaml
 Content-Type: application/vnd.micro+json
 ```
 
-The current published version is **9 January 2016**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
+The current published version is **2016-09-04**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
 
 
 ## Introduction
@@ -20,13 +20,31 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 *This section should be considered normative.*
 
+There are two categories of the vocabulary. First, there are the generic field definitions.
+
 | Property | Type | Description |
 |:---------|:-----|:------------|
-| [`id`](http://micro-api.org/id) | `Text`, `Number` | A unique value used for identifying resources. |
+| [`id`](http://micro-api.org/id) | `String`, `Number` | A unique value used for identifying resources. |
 | [`meta`](http://micro-api.org/meta) | `Object` | Any meta-information may be contained here. |
 | [`query`](http://micro-api.org/query) | `Object` | A container for showing information about the current query. |
 | [`operate`](http://micro-api.org/operate) | `Object` | Reserved for arbitrary operations to update resources. |
 | [`error`](http://micro-api.org/error) | `Object` | If a request fails for any reason, it **SHOULD** return an error. |
+
+Second, there are meta-vocabulary fields used for describing the ontology of an API.
+
+| Property | Type | Description |
+|:---------|:-----|:------------|
+| [`vocab`](http://micro-api.org/vocab) | `Object` | An enumeration of classes and properties. |
+| [`description`](http://micro-api.org/description) | `String` | Descriptions for classes and properties. |
+| [`belongsTo`](http://micro-api.org/belongsTo) | `String` | An enumeration of types which a property belongs to, including the built-in field definitions `meta`, `query`, `operate`, `error`. |
+| [`isArray`](http://micro-api.org/isArray) | `Boolean` | For properties, indicates if their values are arrays. Defaults to false. |
+| [`Type`](http://micro-api.org/Type) | `Type` | A type defines any data structure which contains the same set of properties. |
+| [`String`](http://micro-api.org/String) | `Type` | An UTF-8 string. |
+| [`Number`](http://micro-api.org/Number) | `Type` | An IEEE 754 floating point number. |
+| [`Boolean`](http://micro-api.org/Boolean) | `Type` | A boolean value. |
+| [`Date`](http://micro-api.org/Date) | `Type` | An ISO 8601 date. |
+| [`Buffer`](http://micro-api.org/Buffer) | `Type` | A base64-encoded buffer. |
+| [`Object`](http://micro-api.org/Object) | `Type` | An object, or arbitrary data structure. |
 
 
 ## Payload Restrictions
@@ -47,7 +65,7 @@ The entirety of Micro API can be expressed using only a few reserved keywords fr
 
 ## Entry Point
 
-The expectation of a Micro API entry point is to enumerate types and provide links to their collections.
+The expectation of a Micro API entry point is to enumerate types and properties and provide links to collections.
 
 ```http
 GET /
@@ -56,13 +74,25 @@ GET /
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/",
+    "@vocab": "/#",
     "µ": "http://micro-api.org/"
   },
+  "µ:vocab": [
+    { "@id": "name", "@type": "µ:String",
+      "µ:belongsTo": [ "Person", "Movie" ] },
+    { "@id": "actor", "@type": "Person",
+      "µ:belongsTo": [ "Movie" ], "µ:isArray": true },
+    { "@id": "Person", "@type": "µ:Type",
+      "µ:description": "A human being." },
+    { "@id": "Movie", "@type": "µ:Type",
+      "µ:description": "A moving picture." }
+  ],
   "Person": { "@id": "/people" },
   "Movie": { "@id": "/movies" }
 }
 ```
+
+The `@vocab` field of a Micro API **MUST** be the path to the API suffixed with the `#` character, so that dereferencing always refers to the entry point.
 
 
 ## Finding Resources
@@ -76,7 +106,7 @@ GET /movies
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/",
+    "@vocab": "/#",
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
@@ -101,7 +131,7 @@ GET /movies/the-matrix/actors?limit=1
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/",
+    "@vocab": "/#",
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
@@ -131,7 +161,7 @@ POST /people
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/",
+    "@vocab": "/#",
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
@@ -139,7 +169,7 @@ POST /people
     "name": "John Doe",
     "@reverse": {
       "actor": {
-        "µ:id": [ "some-movie" ]
+        "µ:id": [ "memento" ]
       }
     }
   } ]
@@ -160,17 +190,17 @@ PATCH /people
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/",
+    "@vocab": "/#",
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
     "@type": "Person",
     "µ:id": "john-doe",
-    "additionalName": "Johnny",
-    "birthPlace": {
-      "µ:id": "los-angeles"
+    "name": "Johnny Doe",
+    "actor": {
+      "µ:id": [ "point-break" ]
     },
-    "µ:operate": { "@context": null }
+    "µ:operate": {}
   } ]
 }
 ```
@@ -202,7 +232,7 @@ If a request fails for any reason, it **MUST** return a `µ:error` object. The c
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/",
+    "@vocab": "/#",
     "µ": "http://micro-api.org/"
   },
   "µ:error": {
@@ -220,11 +250,10 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
 ```json
 {
   "@context": {
-    "@vocab": "http://schema.org/",
+    "@vocab": "/#",
     "µ": "http://micro-api.org/"
   },
   "µ:query": {
-    "@context": null,
     "include": [],
     "sort": {},
     "field": {},

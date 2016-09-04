@@ -1,0 +1,5 @@
+types:
+  - Type
+
+description: >
+  A ISO 8601 date.

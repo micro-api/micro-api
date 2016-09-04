@@ -1,0 +1,23 @@
+types:
+  - Object
+
+description: >
+  A container for an enumeration of classes and properties. It **MUST** exist
+  only at the top-level document, and generally it should only appear at the
+  entry point. For example:
+
+
+  ```json
+
+  {
+    "@context": {
+      "@vocab": "/#",
+      "µ": "http://micro-api.org/"
+    },
+    "µ:vocab": [
+      { ... },
+      { ... }
+    ]
+  }
+
+  ```

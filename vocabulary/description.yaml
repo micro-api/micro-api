@@ -1,0 +1,5 @@
+types:
+  - String
+
+description: >
+  A description in human language for a class or property.

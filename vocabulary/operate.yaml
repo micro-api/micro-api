@@ -1,5 +1,5 @@
 types:
-  - Thing
+  - Object
 
 description: >
   A container for custom operations to update a resource. Typically, its context
@@ -10,11 +10,10 @@ description: >
 
   {
     "@context": {
-      "@vocab": "http://schema.org/",
+      "@vocab": "/#",
       "µ": "http://micro-api.org/"
     },
     "µ:operate": {
-      "@context": null,
       "push": [ "foo", "bar" ],
       "pull": "baz"
     }

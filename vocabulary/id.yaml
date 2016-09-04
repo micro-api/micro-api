@@ -1,5 +1,5 @@
 types:
-  - Text
+  - String
   - Number
 
 description: >
@@ -12,7 +12,7 @@ description: >
 
   {
     "@context": {
-      "@vocab": "http://schema.org/",
+      "@vocab": "/#",
       "µ": "http://micro-api.org/"
     },
     "@graph": [ {
@@ -28,4 +28,3 @@ description: >
   }
 
   ```
-

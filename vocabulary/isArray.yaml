@@ -1,0 +1,6 @@
+types:
+  - Boolean
+
+description: >
+  A boolean value indicating whether or not a certain property should always be
+  an array or not. Defaults to false.
