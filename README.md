@@ -6,7 +6,7 @@ Micro API is a media type for self-documenting APIs on the web using hypermedia 
 Content-Type: application/vnd.micro+json
 ```
 
-The current published version is **2016-09-04**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
+The current published version is **2016-09-06**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
 
 
 ## Introduction
@@ -65,7 +65,7 @@ The entirety of Micro API can be expressed using only a few reserved keywords fr
 
 ## Entry Point
 
-The expectation of a Micro API entry point is to enumerate types and properties and provide links to collections.
+The expectation of a Micro API entry point is to enumerate types and properties and provide links to collections. It **MUST** contain the `µ:vocab` property, valued as an array of objects.
 
 ```http
 GET /
@@ -264,6 +264,17 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
   }
 }
 ```
+
+
+## Unregistered Media Type
+
+One may use [MessagePack](http://msgpack.org) instead of JSON as the serialization format for greater bandwidth savings. Since MessagePack is an unregistered media type, the corresponding Micro API media type may be unregistered as well:
+
+```yaml
+application/x-micro
+```
+
+It is completely optional to support this unregistered media type, but it should be interpreted as Micro API with MessagePack enabled.
 
 
 ## Prior Art
