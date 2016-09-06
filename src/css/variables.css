@@ -18,7 +18,7 @@
   --mono-font: DejaVu Sans Mono, Andale Mono, monospace;
 
   /* measurements */
-  --max-width: 66em;
+  --max-width: 68em;
   --menu-width: 14em;
   --body-size: 16px;
   --size-ratio: calc(17 / 16);
