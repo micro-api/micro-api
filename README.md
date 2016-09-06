@@ -272,7 +272,7 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
 One may use [MessagePack](http://msgpack.org) instead of JSON as the serialization format for greater bandwidth savings. Since MessagePack is an unregistered media type, the corresponding Micro API media type may be unregistered as well:
 
 ```yaml
-Content-Type: application/x-micro
+Content-Type: application/x-micro-api
 ```
 
 It is completely optional to support this unregistered media type, but it should be interpreted as Micro API with MessagePack enabled.
