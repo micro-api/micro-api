@@ -37,6 +37,7 @@ Second, there are meta-vocabulary fields used for describing the ontology of an 
 | [`vocab`](http://micro-api.org/vocab) | `Object` | An enumeration of classes and properties. |
 | [`description`](http://micro-api.org/description) | `String` | Descriptions for classes and properties. |
 | [`belongsTo`](http://micro-api.org/belongsTo) | `String` | An enumeration of types which a property belongs to, including the built-in field definitions `meta`, `query`, `operate`, `error`. |
+| [`inverse`](http://micro-api.org/inverse) | `String` | An inversely related property for a relationship. |
 | [`isArray`](http://micro-api.org/isArray) | `Boolean` | For properties, indicates if their values are arrays. Defaults to false. |
 | [`Type`](http://micro-api.org/Type) | `Type` | A type defines any data structure which contains the same set of properties. |
 | [`String`](http://micro-api.org/String) | `Type` | An UTF-8 string. |
