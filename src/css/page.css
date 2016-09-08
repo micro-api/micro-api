@@ -71,6 +71,9 @@ article > pre:first-of-type {
   color: var(--color-value);
 }
 
+article table td:nth-of-type(1),
+article table td:nth-of-type(2) { width: 10em; }
+
 nav {
   position: fixed;
   width: var(--menu-width);

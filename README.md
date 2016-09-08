@@ -278,7 +278,7 @@ Content-Type: application/x-micro-api
 It is completely optional to support this unregistered media type, but it should be interpreted as Micro API with MessagePack enabled.
 
 
-## Prior Art
+## Comparisons
 
 Micro API builds upon [JSON-LD](https://www.w3.org/TR/json-ld/), which is a W3C recommendation. A JSON-based serialization format has the advantage of widespread tooling and developer understanding.
 
@@ -289,9 +289,9 @@ Micro API is an alternative for [Hydra](http://www.markus-lanthaler.com/hydra/),
 - **Collection**: all resources are collections.
 - **Operation**: these are assumed to match HTTP semantics. Only `PATCH` requests may have special application-specific operations, using `µ:operate`.
 - **Templated link**: clients must follow server links and only queries are allowed.
-- **API Documentation**: this is expected to contain natural language.
+- **API documentation**: this is expected to contain natural language.
 
-A key difference between Micro API and Hydra is that Micro API **does not** assume that documentation is machine-processable. Why this matters is that natural language may be the only way to express complicated application logic. For example, Hydra stipulates that properties can be required, readable, or writable, but does not specify under what conditions a property may be required, readable, or writable. Is it required on create but not update? Readable to some clients but not others? The possibilities are endless.
+A key difference between Micro API and Hydra is that Micro API **does not** assume that documentation is machine-processable. Why this matters is that natural language may be the only way to express application logic.
 
 
 ## About
