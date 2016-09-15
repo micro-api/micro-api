@@ -10,7 +10,7 @@ const chalk = require('chalk')
 
 
 marked.setOptions({
-  highlight: code => hjs.highlightAuto(code).value
+  highlight: (code, lang) => hjs.highlight(lang, code).value
 })
 
 

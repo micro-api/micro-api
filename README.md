@@ -278,7 +278,7 @@ Content-Type: application/x-micro-api
 It is completely optional to support this unregistered media type, but it should be interpreted as Micro API with MessagePack enabled.
 
 
-## Comparisons
+## Prior Art
 
 Micro API builds upon [JSON-LD](https://www.w3.org/TR/json-ld/), which is a W3C recommendation. A JSON-based serialization format has the advantage of widespread tooling and developer understanding.
 
