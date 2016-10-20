@@ -13,26 +13,22 @@
     "type": "git",
     "url": "https://github.com/micro-api/micro-api.git"
   },
-  "author": {
-    "email": "0x8890@airmail.cc",
-    "url": "http://0x8890.com"
-  },
   "license": "CC0",
   "dependencies": {
     "http-server": "^0.9.0"
   },
   "devDependencies": {
     "chalk": "^1.1.3",
-    "cssnano": "^3.7.4",
-    "eslint": "^3.5.0",
+    "cssnano": "^3.7.7",
+    "eslint": "^3.8.1",
     "eslint-config-boss": "^1.0.4",
-    "highlight.js": "^9.6.0",
-    "html-minifier": "^3.0.2",
+    "highlight.js": "^9.7.0",
+    "html-minifier": "^3.1.0",
     "js-yaml": "^3.6.1",
-    "jsdom": "^9.5.0",
+    "jsdom": "^9.8.0",
     "marked": "^0.3.6",
     "mustache": "^2.2.1",
-    "postcss": "^5.2.0",
+    "postcss": "^5.2.5",
     "postcss-cli": "^2.6.0",
     "postcss-cssnext": "^2.8.0",
     "postcss-import": "^8.1.2"
@@ -41,6 +37,6 @@
     "extends": "boss"
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   }
 }
