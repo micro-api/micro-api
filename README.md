@@ -198,8 +198,10 @@ PATCH /people
     "@type": "Person",
     "µ:id": "john-doe",
     "name": "Johnny Doe",
-    "actor": {
-      "µ:id": [ "point-break" ]
+    "@reverse": {
+      "actor": {
+        "µ:id": [ "point-break" ]
+      }
     },
     "µ:operate": {}
   } ]
