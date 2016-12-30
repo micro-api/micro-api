@@ -44,7 +44,7 @@ a:hover {
 
 article {
   padding:
-    calc(var(--line-height) * 5)
+    calc(var(--line-height) * 1)
     calc(var(--line-height) * 1)
     calc(var(--line-height) * 2)
     calc(var(--line-height) * 2);
@@ -81,6 +81,7 @@ nav {
   top: 0;
   background: rgba(0, 0, 0, 0.06);
   border-left: 1px var(--color-alt-head) solid;
+  border-right: 1px var(--color-alt-head) solid;
   overflow: auto;
 }
 
@@ -275,8 +276,8 @@ nav .logo {
 }
 
 .top-links {
-  float: right;
-  margin: 0;
+  text-align: right;
+  margin: 0 0 calc(var(--line-height) * 2);
 }
 
 .top-links a {
