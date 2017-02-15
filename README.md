@@ -1,6 +1,6 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a media type for self-documenting APIs on the web using hypermedia and linked data. It consists of a *strict* subset of [JSON-LD](http://json-ld.org), a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. As the name implies, it is intended to be very concise and therefore easy to implement. Its registered media type is:
+Micro API is a subset of [JSON-LD](http://json-ld.org) intended for hypermedia APIs. It includes a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. As the name implies, it is intended to be concise and generic. Its registered media type is:
 
 ```yaml
 Content-Type: application/vnd.micro+json
@@ -20,7 +20,9 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 *This section should be considered normative.*
 
-There are two categories of the vocabulary. First, there are the generic field definitions.
+There are three sub-categories of the vocabulary: generic fields, ontological fields, and concrete data types.
+
+**Generic Fields**
 
 | Property | Type | Description |
 |:---------|:-----|:------------|
@@ -30,15 +32,20 @@ There are two categories of the vocabulary. First, there are the generic field d
 | [`operate`](http://micro-api.org/operate) | `Object` | Reserved for arbitrary operations to update resources. |
 | [`error`](http://micro-api.org/error) | `Object` | If a request fails for any reason, it **SHOULD** return an error. |
 
-Second, there are meta-vocabulary fields used for describing the ontology of an API.
+**Ontological Fields**
 
 | Property | Type | Description |
 |:---------|:-----|:------------|
 | [`vocab`](http://micro-api.org/vocab) | `Object` | An enumeration of classes and properties. |
 | [`description`](http://micro-api.org/description) | `String` | Descriptions for classes and properties. |
-| [`belongsTo`](http://micro-api.org/belongsTo) | `String` | An enumeration of types which a property belongs to, including the built-in field definitions `meta`, `query`, `operate`, `error`. |
+| [`belongsTo`](http://micro-api.org/belongsTo) | `String` | Presence of this field indicates a property. It is valued as an enumeration of types which a property belongs to, including the built-in field definitions `meta`, `query`, `operate`, `error`. |
 | [`inverse`](http://micro-api.org/inverse) | `String` | An inversely related property for a relationship. |
 | [`isArray`](http://micro-api.org/isArray) | `Boolean` | For properties, indicates if their values are arrays. Defaults to false. |
+
+**Data Types**
+
+| Property | Type | Description |
+|:---------|:-----|:------------|
 | [`Type`](http://micro-api.org/Type) | `Type` | A type defines any data structure which contains the same set of properties. |
 | [`String`](http://micro-api.org/String) | `Type` | An UTF-8 string. |
 | [`Number`](http://micro-api.org/Number) | `Type` | An IEEE 754 floating point number. |
