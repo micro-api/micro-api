@@ -82,7 +82,7 @@ GET /
 ```json
 {
   "@context": {
-    "@vocab": "/#",
+    "@vocab": "http://example.com/#",
     "µ": "http://micro-api.org/"
   },
   "µ:vocab": [
@@ -114,7 +114,7 @@ GET /movies
 ```json
 {
   "@context": {
-    "@vocab": "/#",
+    "@vocab": "http://example.com/#",
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
@@ -139,7 +139,7 @@ GET /movies/the-matrix/actors?limit=1
 ```json
 {
   "@context": {
-    "@vocab": "/#",
+    "@vocab": "http://example.com/#",
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
@@ -169,7 +169,7 @@ POST /people
 ```json
 {
   "@context": {
-    "@vocab": "/#",
+    "@vocab": "http://example.com/#",
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
@@ -198,7 +198,7 @@ PATCH /people
 ```json
 {
   "@context": {
-    "@vocab": "/#",
+    "@vocab": "http://example.com/#",
     "µ": "http://micro-api.org/"
   },
   "@graph": [ {
@@ -242,7 +242,7 @@ If a request fails for any reason, it **MUST** return a `µ:error` object. The c
 ```json
 {
   "@context": {
-    "@vocab": "/#",
+    "@vocab": "http://example.com/#",
     "µ": "http://micro-api.org/"
   },
   "µ:error": {
@@ -260,7 +260,7 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
 ```json
 {
   "@context": {
-    "@vocab": "/#",
+    "@vocab": "http://example.com/#",
     "µ": "http://micro-api.org/"
   },
   "µ:query": {
