@@ -86,13 +86,13 @@ GET /
     "µ": "http://micro-api.org/"
   },
   "µ:vocab": [
-    { "@id": "name", "@type": "µ:String",
+    { "@id": "/#name", "@type": "µ:String",
       "µ:belongsTo": [ "Person", "Movie" ] },
-    { "@id": "actor", "@type": "Person",
+    { "@id": "/#actor", "@type": "Person",
       "µ:belongsTo": [ "Movie" ], "µ:isArray": true },
-    { "@id": "Person", "@type": "µ:Type",
+    { "@id": "/#Person", "@type": "µ:Type",
       "µ:description": "A human being." },
-    { "@id": "Movie", "@type": "µ:Type",
+    { "@id": "/#Movie", "@type": "µ:Type",
       "µ:description": "A moving picture." }
   ],
   "Person": { "@id": "/people" },
