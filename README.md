@@ -1,17 +1,17 @@
 [![Micro API](https://micro-api.github.io/micro-api/assets/logo.svg)](http://micro-api.org)
 
-Micro API is a subset of [JSON-LD](http://json-ld.org) intended for hypermedia APIs. It includes a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. As the name implies, it is intended to be concise and generic. Its registered media type is:
+Micro API is a subset of [JSON-LD](http://json-ld.org) intended for representing hypermedia APIs. It includes a vocabulary, and semantics for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. As the name implies, it is intended to be concise and generic. Its registered media type is:
 
 ```yaml
 Content-Type: application/vnd.micro+json
 ```
 
-The current published version is **2016-09-06**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
+The current published version is **2017-04-25**, and the media type is [registered](https://www.iana.org/assignments/media-types/application/vnd.micro+json) with the [IANA](http://www.iana.org/).
 
 
 ## Introduction
 
-Micro API simplifies [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using processing algorithms. It also provides a minimal vocabulary for basic fields. Example payloads and HTTP requests should be considered non-normative.
+Micro API simplifies [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using processing algorithms. Example payloads and HTTP requests should be considered non-normative.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and **OPTIONAL** in this specification have the meaning defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119).
 
@@ -20,39 +20,16 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 *This section should be considered normative.*
 
-There are three sub-categories of the vocabulary: generic fields, ontological fields, and concrete data types.
-
-**Generic Fields**
+Micro API introduces a small vocabulary focused on APIs that is not covered by other standards.
 
 | Property | Type | Description |
 |:---------|:-----|:------------|
-| [`id`](http://micro-api.org/id) | `String`, `Number` | A unique value used for identifying resources. |
+| [`id`](http://micro-api.org/id) | `String`, `Number` | A unique value used for identifying resources, most often the primary key in a database. |
 | [`meta`](http://micro-api.org/meta) | `Object` | Any meta-information may be contained here. |
 | [`query`](http://micro-api.org/query) | `Object` | A container for showing information about the current query. |
-| [`operate`](http://micro-api.org/operate) | `Object` | Reserved for arbitrary operations to update resources. |
-| [`error`](http://micro-api.org/error) | `Object` | If a request fails for any reason, it **SHOULD** return an error. |
-
-**Ontological Fields**
-
-| Property | Type | Description |
-|:---------|:-----|:------------|
-| [`vocab`](http://micro-api.org/vocab) | `Object` | An enumeration of classes and properties. |
-| [`description`](http://micro-api.org/description) | `String` | Descriptions for classes and properties. |
-| [`belongsTo`](http://micro-api.org/belongsTo) | `String` | Presence of this field indicates a property. It is valued as an enumeration of types which a property belongs to, including the built-in field definitions `meta`, `query`, `operate`, `error`. |
-| [`inverse`](http://micro-api.org/inverse) | `String` | An inversely related property for a relationship. |
-| [`isArray`](http://micro-api.org/isArray) | `Boolean` | For properties, indicates if their values are arrays. Defaults to false. |
-
-**Data Types**
-
-| Property | Type | Description |
-|:---------|:-----|:------------|
-| [`Type`](http://micro-api.org/Type) | `Type` | A type defines any data structure which contains the same set of properties. |
-| [`String`](http://micro-api.org/String) | `Type` | An UTF-8 string. |
-| [`Number`](http://micro-api.org/Number) | `Type` | An IEEE 754 floating point number. |
-| [`Boolean`](http://micro-api.org/Boolean) | `Type` | A boolean value. |
-| [`Date`](http://micro-api.org/Date) | `Type` | An ISO 8601 date. |
-| [`Buffer`](http://micro-api.org/Buffer) | `Type` | A base64-encoded buffer. |
-| [`Object`](http://micro-api.org/Object) | `Type` | An object, or arbitrary data structure. |
+| [`operate`](http://micro-api.org/operate) | `Object` | Reserved for application-specific, arbitrary operations to update resources. |
+| [`error`](http://micro-api.org/error) | `Object` | If a request fails for any reason, it **MUST** return an error in the payload. |
+| [`isArray`](http://micro-api.org/isArray) | `Boolean` | For properties, indicates if their values are arrays (this is lacking in RDF). If this is missing, it should be considered `false`. |
 
 
 ## Payload Restrictions
@@ -62,18 +39,15 @@ There are three sub-categories of the vocabulary: generic fields, ontological fi
 In general, the payload should look like the flattened form of JSON-LD, with some additional restrictions:
 
 - The root node **MUST** be a singular object.
-- There **MUST** be a top-level `@context` object, containing at least the exact key-value pair: `{ "µ": "http://micro-api.org/" }`.
-- Resources **MUST** contain a unique `@id` *and* `µ:id`, no blank nodes are allowed. The `@id` is an IRI, which is not to be confused with `µ:id` which is an application-specific identifier.
-- Resources **MUST** be represented as an array via the default `@graph`.
-- References **MUST** be represented as a singular object with either the `@id` property *and/or* the `µ:id` property.
-- The `@reverse` property **MUST** only exist adjacent to an `µ:id` property. This property is useful for expressing inverse relationships without naming them.
-
-The entirety of Micro API can be expressed using only a few reserved keywords from JSON-LD: `@context`, `@vocab`, `@base`, `@graph`, `@type`, `@id`, and `@reverse`.
+- There **MUST** be a top-level `@context` object, containing at least the context for Micro API: `http://micro-api.org/context.jsonld`, a `@base` and a `@vocab` valued by the entry IRI suffixed with a `#`.
+- Resources **MUST** contain a unique `href` *and* `id`, no blank nodes are allowed. The `href` is an IRI (or an alias for `@id` in JSON-LD parlance), which is not to be confused with `id` which is an application-specific identifier.
+- Resources **MUST** be represented as an array via the default `graph`.
+- References **MUST** be represented as a singular object with either the `href` property *and/or* the `id` property.
 
 
 ## Entry Point
 
-The expectation of a Micro API entry point is to enumerate types and properties and provide links to collections. It **MUST** contain the `µ:vocab` property, valued as an array of objects.
+The expectation of a Micro API entry point is to enumerate types and properties and provide links to collections. It **MUST** contain the `definitions` at the top-level, valued as an array of objects, and the `type` as `Ontology`.
 
 ```http
 GET /
@@ -81,22 +55,31 @@ GET /
 
 ```json
 {
-  "@context": {
-    "@vocab": "http://example.com/#",
-    "µ": "http://micro-api.org/"
-  },
-  "µ:vocab": [
-    { "@id": "/#name", "@type": "µ:String",
-      "µ:belongsTo": [ "Person", "Movie" ] },
-    { "@id": "/#actor", "@type": "Person",
-      "µ:belongsTo": [ "Movie" ], "µ:isArray": true },
-    { "@id": "/#Person", "@type": "µ:Type",
-      "µ:description": "A human being." },
-    { "@id": "/#Movie", "@type": "µ:Type",
-      "µ:description": "A moving picture." }
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
   ],
-  "Person": { "@id": "/people" },
-  "Movie": { "@id": "/movies" }
+  "type": "Ontology",
+  "definitions": [
+    { "href": "#name", "label": "Name",
+      "propertyOf": [ "#Person", "#Movie" ], "propertyType": "xsd:string",
+      "type": "Property", "comment": "Given name."
+    },
+    { "href": "#actor", "label": "Actors",
+      "propertyOf": [ "#Movie" ], "propertyType": "#Person", "isArray": true,
+      "type": "Property", "comment": "People who acted in a movie."
+    },
+    { "href": "#Person", "label": "Person",
+      "type": "Class", "comment": "A human being."
+    },
+    { "href": "#Movie", "label": "Movie",
+      "type": "Class", "comment": "A moving picture."
+    }
+  ],
+  "Person": { "href": "/people" },
+  "Movie": { "href": "/movies" }
 }
 ```
 
@@ -113,24 +96,26 @@ GET /movies
 
 ```json
 {
-  "@context": {
-    "@vocab": "http://example.com/#",
-    "µ": "http://micro-api.org/"
-  },
-  "@graph": [ {
-    "@type": "Movie",
-    "@id": "/movies/1",
-    "µ:id": 1,
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
+  "graph": [ {
+    "type": "Movie",
+    "href": "/movies/1",
+    "id": 1,
     "name": "The Matrix",
     "actor": {
-      "@id": "/movies/1/actors",
-      "µ:id": [ 1, 2, 3 ]
+      "href": "/movies/1/actors",
+      "id": [ 1, 2, 3 ]
     }
   } ]
 }
 ```
 
-Dereferencing an `@id` **MUST** return types corresponding to that property.
+Dereferencing a `href` **MUST** return types corresponding to that property.
 
 ```http
 GET /movies/the-matrix/actors?limit=1
@@ -138,19 +123,21 @@ GET /movies/the-matrix/actors?limit=1
 
 ```json
 {
-  "@context": {
-    "@vocab": "http://example.com/#",
-    "µ": "http://micro-api.org/"
-  },
-  "@graph": [ {
-    "@type": "Person",
-    "@id": "/people/1",
-    "µ:id": 1,
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
+  "graph": [ {
+    "type": "Person",
+    "href": "/people/1",
+    "id": 1,
     "name": "Keanu Reeves",
-    "@reverse": {
+    "reverse": {
       "actor": {
-        "@id": "/people/1/acted-in",
-        "µ:id": [ 1 ]
+        "href": "/people/1/acted-in",
+        "id": [ 1 ]
       }
     }
   } ]
@@ -168,16 +155,18 @@ POST /people
 
 ```json
 {
-  "@context": {
-    "@vocab": "http://example.com/#",
-    "µ": "http://micro-api.org/"
-  },
-  "@graph": [ {
-    "@type": "Person",
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
+  "graph": [ {
+    "type": "Person",
     "name": "John Doe",
-    "@reverse": {
+    "reverse": {
       "actor": {
-        "µ:id": [ "memento" ]
+        "id": [ "memento" ]
       }
     }
   } ]
@@ -197,27 +186,29 @@ PATCH /people
 
 ```json
 {
-  "@context": {
-    "@vocab": "http://example.com/#",
-    "µ": "http://micro-api.org/"
-  },
-  "@graph": [ {
-    "@type": "Person",
-    "µ:id": "john-doe",
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
+  "graph": [ {
+    "type": "Person",
+    "id": "john-doe",
     "name": "Johnny Doe",
-    "@reverse": {
+    "reverse": {
       "actor": {
-        "µ:id": [ "point-break" ]
+        "id": [ "point-break" ]
       }
     },
-    "µ:operate": {}
+    "operate": {}
   } ]
 }
 ```
 
 If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `µ:operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
-`PATCH` requests can update existing resources, however Micro API does not define the semantics to create or delete resources with this method. In this example, by setting a link's `µ:id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
+`PATCH` requests can update existing resources, however Micro API does not define the semantics to create or delete resources with this method. By setting a link's `id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
 
 
 ## Deleting Resources
@@ -232,22 +223,24 @@ A delete request can return no payload (HTTP 204 No Content) if it succeeds. It 
 DELETE /people/john-doe/children
 ```
 
-In this example, the request means delete all of the resources at this IRI, not just the link. There is no concept of relationship entities.
+In this example, the request means delete all of the resources at this IRI, not just the link.
 
 
 ## Error Response
 
-If a request fails for any reason, it **MUST** return a `µ:error` object. The contents of the error object are opaque to this specification.
+If a request fails for any reason, it **MUST** return a `error` object. The contents of the error object are opaque to this specification.
 
 ```json
 {
-  "@context": {
-    "@vocab": "http://example.com/#",
-    "µ": "http://micro-api.org/"
-  },
-  "µ:error": {
-    "name": "NotFoundError",
-    "description": "The requested resource was not found."
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
+  "error": {
+    "label": "NotFoundError",
+    "comment": "The requested resource was not found."
   }
 }
 ```
@@ -255,15 +248,17 @@ If a request fails for any reason, it **MUST** return a `µ:error` object. The c
 
 ## Querying
 
-Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the `µ:query` object **MAY** contain hints on what queries can be appended to GET requests, with further information about the query provided by a vocabulary (optional):
+Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the `query` object **MAY** contain hints on what queries can be appended to GET requests, with further information about the query provided by a vocabulary (optional):
 
 ```json
 {
-  "@context": {
-    "@vocab": "http://example.com/#",
-    "µ": "http://micro-api.org/"
-  },
-  "µ:query": {
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
+  "query": {
     "include": [],
     "sort": {},
     "field": {},

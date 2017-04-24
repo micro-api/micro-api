@@ -1,5 +1,0 @@
-types:
-  - Type
-
-description: >
-  A base64-encoded buffer.

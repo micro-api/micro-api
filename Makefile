@@ -21,6 +21,7 @@ all: lint build
 build:
 	mkdir -p $(DIST_DIR) $(DIST_DIR)assets
 	cp -rf $(SRC_DIR)assets $(DIST_DIR)
+	cp -f $(SRC_DIR)context.jsonld $(DIST_DIR)
 	echo $(CNAME) > $(DIST_DIR)CNAME
 	$(CSS_CMD) \
     -u postcss-import \

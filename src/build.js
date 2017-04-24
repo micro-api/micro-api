@@ -14,6 +14,7 @@ marked.setOptions({
 })
 
 
+const JSDOM = jsdom.JSDOM
 const renderer = new marked.Renderer()
 
 const lineBreak = '\n'
@@ -79,32 +80,33 @@ let menu
 
 Promise.resolve()
 
-.then(() => new Promise(resolve =>
-  jsdom.env(marked(readme, { renderer }), (errors, window) => {
-    const document = window.document
+.then(() => {
+  const dom = new JSDOM(marked(readme, { renderer }))
+  const window = dom.window
+  const document = window.document
 
-    document.querySelector('p:first-of-type').className = 'header'
+  document.querySelector('p:first-of-type').className = 'header'
 
-    const pre = Array.from(document.querySelectorAll('pre'))
+  const pre = Array.from(document.querySelectorAll('pre'))
 
-    pre.map(node => {
-      const prev = node.previousSibling.previousSibling.nodeName
-      const next = node.nextSibling.nextSibling.nodeName
-      const names = new Set([ prev, next ])
+  pre.map(node => {
+    const prev = node.previousSibling.previousSibling.nodeName
+    const next = node.nextSibling.nextSibling.nodeName
+    const names = new Set([ prev, next ])
 
-      if (names.has('PRE')) node.className += 'group'
+    if (names.has('PRE')) node.className += 'group'
 
-      return node
-    })
+    return node
+  })
 
-    const headers = Array.from(document.querySelectorAll('h1, h2, h3'))
+  const headers = Array.from(document.querySelectorAll('h1, h2, h3'))
 
-    menu = `<ul>${headers.map(node =>
-      `<li><a href="#${node.children[0].href.split('#')[1]}">${
-        node.textContent.slice(0, -2)}</a></li>`).join('')}</ul>`
+  menu = `<ul>${headers.map(node =>
+    `<li><a href="#${node.children[0].href.split('#')[1]}">${
+      node.textContent.slice(0, -2)}</a></li>`).join('')}</ul>`
 
-    return resolve(document.body.innerHTML)
-  })))
+  return document.body.innerHTML
+})
 
 .then(content => {
   fs.writeFileSync(

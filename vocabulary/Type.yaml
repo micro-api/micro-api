@@ -1,5 +1,0 @@
-types:
-  - Type
-
-description: >
-  A type is any data structure which contains the same set of properties.

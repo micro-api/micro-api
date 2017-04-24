@@ -1,5 +1,0 @@
-types:
-  - Type
-
-description: >
-  A IEEE-754 floating point number.
