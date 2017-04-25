@@ -10,13 +10,9 @@ description: >
   ```json
 
   {
-    "@context": {
-      "@vocab": "/#",
-      "µ": "http://micro-api.org/"
-    },
-    "µ:error": {
-      "name": "NotFoundError",
-      "description": "A requested resource was not found."
+    "error": {
+      "label": "NotFoundError",
+      "comment": "A requested resource was not found."
     }
   }
 

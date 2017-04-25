@@ -10,19 +10,14 @@ description: >
   ```json
 
   {
-    "@context": {
-      "@vocab": "/#",
-      "µ": "http://micro-api.org/"
-    },
-    "µ:query": {
-      "@context": null,
+    "query": {
+      "context": null,
       "include": [],
       "sort": {},
       "field": {},
       "match": {},
       "limit": 1000,
-      "offset": 0,
-      "count": 0
+      "offset": 0
     }
   }
 

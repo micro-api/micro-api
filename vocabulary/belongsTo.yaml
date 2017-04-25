@@ -1,7 +1,0 @@
-types:
-  - String
-
-description: >
-  An enumeration of types which a property belongs to, including the built-in
-  field definitions `meta`, `query`, `operate`, `error`. It may be valued as
-  either a string or an array of strings.

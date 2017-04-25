@@ -8,12 +8,8 @@ description: >
   ```json
 
   {
-    "@context": {
-      "@vocab": "/#",
-      "µ": "http://micro-api.org/"
-    },
-    "µ:meta": {
-      "@context": null,
+    "meta": {
+      "context": null,
       "retrievedAt": "2016-01-09T04:10:09.606Z"
     }
   }
