@@ -228,7 +228,7 @@ PATCH /people
 
 It may be **OPTIONAL** to wrap the update in a `graph` array *if and only if* one resource is to be updated.
 
-If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `µ:operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
+If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
 `PATCH` requests can update existing resources, however Micro API does not define the semantics to create or delete resources with this method. By setting a link's `id` property to `null` (for a to-one relationship) or `[]` (empty array for a to-many relationship), it removes the link.
 
@@ -302,7 +302,7 @@ In contrast to [Linked Data Platform](https://www.w3.org/TR/ldp/), it does not u
 Micro API is an alternative for [Hydra](http://www.markus-lanthaler.com/hydra/), another specification for Web APIs. It is much less prescriptive than Hydra, and is implicit in cases which Hydra is more explicit. For example, some differences are:
 
 - **Collection**: all resources are collections.
-- **Operation**: these are assumed to match HTTP semantics. Only `PATCH` requests may have special application-specific operations, using `µ:operate`.
+- **Operation**: these are assumed to match HTTP semantics. Only `PATCH` requests may have special application-specific operations, using `operate`.
 - **Templated link**: clients must follow server links and only queries are allowed.
 - **API documentation**: this is expected to contain natural language.
 
