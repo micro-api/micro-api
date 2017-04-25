@@ -102,6 +102,12 @@ GET /context
 
 The `@vocab` field of a Micro API **MUST** be the path to the API suffixed with the `#` character, so that dereferencing always refers to the entry point.
 
+The response should include a `Link` header like so:
+
+```http
+Link: <http://micro-api.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+```
+
 
 ## Finding Resources
 
@@ -192,7 +198,7 @@ POST /people
 }
 ```
 
-It may be **OPTIONAL** to wrap the resource in a `graph` array *if and only if* one is to be created.
+It may be **OPTIONAL** to wrap the resource in a `graph` array *if and only if* one resource is to be created.
 
 It may be helpful for the response to have a `Location` header, but it is not required since the response body may include a link to the created resource.
 
@@ -220,7 +226,7 @@ PATCH /people
 }
 ```
 
-It may be **OPTIONAL** to wrap the update in a `graph` array *if and only if* one is to be updated.
+It may be **OPTIONAL** to wrap the update in a `graph` array *if and only if* one resource is to be updated.
 
 If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `µ:operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
