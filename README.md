@@ -105,7 +105,7 @@ The `@vocab` field of a Micro API **MUST** be the path to the API suffixed with 
 Every response that omits the `@context` in the payload **MUST** include a `Link` header like so:
 
 ```http
-Link: <http://micro-api.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+Link: <http://example.com/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
 ```
 
 
