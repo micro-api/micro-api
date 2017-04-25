@@ -39,9 +39,9 @@ Micro API introduces a small vocabulary focused on APIs that is not covered by o
 In general, the payload should look like the flattened form of JSON-LD, with some additional restrictions:
 
 - The root node **MUST** be a singular object.
-- There **MUST** be a top-level `@context` object, containing at least the context for Micro API: `http://micro-api.org/context.jsonld`, a `@base` and a `@vocab` valued by the entry IRI suffixed with a `#`.
+- There **SHOULD** be a top-level `@context` object, containing at least the context for Micro API: `http://micro-api.org/context.jsonld`, a `@base` and a `@vocab` valued by the entry IRI suffixed with a `#`. If there is not, then there should be a `Link` header valued by an IRI which contains the `@context`.
 - Resources **MUST** contain a unique `href` *and* `id`, no blank nodes are allowed. The `href` is an IRI (or an alias for `@id` in JSON-LD parlance), which is not to be confused with `id` which is an application-specific identifier.
-- Resources **MUST** be represented as an array via the default `graph`.
+- Resources **SHOULD** be represented as an array via the default `graph`. The only exception is *if and only if* one resource is expected.
 - References **MUST** be represented as a singular object with either the `href` property *and/or* the `id` property.
 
 
@@ -55,20 +55,16 @@ GET /
 
 ```json
 {
-  "@context": [
-    "http://micro-api.org/context.jsonld",
-    { "@base": "http://example.com/",
-      "@vocab": "http://example.com/#"
-    }
-  ],
   "type": "Ontology",
   "definitions": [
     { "href": "#name", "label": "Name",
-      "propertyOf": [ "#Person", "#Movie" ], "propertyType": "xsd:string",
+      "propertyOf": [ "#Person", "#Movie" ],
+      "propertyType": "xsd:string",
       "type": "Property", "comment": "Given name."
     },
     { "href": "#actor", "label": "Actors",
-      "propertyOf": [ "#Movie" ], "propertyType": "#Person", "isArray": true,
+      "propertyOf": [ "#Movie" ],
+      "propertyType": "#Person", "isArray": true,
       "type": "Property", "comment": "People who acted in a movie."
     },
     { "href": "#Person", "label": "Person",
@@ -80,6 +76,23 @@ GET /
   ],
   "Person": { "href": "/people" },
   "Movie": { "href": "/movies" }
+}
+```
+
+If the `@context` is omitted, it must be referred to in a `Link` header:
+
+```http
+GET /context
+```
+
+```json
+{
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ]
 }
 ```
 
@@ -96,12 +109,6 @@ GET /movies
 
 ```json
 {
-  "@context": [
-    "http://micro-api.org/context.jsonld",
-    { "@base": "http://example.com/",
-      "@vocab": "http://example.com/#"
-    }
-  ],
   "graph": [ {
     "type": "Movie",
     "href": "/movies/1",
@@ -123,12 +130,6 @@ GET /movies/the-matrix/actors?limit=1
 
 ```json
 {
-  "@context": [
-    "http://micro-api.org/context.jsonld",
-    { "@base": "http://example.com/",
-      "@vocab": "http://example.com/#"
-    }
-  ],
   "graph": [ {
     "type": "Person",
     "href": "/people/1",
@@ -144,6 +145,27 @@ GET /movies/the-matrix/actors?limit=1
 }
 ```
 
+It may be optional to wrap the resources in a `graph` *if and only if* exactly one resource is expected. For example:
+
+```http
+GET /people/1
+```
+
+```json
+{
+  "type": "Person",
+  "href": "/people/1",
+  "id": 1,
+  "name": "Keanu Reeves",
+  "reverse": {
+    "actor": {
+      "href": "/people/1/acted-in",
+      "id": [ 1 ]
+    }
+  }
+}
+```
+
 
 ## Creating Resources
 
@@ -155,14 +177,7 @@ POST /people
 
 ```json
 {
-  "@context": [
-    "http://micro-api.org/context.jsonld",
-    { "@base": "http://example.com/",
-      "@vocab": "http://example.com/#"
-    }
-  ],
   "graph": [ {
-    "type": "Person",
     "name": "John Doe",
     "reverse": {
       "actor": {
@@ -172,6 +187,8 @@ POST /people
   } ]
 }
 ```
+
+It may be optional to wrap the resource in a `graph` array *if and only if* one is to be created.
 
 It may be helpful for the response to have a `Location` header, but it is not required since the response body may include a link to the created resource.
 
@@ -186,14 +203,7 @@ PATCH /people
 
 ```json
 {
-  "@context": [
-    "http://micro-api.org/context.jsonld",
-    { "@base": "http://example.com/",
-      "@vocab": "http://example.com/#"
-    }
-  ],
   "graph": [ {
-    "type": "Person",
     "id": "john-doe",
     "name": "Johnny Doe",
     "reverse": {
@@ -205,6 +215,8 @@ PATCH /people
   } ]
 }
 ```
+
+It may be optional to wrap the update in a `graph` array *if and only if* one is to be updated.
 
 If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `µ:operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
@@ -232,12 +244,6 @@ If a request fails for any reason, it **MUST** return a `error` object. The cont
 
 ```json
 {
-  "@context": [
-    "http://micro-api.org/context.jsonld",
-    { "@base": "http://example.com/",
-      "@vocab": "http://example.com/#"
-    }
-  ],
   "error": {
     "label": "NotFoundError",
     "comment": "The requested resource was not found."
@@ -252,13 +258,8 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
 
 ```json
 {
-  "@context": [
-    "http://micro-api.org/context.jsonld",
-    { "@base": "http://example.com/",
-      "@vocab": "http://example.com/#"
-    }
-  ],
   "query": {
+    "context": null,
     "include": [],
     "sort": {},
     "field": {},

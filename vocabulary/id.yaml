@@ -11,18 +11,14 @@ description: >
   ```json
 
   {
-    "@context": {
-      "@vocab": "/#",
-      "µ": "http://micro-api.org/"
-    },
-    "@graph": [ {
-      "@type": "Movie",
-      "@id": "/movies/the-matrix",
-      "µ:id": "the-matrix",
+    "graph": [ {
+      "type": "Movie",
+      "href": "/movies/the-matrix",
+      "id": "the-matrix",
       "name": "The Matrix",
       "actor": {
-        "@id": "/movies/the-matrix/actors",
-        "µ:id": [ "keanu-reeves", "laurence-fishburne" ]
+        "href": "/movies/the-matrix/actors",
+        "id": [ "keanu-reeves", "laurence-fishburne" ]
       }
     } ]
   }

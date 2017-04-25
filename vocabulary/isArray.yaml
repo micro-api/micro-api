@@ -2,5 +2,4 @@ types:
   - Boolean
 
 description: >
-  A boolean value indicating whether or not a certain property should always be
-  an array or not. Defaults to false.
+  For properties, indicates if their values are arrays (this is lacking in RDF). If this is missing, it should be considered false.
