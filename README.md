@@ -305,4 +305,4 @@ A key difference between Micro API and Hydra is that Micro API **does not** assu
 
 ## About
 
-The source for this document is on [GitHub](https://github.com/micro-api/micro-api). It is licensed under the [CC0 1.0 License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).
+The author of this document is Dali Zheng. The source for this document is on [GitHub](https://github.com/micro-api/micro-api). It is licensed under the [CC0 1.0 License](https://raw.githubusercontent.com/micro-api/micro-api/master/LICENSE).
