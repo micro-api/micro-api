@@ -102,7 +102,7 @@ GET /context
 
 The `@vocab` field of a Micro API **MUST** be the path to the API suffixed with the `#` character, so that dereferencing always refers to the entry point.
 
-The response should include a `Link` header like so:
+Every response that omits the `@context` in the payload **MUST** include a `Link` header like so:
 
 ```http
 Link: <http://micro-api.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
