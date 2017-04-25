@@ -145,7 +145,7 @@ GET /movies/the-matrix/actors?limit=1
 }
 ```
 
-It may be optional to wrap the resources in a `graph` *if and only if* exactly one resource is expected. For example:
+It may be **OPTIONAL** to wrap the resources in a `graph` *if and only if* exactly one resource is expected. For example:
 
 ```http
 GET /people/1
@@ -188,7 +188,7 @@ POST /people
 }
 ```
 
-It may be optional to wrap the resource in a `graph` array *if and only if* one is to be created.
+It may be **OPTIONAL** to wrap the resource in a `graph` array *if and only if* one is to be created.
 
 It may be helpful for the response to have a `Location` header, but it is not required since the response body may include a link to the created resource.
 
@@ -216,7 +216,7 @@ PATCH /people
 }
 ```
 
-It may be optional to wrap the update in a `graph` array *if and only if* one is to be updated.
+It may be **OPTIONAL** to wrap the update in a `graph` array *if and only if* one is to be updated.
 
 If the a specified resource does not exist at the requested location, it **SHOULD** return an error. The assumption is that *the `PATCH` method replaces the fields specified*. There is a special `µ:operate` property which allows for arbitrary updates, which this specification is agnostic about. In common update cases, it may be desirable to reject upserts (the `PUT` method defines that [a resource may be created](http://greenbytes.de/tech/webdav/draft-ietf-httpbis-p2-semantics-21.html#PUT)), so `PATCH` is typically what you want to do.
 
@@ -254,7 +254,7 @@ If a request fails for any reason, it **MUST** return a `error` object. The cont
 
 ## Querying
 
-Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the `query` object **MAY** contain hints on what queries can be appended to GET requests, with further information about the query provided by a vocabulary (optional):
+Micro API does not specify anything about pagination, filtering, sparse fields, sorting, etc. For example, the `query` object **MAY** contain hints on what queries can be appended to GET requests, with further information about the query provided by a vocabulary (definitions are optional):
 
 ```json
 {
@@ -280,7 +280,7 @@ One may use [MessagePack](http://msgpack.org) instead of JSON as the serializati
 Content-Type: application/x-micro-api
 ```
 
-It is completely optional to support this unregistered media type, but it should be interpreted as Micro API with MessagePack enabled.
+It is completely **OPTIONAL** to support this unregistered media type, but it should be interpreted as Micro API with MessagePack enabled.
 
 
 ## Prior Art
