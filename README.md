@@ -275,8 +275,7 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
     "field": {},
     "match": {},
     "limit": 1000,
-    "offset": 0,
-    "count": 0
+    "offset": 0
   }
 }
 ```

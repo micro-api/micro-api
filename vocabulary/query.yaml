@@ -17,8 +17,7 @@ description: >
       "field": {},
       "match": {},
       "limit": 1000,
-      "offset": 0,
-      "count": 0
+      "offset": 0
     }
   }
 
