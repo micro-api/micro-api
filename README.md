@@ -61,20 +61,20 @@ GET /
 {
   "type": "Ontology",
   "definitions": [
-    { "href": "#name", "label": "Name",
+    { "href": "#name", "id": "name", "label": "Name",
       "propertyOf": [ "#Person", "#Movie" ],
       "propertyType": "xsd:string",
       "type": "Property", "comment": "Given name."
     },
-    { "href": "#actor", "label": "Actors",
+    { "href": "#actor", "id": "actor", "label": "Actors",
       "propertyOf": [ "#Movie" ],
       "propertyType": "#Person", "isArray": true,
       "type": "Property", "comment": "People who acted in a movie."
     },
-    { "href": "#Person", "label": "Person",
+    { "href": "#Person", "id": "Person", "label": "Person",
       "type": "Class", "comment": "A human being."
     },
-    { "href": "#Movie", "label": "Movie",
+    { "href": "#Movie", "id": "Movie", "label": "Movie",
       "type": "Class", "comment": "A moving picture."
     }
   ],
