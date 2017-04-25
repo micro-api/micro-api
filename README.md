@@ -43,7 +43,7 @@ Micro API introduces a small vocabulary focused on APIs that is not covered by o
 In general, the payload should look like the flattened form of JSON-LD, with some additional restrictions:
 
 - The root node **MUST** be a singular object.
-- There **SHOULD** be a top-level `@context` object, containing at least the context for Micro API: `http://micro-api.org/context.jsonld`, a `@base` and a `@vocab` valued by the entry IRI suffixed with a `#`. If there is not, then there should be a `Link` header valued by an IRI which contains the `@context`.
+- There **SHOULD** be a top-level `@context` object, containing at least the context for Micro API: `http://micro-api.org/context.jsonld`, a `@base` and a `@vocab` valued by the entry IRI suffixed with a `#`.
 - Resources **MUST** contain a unique `href` *and* `id`, no blank nodes are allowed. The `href` is an IRI (or an alias for `@id` in JSON-LD parlance), which is not to be confused with `id` which is an application-specific identifier.
 - Resources **SHOULD** be represented as an array via the default `graph`. The only exception is *if and only if* one resource is expected.
 - References **MUST** be represented as a singular object with either the `href` property *and/or* the `id` property.
@@ -59,6 +59,12 @@ GET /
 
 ```json
 {
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
   "type": "Ontology",
   "definitions": [
     { "href": "#name", "id": "name", "label": "Name",
@@ -83,30 +89,7 @@ GET /
 }
 ```
 
-If the `@context` is omitted, it must be referred to in a `Link` header:
-
-```http
-GET /context
-```
-
-```json
-{
-  "@context": [
-    "http://micro-api.org/context.jsonld",
-    { "@base": "http://example.com/",
-      "@vocab": "http://example.com/#"
-    }
-  ]
-}
-```
-
 The `@vocab` field of a Micro API **MUST** be the path to the API suffixed with the `#` character, so that dereferencing always refers to the entry point.
-
-Every response that omits the `@context` in the payload **MUST** include a `Link` header like so:
-
-```http
-Link: <http://example.com/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
-```
 
 
 ## Finding Resources
@@ -119,6 +102,12 @@ GET /movies
 
 ```json
 {
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
   "graph": [ {
     "type": "Movie",
     "href": "/movies/1",
@@ -140,6 +129,12 @@ GET /movies/the-matrix/actors?limit=1
 
 ```json
 {
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
   "graph": [ {
     "type": "Person",
     "href": "/people/1",
@@ -163,6 +158,12 @@ GET /people/1
 
 ```json
 {
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
   "type": "Person",
   "href": "/people/1",
   "id": 1,
@@ -254,6 +255,12 @@ If a request fails for any reason, it **MUST** return a `error` object. The cont
 
 ```json
 {
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
   "error": {
     "label": "NotFoundError",
     "comment": "The requested resource was not found."
@@ -268,6 +275,12 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
 
 ```json
 {
+  "@context": [
+    "http://micro-api.org/context.jsonld",
+    { "@base": "http://example.com/",
+      "@vocab": "http://example.com/#"
+    }
+  ],
   "query": {
     "context": null,
     "include": [],
