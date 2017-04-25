@@ -11,7 +11,11 @@ The current published version is **2017-04-25**, and the media type is [register
 
 ## Introduction
 
-Micro API simplifies [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using processing algorithms. Example payloads and HTTP requests should be considered non-normative.
+Micro API simplifies [JSON-LD](http://json-ld.org) by limiting it to a subset which can be traversed reliably without using processing algorithms. It is designed to look like vanilla JSON and does not assume any prior knowledge of JSON-LD, RDF, OWL, and semantic web in general.
+
+The goal is to reduce these concepts into their most minimal forms possible, and add affordances needed for APIs, such as querying, creating, updating, and deleting resources. It can be considered a hypermedia format, and it conforms to [Representational State Transfer](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) (REST) at the highest level.
+
+Example payloads and HTTP requests should be considered non-normative.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and **OPTIONAL** in this specification have the meaning defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119).
 
