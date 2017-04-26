@@ -85,11 +85,11 @@ GET /
 
 If the `@context` is omitted in the payload, then it must be referenced in a `Link` header in the response. **Important**: if done this way, the external `@context` should be inlined since JSON-LD processors will not dereference it.
 
-```json
+```js
 {
   "@context": {
     /* Merge this external context:
-       http://micro-api.org/context.jsonld */,
+       http://micro-api.org/context.jsonld */
     "@base": "http://example.com/",
     "@vocab": "http://example.com/#"
   }
@@ -100,7 +100,7 @@ The `@vocab` field of a Micro API **MUST** be the path to the API suffixed with 
 
 The `Link` header may be formatted like so:
 
-```
+```yaml
 Link:
   <http://example.com/context.jsonld>;
   rel="http://www.w3.org/ns/json-ld#context";
