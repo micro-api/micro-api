@@ -282,7 +282,7 @@ Micro API does not specify anything about pagination, filtering, sparse fields, 
     }
   ],
   "query": {
-    "context": null,
+    "@context": null,
     "include": [],
     "sort": {},
     "field": {},

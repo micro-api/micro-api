@@ -10,7 +10,7 @@ description: >
 
   {
     "operate": {
-      "context": null,
+      "@context": null,
       "push": [ "foo", "bar" ],
       "pull": "baz"
     }
