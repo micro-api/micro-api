@@ -6,7 +6,6 @@
     "owl": "http://www.w3.org/2002/07/owl#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
-    "context": "@context",
     "graph": "@graph",
     "reverse": "@reverse",
     "type": "@type",
