@@ -59,6 +59,7 @@ GET /
 
 ```json
 {
+  "href": "/",
   "type": "Ontology",
   "definitions": [
     { "href": "#name", "id": "name", "label": "Name",
@@ -120,6 +121,7 @@ GET /movies
 
 ```json
 {
+  "href": "/movies",
   "graph": [ {
     "type": "Movie",
     "href": "/movies/1",
@@ -141,6 +143,7 @@ GET /movies/the-matrix/actors?limit=1
 
 ```json
 {
+  "href": "/movies/the-matrix/actors",
   "graph": [ {
     "type": "Person",
     "href": "/people/1",
