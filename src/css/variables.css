@@ -18,11 +18,11 @@
   --mono-font: DejaVu Sans Mono, Andale Mono, monospace;
 
   /* measurements */
-  --max-width: 66em;
+  --max-width: 54em;
   --menu-width: 14em;
   --body-size: 16px;
   --size-ratio: calc(17 / 16);
-  --line-height: calc(1em * 5 / 3);
+  --line-height: calc(1em * 7 / 4);
   --border-radius: 3px;
   --big-border-radius: 6px;
   --fade-speed: 0.15s;
