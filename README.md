@@ -61,30 +61,36 @@ GET /
 {
   "href": "/",
   "type": "Ontology",
-  "definitions": [
-    { "href": "#name", "id": "name", "label": "Name",
-      "propertyOf": [ "#Person", "#Movie" ],
-      "propertyType": "xsd:string",
-      "type": "Property", "comment": "Given name."
-    },
-    { "href": "#actor", "id": "actor", "label": "Actors",
-      "propertyOf": [ "#Movie" ],
-      "propertyType": "#Person", "isArray": true,
-      "type": "Property", "comment": "People who acted in a movie."
-    },
-    { "href": "#Person", "id": "Person", "label": "Person",
-      "type": "Class", "comment": "A human being."
-    },
-    { "href": "#Movie", "id": "Movie", "label": "Movie",
-      "type": "Class", "comment": "A moving picture."
-    }
-  ],
+  "definitions": [ ... ],
   "Person": { "href": "/people" },
   "Movie": { "href": "/movies" }
 }
 ```
 
-If the `@context` is omitted in the payload, then it must be referenced in a `Link` header in the response. **Important**: if done this way, the external `@context` should be inlined since JSON-LD processors will not dereference it.
+Definitions communicate the overall schema of the API which is useful for machine clients, and also may include documentation for humans. Here is an example of what they might look like:
+
+```json
+[
+  { "href": "#name", "id": "name", "label": "Name",
+    "propertyOf": [ "#Person", "#Movie" ],
+    "propertyType": "xsd:string",
+    "type": "Property", "comment": "Given name."
+  },
+  { "href": "#actor", "id": "actor", "label": "Actors",
+    "propertyOf": [ "#Movie" ],
+    "propertyType": "#Person", "isArray": true,
+    "type": "Property", "comment": "People who acted in a movie."
+  },
+  { "href": "#Person", "id": "Person", "label": "Person",
+    "type": "Class", "comment": "A human being."
+  },
+  { "href": "#Movie", "id": "Movie", "label": "Movie",
+    "type": "Class", "comment": "A moving picture."
+  }
+]
+```
+
+If the `@context` is omitted in the payload at the top level, then it must be referenced in a `Link` header in the response. **Important**: if done this way, the external `@context` should be inlined since JSON-LD processors will not dereference it.
 
 ```js
 {
