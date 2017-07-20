@@ -10,22 +10,22 @@ https://github.com/micro-api/micro-api
   <span class="hljs-attr">"Person"</span>: { <span class="hljs-attr">"href"</span>: <span class="hljs-string">"/people"</span> },
   <span class="hljs-attr">"Movie"</span>: { <span class="hljs-attr">"href"</span>: <span class="hljs-string">"/movies"</span> }
 }
-</code></pre><p>Definitions communicate the overall schema of the API which is useful for machine clients, and also may include documentation for humans. Here is an example of what they might look like:</p><pre><code class="lang-js">[
-  { <span class="hljs-string">"href"</span>: <span class="hljs-string">"#name"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"label"</span>: <span class="hljs-string">"Name"</span>,
-    <span class="hljs-string">"propertyOf"</span>: [ <span class="hljs-string">"#Person"</span>, <span class="hljs-string">"#Movie"</span> ],
-    <span class="hljs-string">"propertyType"</span>: <span class="hljs-string">"xsd:string"</span>,
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Property"</span>, <span class="hljs-string">"comment"</span>: <span class="hljs-string">"Given name."</span>
+</code></pre><p>Definitions communicate the overall schema of the API which is useful for machine clients, and also may include documentation for humans. Here is an example of what they might look like:</p><pre><code class="lang-json">[
+  { <span class="hljs-attr">"href"</span>: <span class="hljs-string">"#name"</span>, <span class="hljs-attr">"id"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"Name"</span>,
+    <span class="hljs-attr">"propertyOf"</span>: [ <span class="hljs-string">"#Person"</span>, <span class="hljs-string">"#Movie"</span> ],
+    <span class="hljs-attr">"propertyType"</span>: <span class="hljs-string">"xsd:string"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Property"</span>, <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"Given name."</span>
   },
-  { <span class="hljs-string">"href"</span>: <span class="hljs-string">"#actor"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"actor"</span>, <span class="hljs-string">"label"</span>: <span class="hljs-string">"Actors"</span>,
-    <span class="hljs-string">"propertyOf"</span>: [ <span class="hljs-string">"#Movie"</span> ],
-    <span class="hljs-string">"propertyType"</span>: <span class="hljs-string">"#Person"</span>, <span class="hljs-string">"isArray"</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Property"</span>, <span class="hljs-string">"comment"</span>: <span class="hljs-string">"People who acted in a movie."</span>
+  { <span class="hljs-attr">"href"</span>: <span class="hljs-string">"#actor"</span>, <span class="hljs-attr">"id"</span>: <span class="hljs-string">"actor"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"Actors"</span>,
+    <span class="hljs-attr">"propertyOf"</span>: [ <span class="hljs-string">"#Movie"</span> ],
+    <span class="hljs-attr">"propertyType"</span>: <span class="hljs-string">"#Person"</span>, <span class="hljs-attr">"isArray"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Property"</span>, <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"People who acted in a movie."</span>
   },
-  { <span class="hljs-string">"href"</span>: <span class="hljs-string">"#Person"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"Person"</span>, <span class="hljs-string">"label"</span>: <span class="hljs-string">"Person"</span>,
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Class"</span>, <span class="hljs-string">"comment"</span>: <span class="hljs-string">"A human being."</span>
+  { <span class="hljs-attr">"href"</span>: <span class="hljs-string">"#Person"</span>, <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Person"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"Person"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Class"</span>, <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"A human being."</span>
   },
-  { <span class="hljs-string">"href"</span>: <span class="hljs-string">"#Movie"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"Movie"</span>, <span class="hljs-string">"label"</span>: <span class="hljs-string">"Movie"</span>,
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Class"</span>, <span class="hljs-string">"comment"</span>: <span class="hljs-string">"A moving picture."</span>
+  { <span class="hljs-attr">"href"</span>: <span class="hljs-string">"#Movie"</span>, <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Movie"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"Movie"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Class"</span>, <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"A moving picture."</span>
   }
 ]
 </code></pre><p>If the <code>@context</code> is omitted in the payload at the top level, then it must be referenced in a <code>Link</code> header in the response. <strong>Important</strong>: if done this way, the external <code>@context</code> should be inlined since JSON-LD processors will not dereference it.</p><pre><code class="lang-js">{
