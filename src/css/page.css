@@ -100,7 +100,7 @@ code.lang-http span {
 
 article img {
   display: block;
-  margin: 0 auto calc(var(--line-height) * 3);
+  margin: 0 auto calc(var(--line-height) * 4);
   max-width: 100%;
   height: calc(var(--line-height) * 4);
 }
@@ -197,4 +197,5 @@ nav .logo {
 .top-links {
   text-align: right;
   opacity: 0.5;
+  margin-bottom: calc(var(--line-height) * 2);
 }
