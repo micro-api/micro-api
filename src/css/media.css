@@ -1,0 +1,10 @@
+@media (max-width: 640px) {
+  body {
+    padding-top: calc(var(--line-height) / 2);
+    font-size: calc(var(--body-size) - 2px);
+  }
+
+  article {
+    padding: 0 calc(var(--line-height) / 2);
+  }
+}
