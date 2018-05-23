@@ -17,7 +17,6 @@ body {
 
 main {
   margin: auto;
-  max-width: var(--max-width);
   hyphens: auto;
   position: relative;
 }
@@ -45,6 +44,8 @@ a:hover {
 article {
   padding: 0 calc(var(--line-height) * 1);
   position: relative;
+  max-width: var(--max-width);
+  margin: auto;
 }
 
 article > pre:first-of-type {
@@ -98,30 +99,13 @@ code.lang-http span {
   color: var(--color-primary);
 }
 
-article img {
-  display: block;
-  margin: 0 auto calc(var(--line-height) * 4);
-  max-width: 100%;
-  height: calc(var(--line-height) * 4);
-}
-
 p, table, ul, ol {
   margin: 0 0 calc(var(--line-height) * 1);
 }
 
 h1 {
   color: var(--color-dark);
-  font-size: 1em;
-  margin-bottom: calc(var(--line-height) * 3 / 2);
-}
-
-h1 a {
-  text-decoration: none;
-}
-
-h1 span {
-  position: relative;
-  top: calc(1em / 6);
+  font-size: calc(1em * 5 / 2);
 }
 
 h2 {
@@ -182,20 +166,30 @@ tbody tr:nth-of-type(2n) {
   background-color: var(--color-alt);
 }
 
-nav .logo {
-  height: calc(var(--line-height) * 3 / 2);
-  line-height: calc(var(--line-height) * 2 / 3);
+.corner {
+  position: fixed;
+  z-index: 100;
+  top: calc(var(--line-height) * 1);
+  left: calc(var(--line-height) * 1);
 }
 
-.logo {
-  height: calc(var(--line-height) * 1);
-  line-height: calc(var(--line-height) * 1);
-  margin-right: calc(var(--line-height) * 1 / 2);
-  vertical-align: middle;
+.corner img {
+  width: calc(var(--line-height) * 2);
+  height: calc(var(--line-height) * 2);
 }
 
 .top-links {
   text-align: right;
   opacity: 0.5;
-  margin-bottom: calc(var(--line-height) * 2);
+  margin: 0 var(--line-height) calc(var(--line-height) * 3);
+}
+
+p.header {
+  display: none;
+}
+
+header {
+  text-align: center;
+  padding: 0 calc(var(--line-height) * 1);
+  margin-bottom: calc(var(--line-height) * 5);
 }

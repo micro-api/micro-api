@@ -7,4 +7,19 @@
   article {
     padding: 0 calc(var(--line-height) / 2);
   }
+
+  .top-links {
+    margin: 0 calc(var(--line-height) / 2) calc(var(--line-height) * 7 / 2);
+  }
+
+  header {
+    padding: 0 calc(var(--line-height) / 2);
+    margin-bottom: calc(var(--line-height) * 3);
+  }
+
+  .corner {
+    position: absolute;
+    top: calc(var(--line-height) / 2);
+    left: calc(var(--line-height) / 2);
+  }
 }

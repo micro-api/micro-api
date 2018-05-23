@@ -75,9 +75,6 @@ renderer.heading = (text, level) => {
 }
 
 
-let menu
-
-
 Promise.resolve()
 
   .then(() => {
@@ -99,12 +96,6 @@ Promise.resolve()
       return node
     })
 
-    const headers = Array.from(document.querySelectorAll('h1, h2, h3'))
-
-    menu = `<ul>${headers.map(node =>
-      `<li><a href="#${node.children[0].href.split('#')[1]}">${
-        node.textContent.slice(0, -2)}</a></li>`).join('')}</ul>`
-
     return document.body.innerHTML
   })
 
@@ -113,7 +104,7 @@ Promise.resolve()
       path.join(paths.destination, index),
       minifier.minify(mustache.render(
         fs.readFileSync(path.join(paths.template, index)).toString(),
-        { name, content, menu, pkg, documentComment }), minifierSettings))
+        { name, content, pkg, documentComment }), minifierSettings))
 
     for (const term in vocabulary)
       fs.writeFileSync(
